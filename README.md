@@ -21,6 +21,8 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 - Risco, segurança e cibersegurança
 - Empresa Virtual e desafios de gestão
 - Simulação mensal de desempenho empresarial
+- Eventos empresariais e decisões de CEO
+- Desempenho estratégico e desafios de médio prazo
 
 ## V1 funcional
 
@@ -33,7 +35,7 @@ A versão atual já contém:
 - Episódio 2: fundamentos da abertura da empresa
 - Quizzes situacionais com feedback
 - Restauração visual das respostas após recarregar a página
-- Sistema de XP, conhecimento e níveis
+- Sistema de XP, conhecimento e níveis, incluindo CEO Estratégico
 - Persistência local das respostas e do progresso
 - Empresa Virtual com nome, segmento e capital inicial
 - Contador de caracteres do nome empresarial
@@ -56,7 +58,13 @@ A versão atual já contém:
 - Estimativa educacional de capital de giro pelo ciclo financeiro
 - Fechamento mensal da Empresa Virtual com faturamento, resultado, novos clientes e caixa final
 - Histórico local dos últimos meses simulados
-- Conquista por três meses fechados
+- Eventos CEO mensais com impacto em faturamento, lucro, caixa, clientes, reputação e estoque
+- Histórico local dos eventos empresariais
+- Índice estratégico de 0 a 100
+- Perfil de gestão por Financeiro, Mercado, Operação, Pessoas e Risco
+- Ranking pessoal contra marcos da própria jornada
+- Desafios de 3, 6 e 12 meses
+- Conquistas específicas para os desafios de médio prazo
 - Integração dos laboratórios com faturamento, lucro, clientes, estoque, reputação e última atividade da Empresa Virtual
 - XP integrado às atividades práticas, sem pontuação duplicada por atividade
 - Interface responsiva em desktop, notebook, tablet e celular
