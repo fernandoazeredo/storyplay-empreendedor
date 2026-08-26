@@ -24,6 +24,7 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 - Eventos empresariais e decisões de CEO
 - Desempenho estratégico e desafios de médio prazo
 - Onboarding e recomendação personalizada de trilha
+- Estrutura comercial individual e institucional
 
 ## V1 funcional
 
@@ -73,9 +74,24 @@ A versão atual já contém:
 - Ranking pessoal contra marcos da própria jornada
 - Desafios de 3, 6 e 12 meses
 - Conquistas específicas para os desafios de médio prazo
+- Estrutura demonstrativa de planos Explorador, Empreendedor e Escolas & Turmas
+- Mapa de acesso gratuito, premium e institucional
+- Preparação arquitetural documentada para Firebase Authentication, Firestore e assinatura
 - Integração dos laboratórios com faturamento, lucro, clientes, estoque, reputação e última atividade da Empresa Virtual
 - XP integrado às atividades práticas, sem pontuação duplicada por atividade
 - Interface responsiva em desktop, notebook, tablet e celular
+
+## Camada comercial demonstrativa
+
+A V1 já apresenta a experiência visual dos planos, porém **não existe cobrança real, checkout, cartão, assinatura ativa ou bloqueio real de conteúdo**.
+
+Planos de referência:
+
+- Explorador — gratuito
+- Empreendedor — referência visual de R$ 29,90/mês, ainda não ativada comercialmente
+- Escolas & Turmas — sob consulta
+
+A arquitetura futura de autenticação, nuvem, perfis, organizações, assinatura e migração do progresso local está documentada em `PRODUCT_ARCHITECTURE.md`.
 
 ## Identidade visual
 
