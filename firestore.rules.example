@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read, create, update: if isOwner(userId);
+      allow delete: if false;
+
+      match /progress/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /companies/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Estrutura institucional futura. Não liberar escrita genérica.
+    match /organizations/{orgId}/{document=**} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
