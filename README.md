@@ -38,7 +38,7 @@ A versão atual já contém:
 - Contador de caracteres do nome empresarial
 - Lista ampliada de segmentos tradicionais, digitais e tecnológicos
 - Dashboard inicial da Empresa Virtual
-- Conquistas e próxima missão
+- Painel Meu Progresso com nível, decisões, atividades práticas, reputação, missão e conquistas
 - Botão para reiniciar a jornada
 - Laboratório Financeiro: faturamento, margem, lucro e ponto de equilíbrio
 - Diagnóstico Tributário Educacional: faturamento projetado, margem e relação folha/faturamento
@@ -46,7 +46,12 @@ A versão atual já contém:
 - Laboratório de Marketing e Vendas: conversão, CAC e ROAS
 - Cenário de Gestão de Pessoas
 - Cenário de Administração e Priorização
-- XP integrado aos laboratórios, sem pontuação duplicada por laboratório
+- Painel de Saúde Empresarial com nota educacional por área
+- Metas mensais de faturamento e clientes
+- Fluxo de Caixa simplificado com reserva mínima
+- Desafio de Risco e Cibersegurança
+- Integração dos laboratórios com faturamento, lucro, clientes, estoque, reputação e última atividade da Empresa Virtual
+- XP integrado às atividades práticas, sem pontuação duplicada por atividade
 - Interface responsiva em desktop, notebook, tablet e celular
 
 ## Identidade visual
@@ -92,4 +97,4 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 ## Observação educacional
 
-Conteúdos tributários, cadastrais, trabalhistas e legais têm finalidade educacional. Uma abertura real deve sempre considerar atividade, localidade, regras vigentes e orientação profissional apropriada.
+Conteúdos tributários, cadastrais, trabalhistas, financeiros e legais têm finalidade educacional. Uma abertura ou decisão empresarial real deve sempre considerar atividade, localidade, regras vigentes e orientação profissional apropriada.
