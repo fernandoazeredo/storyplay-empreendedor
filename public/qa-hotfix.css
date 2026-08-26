@@ -1,0 +1,35 @@
+/* QA Fase 4 — correções de navegação e affordance */
+@media (max-width:1280px){
+  body.menu-open{overflow:hidden}
+  .menu-toggle{display:block;position:relative;z-index:55}
+  .nav{
+    display:none;
+    position:fixed;
+    top:74px;
+    right:18px;
+    left:18px;
+    z-index:56;
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    padding:18px;
+    max-height:calc(100dvh - 92px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:0 22px 55px rgba(0,0,0,.24)
+  }
+  .nav.open{display:flex}
+  .nav a,.nav .theme-toggle{width:100%;text-align:left;padding:11px 10px;flex:0 0 auto}
+}
+@media (min-width:1281px){
+  .menu-toggle{display:none!important}
+  .nav{display:flex!important;max-width:calc(100vw - min(340px,52vw) - 120px);overflow:hidden}
+  .nav a{white-space:nowrap}
+}
+.lab-card>summary{position:relative;padding-right:42px;cursor:pointer}
+.lab-card>summary::after{content:'+';position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:1.35rem;font-weight:900;color:var(--blue);transition:transform .2s}
+.lab-card[open]>summary::after{content:'−'}
