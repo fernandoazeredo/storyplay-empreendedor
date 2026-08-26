@@ -8,13 +8,13 @@ Plataforma educacional interativa para jovens empreendedores aprenderem, por his
 
 O StoryPlay Empreendedor combina educação empresarial com experiência gamificada. O aluno aprende tomando decisões, recebendo feedback e observando consequências.
 
-Áreas previstas e em evolução:
+Áreas do produto:
 
 - Empreendedorismo e modelo de negócio
 - Abertura e formalização de empresa
-- Regimes tributários e impostos
+- Tributação e leitura do perfil econômico
 - Administração e organização empresarial
-- Finanças, caixa, DRE e capital de giro
+- Finanças, margem, caixa e ponto de equilíbrio
 - Compras, estoque e logística
 - Gestão de pessoas
 - Marketing, vendas e atendimento
@@ -26,18 +26,27 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 A versão atual já contém:
 
 - Home com navegação por âncoras
-- Menu hambúrguer responsivo em tablet e celular
+- Menu hambúrguer responsivo em tablet e celular, com fechamento por item, Esc, overlay, pointer e toque fora
 - Modo claro/escuro persistente
 - Episódio 1: validação da ideia
 - Episódio 2: fundamentos da abertura da empresa
 - Quizzes situacionais com feedback
+- Restauração visual das respostas após recarregar a página
 - Sistema de XP, conhecimento e níveis
-- Persistência local das respostas
+- Persistência local das respostas e do progresso
 - Empresa Virtual com nome, segmento e capital inicial
+- Contador de caracteres do nome empresarial
 - Lista ampliada de segmentos tradicionais, digitais e tecnológicos
 - Dashboard inicial da Empresa Virtual
 - Conquistas e próxima missão
 - Botão para reiniciar a jornada
+- Laboratório Financeiro: faturamento, margem, lucro e ponto de equilíbrio
+- Diagnóstico Tributário Educacional: faturamento projetado, margem e relação folha/faturamento
+- Laboratório de Estoque e Logística: consumo médio, cobertura e ponto de reposição
+- Laboratório de Marketing e Vendas: conversão, CAC e ROAS
+- Cenário de Gestão de Pessoas
+- Cenário de Administração e Priorização
+- XP integrado aos laboratórios, sem pontuação duplicada por laboratório
 - Interface responsiva em desktop, notebook, tablet e celular
 
 ## Identidade visual
