@@ -4,41 +4,44 @@
 
 - Identidade visual e favicon
 - Home e navegação por âncoras
-- Menu hambúrguer em tablet/celular
+- Menu hambúrguer em tablet/celular com múltiplas estratégias de fechamento
 - Modo claro/escuro persistente
 - Episódio 1: validação de ideia
 - Episódio 2: fundamentos de abertura da empresa
 - Quizzes situacionais
 - XP, níveis e progresso
 - Persistência local
+- Restauração visual das respostas após recarregar
 - Empresa Virtual
 - Segmentos ampliados
 - Dashboard inicial
 - Conquistas e próxima missão
 - Reset de jornada
 - Responsividade geral
+- Laboratório Financeiro: margem, lucro e ponto de equilíbrio
+- Diagnóstico Tributário Educacional: faturamento, margem e peso da folha
+- Laboratório de Estoque e Logística: cobertura e ponto de reposição
+- Laboratório de Marketing e Vendas: conversão, CAC e ROAS
+- Cenário de Gestão de Pessoas
+- Cenário de Administração e Priorização
+- Integração de resultados de Finanças e Marketing com o dashboard da Empresa Virtual
 
 ## Próxima camada pedagógica
 
-1. Tributação
+1. Tributação avançada
    - Conceitos de MEI, Simples Nacional, Lucro Presumido e Lucro Real
    - Fator R em linguagem educacional
    - Comparação por perfil de atividade
-   - Integração futura da lógica já validada no TributoGestor, sem duplicar regras manualmente
+   - Integração futura da lógica já validada no TributoGestor, após conferência das regras vigentes
 
-2. Finanças
-   - Receita x faturamento x lucro
-   - Custos fixos e variáveis
-   - Margem de contribuição
-   - Ponto de equilíbrio
+2. Finanças avançadas
    - Capital de giro
-   - Fluxo de caixa
+   - Fluxo de caixa mensal
    - DRE básica
-   - Formação de preço
+   - Formação de preço completa
+   - Cenários de crescimento
 
-3. Logística
-   - Compras e fornecedores
-   - Estoque mínimo
+3. Logística avançada
    - Giro de estoque
    - Frete e prazo
    - Nível de serviço
@@ -46,29 +49,24 @@
    - Decisão comprar mais x preservar caixa
 
 4. Administração
-   - Planejamento
-   - Processos
    - Indicadores
-   - Priorização
-   - Controles
+   - Planejamento de metas
+   - Matriz de prioridades
    - Gestão de riscos
 
 5. Pessoas
    - Contratação
    - Custo de um colaborador
-   - Liderança
+   - Feedback
    - Produtividade
-   - Cultura
-   - Desenvolvimento e feedback
+   - Cultura e desenvolvimento
 
 6. Marketing e vendas
    - Público-alvo
    - Proposta de valor
    - Canais
-   - Funil
-   - Conversão
-   - Atendimento
-   - Fidelização
+   - Funil completo
+   - Atendimento e fidelização
 
 ## Camada de produto comercial
 
