@@ -1,15 +1,94 @@
-const body=document.body;const themeToggle=document.getElementById('themeToggle');const menuToggle=document.getElementById('menuToggle');const mainNav=document.getElementById('mainNav');
-const state=JSON.parse(localStorage.getItem('storyplay-state')||'{"xp":0,"answered":{},"company":null}');
+const body=document.body;
+const themeToggle=document.getElementById('themeToggle');
+const menuToggle=document.getElementById('menuToggle');
+const mainNav=document.getElementById('mainNav');
+const defaultState={xp:0,answered:{},company:null,metrics:{revenue:0,clients:0,reputation:50}};
+let state;
+try{state={...defaultState,...JSON.parse(localStorage.getItem('storyplay-state')||'{}')}}catch(e){state={...defaultState}}
+if(!state.answered)state.answered={};if(!state.metrics)state.metrics={...defaultState.metrics};
 const save=()=>localStorage.setItem('storyplay-state',JSON.stringify(state));
-function renderProgress(){const xp=state.xp||0;const knowledge=Math.min(100,Math.round(xp/75*100));const level=xp>=60?'Nível 2 · Empreendedor':xp>=30?'Nível 1 · Explorador':'Nível 1 · Aprendiz';document.getElementById('xpValue').textContent=xp;document.getElementById('knowledgeValue').textContent=knowledge+'%';document.getElementById('progressBar').style.width=knowledge+'%';document.getElementById('levelBadge').textContent=level;document.getElementById('nextMission').textContent=xp>=75?'Missão concluída: avance para a abertura da empresa.':'Complete as decisões do Episódio 1 e o desafio de caixa.';}
+const brl=value=>Number(value||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+
+function levelFromXP(xp){if(xp>=120)return'Nível 3 · Gestor';if(xp>=75)return'Nível 2 · Empreendedor';if(xp>=35)return'Nível 1 · Explorador';return'Nível 1 · Aprendiz'}
+function renderProgress(){
+ const xp=Number(state.xp||0);const knowledge=Math.min(100,Math.round(xp/125*100));
+ document.getElementById('xpValue').textContent=xp;
+ document.getElementById('knowledgeValue').textContent=knowledge+'%';
+ document.getElementById('progressBar').style.width=knowledge+'%';
+ document.getElementById('levelBadge').textContent=levelFromXP(xp);
+ const missions=Object.keys(state.answered).length;
+ const next=missions===0?'Primeira missão: descubra um problema que valha a pena resolver.':missions<2?'Continue o Episódio 1 e valide sua ideia.':missions<4?'Avance para o Episódio 2 e aprenda a formalizar.':missions<5?'Complete o desafio de CEO.':'Boa evolução! Continue pelas trilhas e administre sua Empresa Virtual.';
+ document.getElementById('nextMission').textContent=next;
+}
+
 const savedTheme=localStorage.getItem('storyplay-theme');if(savedTheme==='dark')body.classList.add('dark');
 themeToggle?.addEventListener('click',()=>{body.classList.toggle('dark');localStorage.setItem('storyplay-theme',body.classList.contains('dark')?'dark':'light')});
+
 function closeMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';menuToggle.setAttribute('aria-label','Abrir menu')}
 menuToggle?.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.textContent=open?'✕':'☰';menuToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});
 document.querySelectorAll('#mainNav a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu()});
 window.addEventListener('resize',()=>{if(window.innerWidth>980)closeMenu()});
 document.addEventListener('click',event=>{if(window.innerWidth<=980&&mainNav?.classList.contains('open')&&!mainNav.contains(event.target)&&!menuToggle.contains(event.target))closeMenu()});
-document.querySelectorAll('.decision-options').forEach(group=>{const q=group.dataset.question;if(state.answered[q]){group.classList.add('answered')}group.querySelectorAll('button[data-score]').forEach(btn=>btn.addEventListener('click',()=>{if(state.answered[q])return;const score=Number(btn.dataset.score||0);state.xp+=score;state.answered[q]=true;save();group.classList.add('answered');btn.classList.add(score===25?'best':'chosen');const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(score===25?'Mandou bem! ':'Aprendizado: ')+btn.dataset.feedback;feedback.classList.add('show')}renderProgress()}))});
-const companyStatus=document.getElementById('companyStatus');function renderCompany(){if(!companyStatus)return;if(!state.company){companyStatus.textContent='Sua Empresa Virtual ainda não foi criada.';return}companyStatus.innerHTML='<strong>'+state.company.name+'</strong> · '+state.company.sector+' · Capital inicial: '+Number(state.company.capital).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});document.getElementById('companyName').value=state.company.name;document.getElementById('companySector').value=state.company.sector;document.getElementById('companyCapital').value=state.company.capital;}
-document.getElementById('saveCompany')?.addEventListener('click',()=>{const name=document.getElementById('companyName').value.trim();const sector=document.getElementById('companySector').value;const capital=Number(document.getElementById('companyCapital').value||0);if(name.length<2||capital<1000){companyStatus.textContent='Informe um nome e capital inicial de pelo menos R$ 1.000.';return}state.company={name,sector,capital};save();renderCompany();companyStatus.classList.add('success')});renderProgress();renderCompany();
+
+function restoreAnswers(){
+ document.querySelectorAll('.decision-options').forEach(group=>{
+  const q=group.dataset.question;const saved=state.answered[q];if(!saved)return;
+  group.classList.add('answered');
+  const chosen=[...group.querySelectorAll('button[data-score]')].find(b=>b.textContent.trim()===saved.answer);
+  if(chosen)chosen.classList.add(saved.score===25?'best':'chosen');
+  const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(saved.score===25?'Mandou bem! ':'Aprendizado: ')+saved.feedback;feedback.classList.add('show')}
+ });
+}
+
+document.querySelectorAll('.decision-options').forEach(group=>{
+ const q=group.dataset.question;
+ group.querySelectorAll('button[data-score]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.answered[q])return;
+  const score=Number(btn.dataset.score||0);const feedbackText=btn.dataset.feedback||'';
+  state.xp=Number(state.xp||0)+score;
+  state.answered[q]={score,feedback:feedbackText,answer:btn.textContent.trim()};
+  if(state.company){
+   if(score===25){state.metrics.reputation=Math.min(100,Number(state.metrics.reputation||50)+3)}
+   else if(score===0){state.metrics.reputation=Math.max(0,Number(state.metrics.reputation||50)-2)}
+  }
+  save();group.classList.add('answered');btn.classList.add(score===25?'best':'chosen');
+  const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(score===25?'Mandou bem! ':'Aprendizado: ')+feedbackText;feedback.classList.add('show')}
+  renderProgress();renderCompany();
+ }))
+});
+
+const companyStatus=document.getElementById('companyStatus');
+function renderCompany(){
+ const heroCompany=document.getElementById('heroCompany');const mission=document.getElementById('companyMission');const achievement=document.getElementById('achievementText');
+ if(!state.company){
+  if(companyStatus)companyStatus.textContent='Sua empresa ainda não foi criada. Preencha os dados acima para começar sua jornada.';
+  if(heroCompany)heroCompany.textContent='Ainda não criada';
+  document.getElementById('dashCapital').textContent='R$ 0';document.getElementById('dashRevenue').textContent=brl(state.metrics.revenue);document.getElementById('dashClients').textContent=state.metrics.clients||0;document.getElementById('dashReputation').textContent=(state.metrics.reputation||50)+'/100';
+  if(mission)mission.textContent='Crie sua empresa para liberar sua primeira missão empresarial.';if(achievement)achievement.textContent='Nenhuma conquista ainda. Comece a jornada!';return;
+ }
+ const c=state.company;
+ if(companyStatus){companyStatus.innerHTML='<strong>'+escapeHTML(c.name)+'</strong> está criada no segmento <strong>'+escapeHTML(c.sector)+'</strong>, com capital inicial de <strong>'+brl(c.capital)+'</strong>.';companyStatus.classList.add('success')}
+ if(heroCompany)heroCompany.textContent=c.name;
+ document.getElementById('companyName').value=c.name;document.getElementById('companySector').value=c.sector;document.getElementById('companyCapital').value=c.capital;
+ document.getElementById('dashCapital').textContent=brl(c.capital);document.getElementById('dashRevenue').textContent=brl(state.metrics.revenue);document.getElementById('dashClients').textContent=state.metrics.clients||0;document.getElementById('dashReputation').textContent=(state.metrics.reputation||50)+'/100';
+ const answeredCount=Object.keys(state.answered).length;
+ if(mission)mission.textContent=answeredCount<2?'Valide sua ideia respondendo às decisões do Episódio 1.':answeredCount<4?'Aprenda as etapas de abertura no Episódio 2.':'Faça o desafio de caixa e continue aumentando sua reputação.';
+ const achievements=[];if(state.company)achievements.push('Empresa criada');if(state.answered.q1&&state.answered.q2)achievements.push('Ideia validada');if(state.answered.q4&&state.answered.q5)achievements.push('Formalização entendida');if(state.xp>=100)achievements.push('100 XP conquistados');if(achievement)achievement.textContent=achievements.length?achievements.join(' · '):'Nenhuma conquista ainda.';
+}
+function escapeHTML(value){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+document.getElementById('saveCompany')?.addEventListener('click',()=>{
+ const name=document.getElementById('companyName').value.trim();const sector=document.getElementById('companySector').value;const capital=Number(document.getElementById('companyCapital').value||0);
+ if(name.length<2){companyStatus.textContent='Escolha um nome com pelo menos 2 caracteres.';companyStatus.classList.remove('success');document.getElementById('companyName').focus();return}
+ if(!Number.isFinite(capital)||capital<1000){companyStatus.textContent='Informe um capital inicial de pelo menos R$ 1.000.';companyStatus.classList.remove('success');document.getElementById('companyCapital').focus();return}
+ const isNew=!state.company;state.company={name,sector,capital};if(isNew){state.xp=Number(state.xp||0)+15;state.metrics.reputation=Math.max(50,Number(state.metrics.reputation||50))}
+ save();renderProgress();renderCompany();companyStatus.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+document.getElementById('resetProgress')?.addEventListener('click',()=>{
+ if(!confirm('Deseja realmente apagar sua Empresa Virtual, respostas e progresso desta jornada?'))return;
+ state={...defaultState,answered:{},metrics:{...defaultState.metrics}};save();location.reload();
+});
+
+restoreAnswers();renderProgress();renderCompany();
