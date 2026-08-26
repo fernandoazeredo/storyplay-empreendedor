@@ -25,6 +25,7 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 - Desempenho estratégico e desafios de médio prazo
 - Onboarding e recomendação personalizada de trilha
 - Estrutura comercial individual e institucional
+- Preparação para conta, autenticação e sincronização em nuvem
 
 ## V1 funcional
 
@@ -76,7 +77,10 @@ A versão atual já contém:
 - Conquistas específicas para os desafios de médio prazo
 - Estrutura demonstrativa de planos Explorador, Empreendedor e Escolas & Turmas
 - Mapa de acesso gratuito, premium e institucional
-- Preparação arquitetural documentada para Firebase Authentication, Firestore e assinatura
+- Área “Conta e Nuvem” com indicação clara do modo local atual
+- Preparação arquitetural documentada para Firebase Authentication, Firestore, migração local e assinatura
+- Modelo inicial seguro de regras Firestore em `firestore.rules.example`
+- Exemplo de configuração Web Firebase em `public/firebase-config.example.js`
 - Integração dos laboratórios com faturamento, lucro, clientes, estoque, reputação e última atividade da Empresa Virtual
 - XP integrado às atividades práticas, sem pontuação duplicada por atividade
 - Interface responsiva em desktop, notebook, tablet e celular
@@ -91,7 +95,13 @@ Planos de referência:
 - Empreendedor — referência visual de R$ 29,90/mês, ainda não ativada comercialmente
 - Escolas & Turmas — sob consulta
 
-A arquitetura futura de autenticação, nuvem, perfis, organizações, assinatura e migração do progresso local está documentada em `PRODUCT_ARCHITECTURE.md`.
+A arquitetura futura de autenticação, nuvem, perfis, organizações, assinatura e migração do progresso local está documentada em `PRODUCT_ARCHITECTURE.md` e `AUTH_CLOUD_SETUP.md`.
+
+## Conta e nuvem
+
+O projeto continua **local-first** nesta V1. O Firebase está ativo apenas para Hosting. A interface de conta informa isso claramente e os botões de autenticação permanecem desabilitados até a configuração real de Auth e Firestore.
+
+A futura migração deverá preservar o progresso local e nunca sobrescrever silenciosamente uma jornada já existente na nuvem.
 
 ## Identidade visual
 
