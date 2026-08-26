@@ -6,7 +6,9 @@ Plataforma educacional interativa para jovens empreendedores aprenderem, por his
 
 ## Conceito
 
-O StoryPlay Empreendedor combina educação empresarial com experiência gamificada. O aluno aprende tomando decisões e observando consequências em áreas como:
+O StoryPlay Empreendedor combina educação empresarial com experiência gamificada. O aluno aprende tomando decisões, recebendo feedback e observando consequências.
+
+Áreas previstas e em evolução:
 
 - Empreendedorismo e modelo de negócio
 - Abertura e formalização de empresa
@@ -16,11 +18,29 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 - Compras, estoque e logística
 - Gestão de pessoas
 - Marketing, vendas e atendimento
-- Empresa virtual e desafios de gestão
+- Risco, segurança e cibersegurança
+- Empresa Virtual e desafios de gestão
+
+## V1 funcional
+
+A versão atual já contém:
+
+- Home com navegação por âncoras
+- Menu hambúrguer responsivo em tablet e celular
+- Modo claro/escuro persistente
+- Episódio 1: validação da ideia
+- Episódio 2: fundamentos da abertura da empresa
+- Quizzes situacionais com feedback
+- Sistema de XP, conhecimento e níveis
+- Persistência local das respostas
+- Empresa Virtual com nome, segmento e capital inicial
+- Lista ampliada de segmentos tradicionais, digitais e tecnológicos
+- Dashboard inicial da Empresa Virtual
+- Conquistas e próxima missão
+- Botão para reiniciar a jornada
+- Interface responsiva em desktop, notebook, tablet e celular
 
 ## Identidade visual
-
-Paleta principal:
 
 - Azul Confiança: `#0D47A1`
 - Ciano Energia: `#00B8D9`
@@ -33,12 +53,34 @@ Paleta principal:
 
 - GitHub: `fernandoazeredo/storyplay-empreendedor`
 - Firebase Project ID: `storyplay-empreendedor`
-- Firebase Hosting preparado no diretório `public/`
+- Firebase Hosting: `https://storyplay-empreendedor.web.app`
+- Diretório publicado: `public/`
+
+## Deploy
+
+Pasta local adotada:
+
+`D:\APLICATIVOS - DEPLOY\storyplay-empreendedor-main`
+
+Fluxo:
+
+```powershell
+cd "D:\APLICATIVOS - DEPLOY\storyplay-empreendedor-main"
+git pull
+Unblock-File .\DEPLOY_FIREBASE.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+.\DEPLOY_FIREBASE.ps1 -FirebaseProjectId "storyplay-empreendedor"
+```
 
 ## Diretrizes de UX
 
 - Responsivo em desktop, notebook, tablet e celular
-- Menu hambúrguer em tablet/celular
+- Menu hambúrguer em tablet/celular, com fechamento automático
 - Modo claro/escuro com persistência
 - Linguagem simples, jovem e didática, sem infantilização
-- StoryPlay + quizzes situacionais + simuladores + empresa virtual
+- Visual colorido e orientado a cards
+- StoryPlay + quizzes situacionais + simuladores + Empresa Virtual
+
+## Observação educacional
+
+Conteúdos tributários, cadastrais, trabalhistas e legais têm finalidade educacional. Uma abertura real deve sempre considerar atividade, localidade, regras vigentes e orientação profissional apropriada.
