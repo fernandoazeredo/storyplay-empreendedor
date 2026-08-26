@@ -24,19 +24,25 @@ function renderProgress(){
 const savedTheme=localStorage.getItem('storyplay-theme');if(savedTheme==='dark')body.classList.add('dark');
 themeToggle?.addEventListener('click',()=>{body.classList.toggle('dark');localStorage.setItem('storyplay-theme',body.classList.contains('dark')?'dark':'light')});
 
-function closeMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';menuToggle.setAttribute('aria-label','Abrir menu')}
-menuToggle?.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.textContent=open?'✕':'☰';menuToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});
+/* Menu mobile/tablet: overlay real garante fechamento ao tocar fora */
+let menuOverlay=document.getElementById('menuOverlay');
+if(!menuOverlay){menuOverlay=document.createElement('button');menuOverlay.type='button';menuOverlay.id='menuOverlay';menuOverlay.className='menu-overlay';menuOverlay.setAttribute('aria-label','Fechar menu');body.appendChild(menuOverlay)}
+function closeMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.remove('open');body.classList.remove('menu-open');menuOverlay.classList.remove('show');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';menuToggle.setAttribute('aria-label','Abrir menu')}
+function openMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.add('open');body.classList.add('menu-open');menuOverlay.classList.add('show');menuToggle.setAttribute('aria-expanded','true');menuToggle.textContent='✕';menuToggle.setAttribute('aria-label','Fechar menu')}
+menuToggle?.addEventListener('click',event=>{event.stopPropagation();mainNav?.classList.contains('open')?closeMenu():openMenu()});
+menuOverlay.addEventListener('click',closeMenu);
 document.querySelectorAll('#mainNav a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu()});
 window.addEventListener('resize',()=>{if(window.innerWidth>980)closeMenu()});
-document.addEventListener('click',event=>{if(window.innerWidth<=980&&mainNav?.classList.contains('open')&&!mainNav.contains(event.target)&&!menuToggle.contains(event.target))closeMenu()});
 
 function restoreAnswers(){
  document.querySelectorAll('.decision-options').forEach(group=>{
   const q=group.dataset.question;const saved=state.answered[q];if(!saved)return;
   group.classList.add('answered');
-  const chosen=[...group.querySelectorAll('button[data-score]')].find(b=>b.textContent.trim()===saved.answer);
-  if(chosen)chosen.classList.add(saved.score===25?'best':'chosen');
+  const buttons=[...group.querySelectorAll('button[data-score]')];
+  const chosen=buttons.find(b=>b.textContent.trim()===saved.answer);
+  buttons.forEach(b=>b.setAttribute('aria-disabled','true'));
+  if(chosen){chosen.classList.add(saved.score===25?'best':'chosen');chosen.setAttribute('aria-current','true')}
   const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(saved.score===25?'Mandou bem! ':'Aprendizado: ')+saved.feedback;feedback.classList.add('show')}
  });
 }
@@ -52,36 +58,54 @@ document.querySelectorAll('.decision-options').forEach(group=>{
    if(score===25){state.metrics.reputation=Math.min(100,Number(state.metrics.reputation||50)+3)}
    else if(score===0){state.metrics.reputation=Math.max(0,Number(state.metrics.reputation||50)-2)}
   }
-  save();group.classList.add('answered');btn.classList.add(score===25?'best':'chosen');
+  save();group.classList.add('answered');group.querySelectorAll('button[data-score]').forEach(b=>b.setAttribute('aria-disabled','true'));btn.classList.add(score===25?'best':'chosen');btn.setAttribute('aria-current','true');
   const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(score===25?'Mandou bem! ':'Aprendizado: ')+feedbackText;feedback.classList.add('show')}
   renderProgress();renderCompany();
  }))
 });
 
 const companyStatus=document.getElementById('companyStatus');
+const companyNameInput=document.getElementById('companyName');
+const companySectorInput=document.getElementById('companySector');
+const companyCapitalInput=document.getElementById('companyCapital');
+
+/* Nome: limite explícito e contador visível, sem corte silencioso */
+if(companyNameInput){
+ companyNameInput.maxLength=60;
+ let counter=document.getElementById('companyNameCounter');
+ if(!counter){counter=document.createElement('span');counter.id='companyNameCounter';counter.className='char-counter';companyNameInput.insertAdjacentElement('afterend',counter)}
+ const updateCounter=()=>{counter.textContent=companyNameInput.value.length+' / '+companyNameInput.maxLength+' caracteres';counter.classList.toggle('near-limit',companyNameInput.value.length>=companyNameInput.maxLength-8)};
+ companyNameInput.addEventListener('input',updateCounter);updateCounter();
+}
+
 function renderCompany(){
  const heroCompany=document.getElementById('heroCompany');const mission=document.getElementById('companyMission');const achievement=document.getElementById('achievementText');
  if(!state.company){
-  if(companyStatus)companyStatus.textContent='Sua empresa ainda não foi criada. Preencha os dados acima para começar sua jornada.';
+  if(companyStatus){companyStatus.textContent='Sua empresa ainda não foi criada. Preencha os dados acima para começar sua jornada.';companyStatus.classList.remove('success')}
   if(heroCompany)heroCompany.textContent='Ainda não criada';
+  if(companyNameInput)companyNameInput.value='';
+  if(companyCapitalInput){companyCapitalInput.value='';companyCapitalInput.placeholder='Ex.: 10000'}
+  if(companySectorInput)companySectorInput.selectedIndex=0;
+  const counter=document.getElementById('companyNameCounter');if(counter)counter.textContent='0 / '+companyNameInput.maxLength+' caracteres';
   document.getElementById('dashCapital').textContent='R$ 0';document.getElementById('dashRevenue').textContent=brl(state.metrics.revenue);document.getElementById('dashClients').textContent=state.metrics.clients||0;document.getElementById('dashReputation').textContent=(state.metrics.reputation||50)+'/100';
   if(mission)mission.textContent='Crie sua empresa para liberar sua primeira missão empresarial.';if(achievement)achievement.textContent='Nenhuma conquista ainda. Comece a jornada!';return;
  }
  const c=state.company;
  if(companyStatus){companyStatus.innerHTML='<strong>'+escapeHTML(c.name)+'</strong> está criada no segmento <strong>'+escapeHTML(c.sector)+'</strong>, com capital inicial de <strong>'+brl(c.capital)+'</strong>.';companyStatus.classList.add('success')}
  if(heroCompany)heroCompany.textContent=c.name;
- document.getElementById('companyName').value=c.name;document.getElementById('companySector').value=c.sector;document.getElementById('companyCapital').value=c.capital;
+ if(companyNameInput)companyNameInput.value=c.name;if(companySectorInput)companySectorInput.value=c.sector;if(companyCapitalInput)companyCapitalInput.value=c.capital;
+ const counter=document.getElementById('companyNameCounter');if(counter)counter.textContent=c.name.length+' / '+companyNameInput.maxLength+' caracteres';
  document.getElementById('dashCapital').textContent=brl(c.capital);document.getElementById('dashRevenue').textContent=brl(state.metrics.revenue);document.getElementById('dashClients').textContent=state.metrics.clients||0;document.getElementById('dashReputation').textContent=(state.metrics.reputation||50)+'/100';
  const answeredCount=Object.keys(state.answered).length;
  if(mission)mission.textContent=answeredCount<2?'Valide sua ideia respondendo às decisões do Episódio 1.':answeredCount<4?'Aprenda as etapas de abertura no Episódio 2.':'Faça o desafio de caixa e continue aumentando sua reputação.';
  const achievements=[];if(state.company)achievements.push('Empresa criada');if(state.answered.q1&&state.answered.q2)achievements.push('Ideia validada');if(state.answered.q4&&state.answered.q5)achievements.push('Formalização entendida');if(state.xp>=100)achievements.push('100 XP conquistados');if(achievement)achievement.textContent=achievements.length?achievements.join(' · '):'Nenhuma conquista ainda.';
 }
-function escapeHTML(value){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function escapeHTML(value){return String(value).replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]))}
 
 document.getElementById('saveCompany')?.addEventListener('click',()=>{
- const name=document.getElementById('companyName').value.trim();const sector=document.getElementById('companySector').value;const capital=Number(document.getElementById('companyCapital').value||0);
- if(name.length<2){companyStatus.textContent='Escolha um nome com pelo menos 2 caracteres.';companyStatus.classList.remove('success');document.getElementById('companyName').focus();return}
- if(!Number.isFinite(capital)||capital<1000){companyStatus.textContent='Informe um capital inicial de pelo menos R$ 1.000.';companyStatus.classList.remove('success');document.getElementById('companyCapital').focus();return}
+ const name=companyNameInput.value.trim();const sector=companySectorInput.value;const capital=Number(companyCapitalInput.value||0);
+ if(name.length<2){companyStatus.textContent='Escolha um nome com pelo menos 2 caracteres.';companyStatus.classList.remove('success');companyNameInput.focus();return}
+ if(!Number.isFinite(capital)||capital<1000){companyStatus.textContent='Informe um capital inicial de pelo menos R$ 1.000.';companyStatus.classList.remove('success');companyCapitalInput.focus();return}
  const isNew=!state.company;state.company={name,sector,capital};if(isNew){state.xp=Number(state.xp||0)+15;state.metrics.reputation=Math.max(50,Number(state.metrics.reputation||50))}
  save();renderProgress();renderCompany();companyStatus.scrollIntoView({behavior:'smooth',block:'center'});
 });
