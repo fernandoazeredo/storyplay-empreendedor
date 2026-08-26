@@ -24,16 +24,31 @@ function renderProgress(){
 const savedTheme=localStorage.getItem('storyplay-theme');if(savedTheme==='dark')body.classList.add('dark');
 themeToggle?.addEventListener('click',()=>{body.classList.toggle('dark');localStorage.setItem('storyplay-theme',body.classList.contains('dark')?'dark':'light')});
 
-/* Menu mobile/tablet: overlay real garante fechamento ao tocar fora */
+/* Menu mobile/tablet: overlay + captura global de toque/clique fora */
 let menuOverlay=document.getElementById('menuOverlay');
 if(!menuOverlay){menuOverlay=document.createElement('button');menuOverlay.type='button';menuOverlay.id='menuOverlay';menuOverlay.className='menu-overlay';menuOverlay.setAttribute('aria-label','Fechar menu');body.appendChild(menuOverlay)}
 function closeMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.remove('open');body.classList.remove('menu-open');menuOverlay.classList.remove('show');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';menuToggle.setAttribute('aria-label','Abrir menu')}
 function openMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.add('open');body.classList.add('menu-open');menuOverlay.classList.add('show');menuToggle.setAttribute('aria-expanded','true');menuToggle.textContent='✕';menuToggle.setAttribute('aria-label','Fechar menu')}
 menuToggle?.addEventListener('click',event=>{event.stopPropagation();mainNav?.classList.contains('open')?closeMenu():openMenu()});
 menuOverlay.addEventListener('click',closeMenu);
+menuOverlay.addEventListener('pointerdown',event=>{event.preventDefault();closeMenu()});
 document.querySelectorAll('#mainNav a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu()});
 window.addEventListener('resize',()=>{if(window.innerWidth>980)closeMenu()});
+/* Capture roda antes dos handlers internos e funciona com mouse, touch e caneta. */
+document.addEventListener('pointerdown',event=>{
+ if(window.innerWidth>980||!mainNav?.classList.contains('open'))return;
+ const target=event.target;
+ if(mainNav.contains(target)||menuToggle?.contains(target))return;
+ closeMenu();
+},true);
+/* Fallback para navegadores móveis antigos sem Pointer Events completos. */
+document.addEventListener('touchstart',event=>{
+ if(window.innerWidth>980||!mainNav?.classList.contains('open'))return;
+ const target=event.target;
+ if(mainNav.contains(target)||menuToggle?.contains(target))return;
+ closeMenu();
+},{capture:true,passive:true});
 
 function restoreAnswers(){
  document.querySelectorAll('.decision-options').forEach(group=>{
