@@ -8,7 +8,7 @@
  let profile={};
  function readProfile(){try{profile=JSON.parse(localStorage.getItem(onboardingKey)||'{}')}catch(e){profile={}}return profile}
  readProfile();
- let commercial={plan:'free',billing:'monthly',schoolInterest:false};try{commercial={...commercial,...JSON.parse(localStorage.getItem(commercialKey)||'{}')}catch(e){}
+ let commercial={plan:'free',billing:'monthly',schoolInterest:false};try{commercial={...commercial,...JSON.parse(localStorage.getItem(commercialKey)||'{}')}}catch(e){}
  const plans={
   free:{name:'Explorador',price:'Grátis',tag:'Comece sem compromisso',features:['Episódios introdutórios','Empresa Virtual básica','Quizzes e progresso local','Laboratórios selecionados','Modo claro/escuro']},
   premium:{name:'Empreendedor',price:'R$ 29,90/mês',tag:'Experiência completa',features:['Todas as trilhas e laboratórios','Eventos CEO e desafios mensais','DRE, preço, caixa e capital de giro','Desempenho estratégico completo','Histórico ampliado e conquistas','Preparado para sincronização em nuvem']},
