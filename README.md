@@ -23,6 +23,7 @@ O StoryPlay Empreendedor combina educação empresarial com experiência gamific
 - Simulação mensal de desempenho empresarial
 - Eventos empresariais e decisões de CEO
 - Desempenho estratégico e desafios de médio prazo
+- Onboarding e recomendação personalizada de trilha
 
 ## V1 funcional
 
@@ -31,6 +32,13 @@ A versão atual já contém:
 - Home com navegação por âncoras
 - Menu hambúrguer responsivo em tablet e celular, com fechamento por item, Esc, overlay, pointer e toque fora
 - Modo claro/escuro persistente
+- Onboarding inicial em 4 etapas
+- Nome opcional do usuário para personalização local
+- Escolha de perfil: jovem estudante, universitário/jovem empreendedor, empreendedor em planejamento, gestor/profissional ou professor/escola
+- Escolha do objetivo principal de aprendizagem
+- Recomendação automática de trilha e primeira missão
+- Saudação personalizada na Home
+- Item “Meu Perfil” para rever e alterar escolhas do onboarding
 - Episódio 1: validação da ideia
 - Episódio 2: fundamentos da abertura da empresa
 - Quizzes situacionais com feedback
@@ -42,7 +50,7 @@ A versão atual já contém:
 - Lista ampliada de segmentos tradicionais, digitais e tecnológicos
 - Dashboard inicial da Empresa Virtual
 - Painel Meu Progresso com nível, decisões, atividades práticas, reputação, missão e conquistas
-- Botão para reiniciar a jornada
+- Botão para reiniciar a jornada mantendo perfil de entrada e preferência de tema
 - Laboratório Financeiro: faturamento, margem, lucro e ponto de equilíbrio
 - Diagnóstico Tributário Educacional: faturamento projetado, margem e relação folha/faturamento
 - Laboratório de Estoque e Logística: consumo médio, cobertura e ponto de reposição
