@@ -21,7 +21,6 @@
  const baseUpdate=api.updateMetrics?.bind(api);
  if(baseUpdate&&!api.__metricsGuard){
   api.updateMetrics=(partial={})=>{
-   const current=api.getState?.().metrics||{};
    const next={...partial};
    const activity=String(partial.lastActivity||'');
    if(activity==='Campanha de marketing analisada'){
@@ -44,17 +43,19 @@
   extra.innerHTML=`<article class="story-card decision-card"><span class="story-step">Registro e CNPJ</span><h3>O contrato está pronto. Qual é o próximo raciocínio?</h3><p>Você definiu atividade, participantes e estrutura. Agora precisa formalizar a constituição da empresa e concluir as etapas cadastrais aplicáveis.</p><div class="decision-options" data-question="q6"><button data-score="25" data-feedback="Correto. Registro e cadastro devem seguir a sequência aplicável ao tipo de empresa e aos órgãos competentes.">Formalizar o ato constitutivo e seguir o fluxo oficial de registro/CNPJ</button><button data-score="5" data-feedback="Divulgar o negócio pode ser útil, mas não substitui a formalização cadastral.">Criar as redes sociais antes de registrar a empresa</button><button data-score="0" data-feedback="Emitir documentos fiscais sem a regularização exigida pode gerar problemas cadastrais e tributários.">Começar a emitir notas antes de concluir o cadastro</button></div><div class="feedback" id="feedback-q6"></div></article><article class="story-card decision-card"><span class="story-step">Inscrições e licenças</span><h3>O CNPJ saiu. A empresa já pode funcionar?</h3><p>Nem sempre. Dependendo da atividade e do local, podem existir inscrições e licenças específicas antes do início da operação.</p><div class="decision-options" data-question="q7"><button data-score="25" data-feedback="Correto. Licenciamento e inscrições dependem da atividade, do município, do estado e dos órgãos envolvidos.">Verificar inscrições e licenças exigidas para a atividade e o endereço</button><button data-score="5" data-feedback="Ter CNPJ é uma etapa importante, mas não garante sozinho todas as autorizações de funcionamento.">Considerar que o CNPJ sozinho libera qualquer atividade</button><button data-score="0" data-feedback="Ignorar exigências específicas pode interromper a operação e gerar sanções.">Abrir imediatamente e verificar licenças apenas se houver fiscalização</button></div><div class="feedback" id="feedback-q7"></div></article>`;
   note?.before(extra);
 
-  // Registra os novos grupos com o mesmo comportamento das decisões existentes.
+  let persisted={};try{persisted=JSON.parse(localStorage.getItem('storyplay-state')||'{}')}catch(e){}
   extra.querySelectorAll('.decision-options').forEach(group=>{
-   const q=group.dataset.question;
+   const q=group.dataset.question,saved=persisted.answered?.[q];
+   if(saved&&typeof saved==='object'){
+    group.classList.add('answered');const buttons=[...group.querySelectorAll('button[data-score]')];const chosen=buttons.find(b=>b.textContent.trim()===saved.answer);buttons.forEach(b=>{b.setAttribute('aria-disabled','true');b.disabled=true});if(chosen){chosen.classList.add(saved.score===25?'best':'chosen');chosen.setAttribute('aria-current','true')}const f=document.getElementById('feedback-'+q);if(f){f.textContent=(saved.score===25?'Mandou bem! ':'Aprendizado: ')+(saved.feedback||'');f.classList.add('show')}
+   }
    group.querySelectorAll('button[data-score]').forEach(btn=>btn.addEventListener('click',()=>{
-    const state=api.getState();if(state.answered?.[q])return;
-    // Usa um evento compatível com o mecanismo principal por meio de estado local dedicado.
+    const state=api.getState();if(state.answered?.[q]||persisted.answered?.[q])return;
     const score=Number(btn.dataset.score||0),feedbackText=btn.dataset.feedback||'';
     const raw=JSON.parse(localStorage.getItem('storyplay-state')||'{}');raw.answered=raw.answered||{};raw.metrics=raw.metrics||{};raw.labs=raw.labs||{};raw.achievements=raw.achievements||{};
     raw.xp=Number(raw.xp||0)+score;raw.answered[q]={score,feedback:feedbackText,answer:btn.textContent.trim()};raw.metrics.lastActivity='Decisão concluída: '+q;
     if(raw.company){if(score===25)raw.metrics.reputation=Math.min(100,Number(raw.metrics.reputation||50)+3);else if(score===0)raw.metrics.reputation=Math.max(0,Number(raw.metrics.reputation||50)-2)}
-    localStorage.setItem('storyplay-state',JSON.stringify(raw));group.classList.add('answered');group.querySelectorAll('button[data-score]').forEach(b=>{b.setAttribute('aria-disabled','true');b.disabled=true});btn.classList.add(score===25?'best':'chosen');btn.setAttribute('aria-current','true');const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(score===25?'Mandou bem! ':'Aprendizado: ')+feedbackText;feedback.classList.add('show')}setTimeout(()=>location.reload(),500)
+    localStorage.setItem('storyplay-state',JSON.stringify(raw));persisted=raw;group.classList.add('answered');group.querySelectorAll('button[data-score]').forEach(b=>{b.setAttribute('aria-disabled','true');b.disabled=true});btn.classList.add(score===25?'best':'chosen');btn.setAttribute('aria-current','true');const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(score===25?'Mandou bem! ':'Aprendizado: ')+feedbackText;feedback.classList.add('show')}setTimeout(()=>location.reload(),450)
    }))
   })
  }
