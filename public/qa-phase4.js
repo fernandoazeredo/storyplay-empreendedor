@@ -34,6 +34,8 @@
  loadScript('/commercial-v2.js');
  loadStyle('/tax-choice.css');
  loadScript('/tax-choice.js');
+ loadStyle('/advanced-modules.css');
+ loadScript('/advanced-modules.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    loadStyle('/classroom.css');
