@@ -31,6 +31,7 @@
   link.href=src;
   document.head.appendChild(link);
  }
+ loadScript('/company-activity.js');
  loadScript('/commercial-v2.js');
  loadStyle('/tax-choice.css');
  loadScript('/tax-choice.js');
