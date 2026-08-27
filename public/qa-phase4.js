@@ -17,4 +17,26 @@
    },0);
   },true);
  }
+ function loadScript(src){
+  if(document.querySelector(`script[src="${src}"]`))return;
+  const script=document.createElement('script');
+  script.src=src;
+  script.async=false;
+  document.body.appendChild(script);
+ }
+ loadScript('/commercial-v2.js');
+ const observer=new MutationObserver(()=>{
+  if(document.getElementById('area-educador')){
+   if(!document.querySelector('link[href="/classroom.css"]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='/classroom.css';document.head.appendChild(link);
+   }
+   loadScript('/classroom-v2.js');
+   observer.disconnect();
+  }
+ });
+ observer.observe(document.body,{childList:true,subtree:true});
+ if(document.getElementById('area-educador')){
+  loadScript('/classroom-v2.js');
+  observer.disconnect();
+ }
 })();
