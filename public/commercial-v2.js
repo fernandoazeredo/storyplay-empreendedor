@@ -1,40 +1,11 @@
 (()=>{
   const api=window.storyplayAPI;
-  if(!api) return;
-
-  // Bootstrap de release: este arquivo ja faz parte do fluxo homologado e, por isso,
-  // garante a carga direta dos modulos novos sem depender de uma versao antiga do qa-phase4.js.
-  const RELEASE='20260827-3';
-  function loadScript(path){
-    const base=path.split('?')[0];
-    if([...document.scripts].some(s=>s.src && new URL(s.src,location.href).pathname===base)) return;
-    const script=document.createElement('script');
-    script.src=path+(path.includes('?')?'&':'?')+'v='+RELEASE;
-    script.async=false;
-    document.body.appendChild(script);
-  }
-  function loadStyle(path){
-    const base=path.split('?')[0];
-    if([...document.styleSheets].some(s=>{try{return s.href && new URL(s.href,location.href).pathname===base}catch(e){return false}})) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=path+(path.includes('?')?'&':'?')+'v='+RELEASE;
-    document.head.appendChild(link);
-  }
-  loadScript('/company-activity.js');
-  loadStyle('/tax-choice.css');
-  loadScript('/tax-choice.js');
-  loadStyle('/advanced-modules.css');
-  loadScript('/advanced-modules.js');
-  loadStyle('/classroom.css');
-  loadScript('/report-tie-fix.js');
-
-  if(document.getElementById('planos')) return;
+  if(!api || document.getElementById('planos')) return;
   const ref=document.getElementById('desempenho-estrategico')||document.getElementById('eventos-empresariais')||document.getElementById('empresa');
   if(!ref) return;
   const onboardingKey='storyplay-onboarding';
   const commercialKey='storyplay-commercial';
-  const profileNames={jovem:'Jovem estudante',universitario:'Universitário / jovem empreendedor',empreendedor:'Empreendedor em planejamento',gestor:'Gestor / profissional',educador:'Professor / escola'};
+  const profileNames={jovem:'Jovem estudante',universitario:'Universitário / jovem empreendedor',empreendedor:'Empreendedor em planejamento',gestor:'Gestor / profissional',educador:'Professor / escola',administrador:'Administrador da plataforma'};
   const goalNames={aprender:'Aprender empreendedorismo do zero',abrir:'Aprender como abrir uma empresa',gerir:'Aprender a administrar melhor',financas:'Entender finanças e formação de preço',simular:'Treinar decisões como gestor/CEO'};
   let profile={};
   function readProfile(){
@@ -66,10 +37,14 @@
   function render(){
     readProfile();
     const plan=plans[commercial.plan]||plans.free;
-    document.getElementById('commercialPlan').textContent=plan.name;
-    document.getElementById('commercialStatus').textContent=commercial.plan==='school'?'Interesse institucional registrado':'Modo de demonstração';
-    document.getElementById('commercialProfile').textContent=profileLabel();
-    document.getElementById('commercialGoal').textContent=goalLabel();
+    const planEl=document.getElementById('commercialPlan');
+    const statusEl=document.getElementById('commercialStatus');
+    const profileEl=document.getElementById('commercialProfile');
+    const goalEl=document.getElementById('commercialGoal');
+    if(planEl)planEl.textContent=plan.name;
+    if(statusEl)statusEl.textContent=commercial.plan==='school'?'Interesse institucional registrado':'Modo de demonstração';
+    if(profileEl)profileEl.textContent=profileLabel();
+    if(goalEl)goalEl.textContent=goalLabel();
     document.querySelectorAll('[data-plan-card]').forEach(card=>card.classList.toggle('active',card.dataset.planCard===commercial.plan));
     document.querySelectorAll('.choose-plan').forEach(btn=>{const selected=btn.dataset.plan===commercial.plan;btn.textContent=selected?(btn.dataset.plan==='school'?'Interesse registrado':'Plano selecionado'):(btn.dataset.plan==='school'?'Tenho interesse':'Selecionar plano');});
   }
