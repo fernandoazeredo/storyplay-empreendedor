@@ -20,71 +20,98 @@
 - Responsividade geral
 - Laboratório Financeiro: margem, lucro e ponto de equilíbrio
 - Diagnóstico Tributário Educacional: faturamento, margem e peso da folha
+- Comparador educacional de regime tributário: Simples Nacional, Lucro Presumido e Lucro Real
 - Laboratório de Estoque e Logística: cobertura e ponto de reposição
 - Laboratório de Marketing e Vendas: conversão, CAC e ROAS
 - Cenário de Gestão de Pessoas
 - Cenário de Administração e Priorização
 - Integração de resultados de Finanças e Marketing com o dashboard da Empresa Virtual
+- Finanças avançadas: capital de giro, visão simplificada de DRE, margem e cenário de crescimento
+- Logística avançada: giro de estoque, nível de serviço, frete por pedido e estoque parado
+- Administração avançada: prioridade por risco, metas e gap de desempenho
+- Pessoas avançado: custo de contratação, produtividade e feedback de desenvolvimento
+- Marketing e Vendas avançado: funil completo, recompra, CAC, ROAS e proposta de valor
+- Fechamentos mensais e histórico
+- Eventos CEO
+- Desempenho estratégico
+- Onboarding e perfis locais
+- Planos demonstrativos
+- Modo Piloto e avaliação da experiência
+- Relatório individual de aprendizagem
+- Área do Educador
+- Painel de Turma local
 
-## Próxima camada pedagógica
+## Conteúdo pedagógico fechado na V1
 
-1. Tributação avançada
-   - Conceitos de MEI, Simples Nacional, Lucro Presumido e Lucro Real
-   - Fator R em linguagem educacional
-   - Comparação por perfil de atividade
-   - Integração futura da lógica já validada no TributoGestor, após conferência das regras vigentes
+### Tributação
+- Conceitos introdutórios e diagnóstico econômico
+- Comparação educacional entre Simples Nacional, Lucro Presumido e Lucro Real
+- Leitura de peso da folha, margem e perfil de atividade
+- Resultado apresentado como cenário a estudar, não recomendação fiscal definitiva
 
-2. Finanças avançadas
-   - Capital de giro
-   - Fluxo de caixa mensal
-   - DRE básica
-   - Formação de preço completa
-   - Cenários de crescimento
+### Finanças
+- Margem, lucro e ponto de equilíbrio
+- Capital de giro
+- Visão simplificada de DRE
+- Formação de preço básica
+- Cenário de crescimento
 
-3. Logística avançada
-   - Giro de estoque
-   - Frete e prazo
-   - Nível de serviço
-   - Estoque parado
-   - Decisão comprar mais x preservar caixa
+### Logística
+- Ponto de reposição
+- Cobertura
+- Giro de estoque
+- Frete por pedido
+- Nível de serviço
+- Estoque parado
 
-4. Administração
-   - Indicadores
-   - Planejamento de metas
-   - Matriz de prioridades
-   - Gestão de riscos
+### Administração
+- Priorização
+- Continuidade operacional
+- Indicadores
+- Metas e gap
+- Risco
 
-5. Pessoas
-   - Contratação
-   - Custo de um colaborador
-   - Feedback
-   - Produtividade
-   - Cultura e desenvolvimento
+### Pessoas
+- Decisão de liderança
+- Contratação
+- Custo estimado de colaborador
+- Feedback
+- Produtividade
 
-6. Marketing e vendas
-   - Público-alvo
-   - Proposta de valor
-   - Canais
-   - Funil completo
-   - Atendimento e fidelização
+### Marketing e vendas
+- Conversão
+- CAC
+- ROAS
+- Funil completo
+- Recompra e fidelização
+- Proposta de valor
 
-## Camada de produto comercial
+## Próximas evoluções pedagógicas opcionais
+
+- Aprofundar MEI e Fator R após revisão legal vigente
+- Banco ampliado de perguntas e situações
+- Mais episódios StoryPlay
+- Cenários por setor econômico
+- Simulações tributárias com fórmulas oficiais atualizadas e versionadas
+- Trilhas adaptativas por idade/perfil
+
+## Camada de produto comercial ainda não ativada
 
 Para transformar a V1 em serviço por assinatura:
 
-- Firebase Authentication
+- Firebase Authentication real
 - Firestore por usuário
 - Sincronização de progresso na nuvem
-- Perfis Jovem, Professor/Escola e Administrador
-- Painel de turmas
+- Perfis e permissões reais Jovem, Professor/Escola e Administrador
+- Turmas sincronizadas
 - Certificados
-- Conteúdo gratuito x premium
+- Controle real de conteúdo gratuito x premium
 - Integração com plataforma de pagamento
 - Controle de assinatura
 - Política de privacidade e termos de uso
 - Área administrativa de conteúdo
-- Banco de perguntas e situações
-- Analytics educacional
+- Banco de perguntas e situações administrável
+- Analytics educacional centralizado
 
 ## Princípios
 
