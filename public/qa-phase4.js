@@ -17,37 +17,14 @@
    },0);
   },true);
  }
- function loadScript(src){
-  if(document.querySelector(`script[src="${src}"]`))return;
-  const script=document.createElement('script');
-  script.src=src;
-  script.async=false;
-  document.body.appendChild(script);
- }
- function loadStyle(src){
-  if(document.querySelector(`link[href="${src}"]`))return;
-  const link=document.createElement('link');
-  link.rel='stylesheet';
-  link.href=src;
-  document.head.appendChild(link);
- }
+ function hasScript(path){return [...document.scripts].some(s=>{try{return new URL(s.src,location.href).pathname===path}catch(e){return false}})}
+ function hasStyle(path){return [...document.styleSheets].some(s=>{try{return s.href&&new URL(s.href,location.href).pathname===path}catch(e){return false}})}
+ function loadScript(path){if(hasScript(path))return;const script=document.createElement('script');script.src=path;script.async=false;document.body.appendChild(script)}
+ function loadStyle(path){if(hasStyle(path))return;const link=document.createElement('link');link.rel='stylesheet';link.href=path;document.head.appendChild(link)}
  loadScript('/company-activity.js');
- loadScript('/commercial-v2.js');
  loadStyle('/tax-choice.css');
  loadScript('/tax-choice.js');
  loadStyle('/advanced-modules.css');
  loadScript('/advanced-modules.js');
- const observer=new MutationObserver(()=>{
-  if(document.getElementById('area-educador')){
-   loadStyle('/classroom.css');
-   loadScript('/classroom-v2.js');
-   observer.disconnect();
-  }
- });
- observer.observe(document.body,{childList:true,subtree:true});
- if(document.getElementById('area-educador')){
-  loadStyle('/classroom.css');
-  loadScript('/classroom-v2.js');
-  observer.disconnect();
- }
+ loadScript('/commercial-v2.js');
 })();
