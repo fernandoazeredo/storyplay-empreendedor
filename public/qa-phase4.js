@@ -24,18 +24,26 @@
   script.async=false;
   document.body.appendChild(script);
  }
+ function loadStyle(src){
+  if(document.querySelector(`link[href="${src}"]`))return;
+  const link=document.createElement('link');
+  link.rel='stylesheet';
+  link.href=src;
+  document.head.appendChild(link);
+ }
  loadScript('/commercial-v2.js');
+ loadStyle('/tax-choice.css');
+ loadScript('/tax-choice.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
-   if(!document.querySelector('link[href="/classroom.css"]')){
-    const link=document.createElement('link');link.rel='stylesheet';link.href='/classroom.css';document.head.appendChild(link);
-   }
+   loadStyle('/classroom.css');
    loadScript('/classroom-v2.js');
    observer.disconnect();
   }
  });
  observer.observe(document.body,{childList:true,subtree:true});
  if(document.getElementById('area-educador')){
+  loadStyle('/classroom.css');
   loadScript('/classroom-v2.js');
   observer.disconnect();
  }
