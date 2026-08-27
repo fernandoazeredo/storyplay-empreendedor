@@ -24,6 +24,13 @@
   script.async=false;
   document.body.appendChild(script);
  }
+ function loadStyle(href){
+  if(document.querySelector(`link[href="${href}"]`))return;
+  const link=document.createElement('link');
+  link.rel='stylesheet';
+  link.href=href;
+  document.head.appendChild(link);
+ }
  loadScript('/company-activity.js');
  loadScript('/commercial-v2.js');
  const observer=new MutationObserver(()=>{
@@ -40,4 +47,6 @@
   loadScript('/classroom-v2.js');
   observer.disconnect();
  }
+ loadStyle('/menu-organizer.css');
+ loadScript('/menu-organizer.js');
 })();
