@@ -24,6 +24,7 @@
   script.async=false;
   document.body.appendChild(script);
  }
+ loadScript('/company-activity.js');
  loadScript('/commercial-v2.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
