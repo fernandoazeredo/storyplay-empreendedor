@@ -4,7 +4,7 @@
 
   // Bootstrap de release: este arquivo ja faz parte do fluxo homologado e, por isso,
   // garante a carga direta dos modulos novos sem depender de uma versao antiga do qa-phase4.js.
-  const RELEASE='20260827-2';
+  const RELEASE='20260827-3';
   function loadScript(path){
     const base=path.split('?')[0];
     if([...document.scripts].some(s=>s.src && new URL(s.src,location.href).pathname===base)) return;
@@ -26,6 +26,8 @@
   loadScript('/tax-choice.js');
   loadStyle('/advanced-modules.css');
   loadScript('/advanced-modules.js');
+  loadStyle('/classroom.css');
+  loadScript('/report-tie-fix.js');
 
   if(document.getElementById('planos')) return;
   const ref=document.getElementById('desempenho-estrategico')||document.getElementById('eventos-empresariais')||document.getElementById('empresa');
