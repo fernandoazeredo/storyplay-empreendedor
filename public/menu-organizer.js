@@ -5,7 +5,7 @@
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
  const groups=[
-  {label:'Aprender',items:['StoryPlay','Trilhas','Laboratórios','Desafios']},
+  {label:'Aprender',items:['StoryPlay','Trilhas','Laboratórios','Desafios','Eventos CEO']},
   {label:'Minha Empresa',items:['Empresa Virtual','Gestão','Mês a mês','Desempenho']},
   {label:'Meu Progresso',items:['Progresso','Meu Perfil','Relatório','Piloto']},
   {label:'Conta e Planos',items:['Conta','Planos']},
