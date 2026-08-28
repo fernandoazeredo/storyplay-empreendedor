@@ -33,6 +33,7 @@
  }
  loadScript('/company-activity.js');
  loadScript('/commercial-v2.js');
+ loadScript('/profile-view.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
