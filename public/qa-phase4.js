@@ -32,7 +32,6 @@
   document.head.appendChild(link);
  }
  loadScript('/company-activity.js');
- loadScript('/commercial-v2.js');
  loadScript('/profile-view.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
