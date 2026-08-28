@@ -106,4 +106,11 @@
     api.awardXP?.('tax-regime-comparison',15);
     api.updateMetrics?.({lastActivity:'Comparação educacional de regimes tributários concluída'});
   });
+
+  if(!document.querySelector('link[href="/advanced-finance.css"]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='/advanced-finance.css';document.head.appendChild(link);
+  }
+  if(!document.querySelector('script[src="/advanced-finance.js"]')){
+    const script=document.createElement('script');script.src='/advanced-finance.js';script.async=false;document.body.appendChild(script);
+  }
 })();
