@@ -34,6 +34,8 @@
  loadScript('/company-activity.js');
  loadScript('/profile-view.js');
  loadScript('/header-theme.js');
+ loadStyle('/ranking-events.css');
+ loadScript('/ranking-events.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
