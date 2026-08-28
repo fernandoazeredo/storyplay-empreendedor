@@ -17,8 +17,16 @@
  let scheduled=false;
  let observer;
 
+ function setExpanded(details){
+  details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false');
+ }
+
  function closeAllGroups(except){
-  nav.querySelectorAll('details.nav-group[open]').forEach(d=>{if(d!==except)d.removeAttribute('open')});
+  nav.querySelectorAll('details.nav-group[open]').forEach(d=>{
+   if(d===except)return;
+   d.removeAttribute('open');
+   setExpanded(d);
+  });
  }
 
  function makeGroup(def,anchors){
@@ -27,14 +35,21 @@
   const summary=document.createElement('summary');
   summary.textContent=def.label;
   summary.setAttribute('aria-label',`Abrir submenu ${def.label}`);
+  summary.setAttribute('aria-expanded','false');
   const submenu=document.createElement('div');
   submenu.className='nav-submenu';
+  submenu.setAttribute('role','group');
+  submenu.setAttribute('aria-label',`Opções de ${def.label}`);
   def.items.forEach(name=>{
    const a=anchors.get(normalize(name));
    if(a)submenu.appendChild(a);
   });
   details.append(summary,submenu);
-  details.addEventListener('toggle',()=>{if(details.open)closeAllGroups(details)});
+  details.addEventListener('toggle',()=>{
+   setExpanded(details);
+   summary.setAttribute('aria-label',`${details.open?'Fechar':'Abrir'} submenu ${def.label}`);
+   if(details.open)closeAllGroups(details);
+  });
   return submenu.children.length?details:null;
  }
 
@@ -93,6 +108,15 @@
   scheduled=true;
   queueMicrotask(organize);
  }
+
+ document.addEventListener('keydown',event=>{
+  if(event.key!=='Escape')return;
+  const opened=[...nav.querySelectorAll('details.nav-group[open]')];
+  if(!opened.length)return;
+  const focusTarget=opened[0].querySelector(':scope > summary');
+  closeAllGroups();
+  focusTarget?.focus();
+ });
 
  observer=new MutationObserver(schedule);
  organize();
