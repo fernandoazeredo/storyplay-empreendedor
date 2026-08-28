@@ -1,4 +1,4 @@
-@media(max-width:1280px){
+@media(max-width:1180px){
  body.menu-open{overflow:hidden}
  .menu-toggle{display:block;position:relative;z-index:55}
  .nav{display:none;position:absolute;top:74px;right:18px;left:18px;z-index:56;flex-direction:column;align-items:stretch;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 22px 55px rgba(0,0,0,.24);max-height:calc(100dvh - 92px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
