@@ -53,4 +53,10 @@
   const got=api.awardXP?.('advanced-finance',20);
   show(`<strong>Visão gerencial</strong><span class="advanced-finance-badge">${got?'+20 XP':'XP já registrado'}</span><div class="advanced-finance-metrics"><div><span>Resultado mensal</span><strong>${money(profit)}</strong></div><div><span>Margem</span><strong>${pct(margin)}</strong></div><div><span>Capital de giro estimado</span><strong>${money(working)}</strong></div><div><span>Resultado com +10% de vendas</span><strong>${money(extraProfit)}</strong></div></div><p>${working>profit*2?'Seu capital de giro exige atenção: crescer pode consumir caixa antes de gerar resultado.':'A necessidade de capital de giro está relativamente controlada nesta simulação.'}</p>`);
  });
+ if(!document.querySelector('link[href="/advanced-logistics.css"]')){
+  const link=document.createElement('link');link.rel='stylesheet';link.href='/advanced-logistics.css';document.head.appendChild(link);
+ }
+ if(!document.querySelector('script[src="/advanced-logistics.js"]')){
+  const script=document.createElement('script');script.src='/advanced-logistics.js';script.async=false;document.body.appendChild(script);
+ }
 })();
