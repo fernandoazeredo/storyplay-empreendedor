@@ -48,4 +48,10 @@
   const got=api.awardXP?.('advanced-logistics',20);
   show(`<strong>Leitura operacional</strong><span class="advanced-logistics-badge">${got?'+20 XP':'XP já registrado'}</span><div class="advanced-logistics-metrics"><div><span>Giro mensal do estoque</span><strong>${turns.toLocaleString('pt-BR',{maximumFractionDigits:2})}x</strong></div><div><span>Nível de serviço</span><strong>${pct(service)}</strong></div><div><span>Frete por pedido</span><strong>${money(freightPerOrder)}</strong></div><div><span>Estoque parado</span><strong>${money(idle)}</strong></div></div><p>${service<95?'Atrasos merecem investigação. ':''}${idle>freight?'Há mais dinheiro preso em estoque parado do que gasto mensalmente em frete.':'O estoque parado está abaixo do custo mensal de frete nesta simulação.'}</p>`);
  });
+ if(!document.querySelector('link[href="/advanced-admin.css"]')){
+  const link=document.createElement('link');link.rel='stylesheet';link.href='/advanced-admin.css';document.head.appendChild(link);
+ }
+ if(!document.querySelector('script[src="/advanced-admin.js"]')){
+  const script=document.createElement('script');script.src='/advanced-admin.js';script.async=false;document.body.appendChild(script);
+ }
 })();
