@@ -65,5 +65,6 @@
  bindMenu();
  window.addEventListener('storage',e=>{if(e.key===key)render()});
  window.addEventListener('storyplay:profilechange',render);
+ document.getElementById('startJourney')?.addEventListener('click',()=>setTimeout(render,0));
  setTimeout(bindMenu,0);
 })();
