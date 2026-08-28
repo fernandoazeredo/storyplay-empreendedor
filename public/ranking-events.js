@@ -75,5 +75,6 @@
  }
  window.addEventListener('storyplay:eventschange',render);
  window.addEventListener('storage',e=>{if(e.key===storageKey)render()});
+ document.getElementById('eventChoices')?.addEventListener('click',e=>{if(!e.target.closest('button[data-index]'))return;setTimeout(render,0)});
  render();
 })();
