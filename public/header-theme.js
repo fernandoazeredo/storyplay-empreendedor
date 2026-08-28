@@ -16,7 +16,7 @@
   style.textContent=`
    .header-controls{display:flex;align-items:center;gap:10px;margin-left:auto}
    .header-controls .theme-toggle{flex:0 0 44px;width:44px;padding:0;text-align:center}
-   @media(max-width:980px){
+   @media(max-width:1180px){
     .topbar{gap:12px}
     .header-controls{margin-left:auto;position:relative;z-index:57}
     .header-controls .theme-toggle,.header-controls .menu-toggle{display:inline-grid;place-items:center;width:44px;min-width:44px;height:44px;padding:0}
