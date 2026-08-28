@@ -35,9 +35,9 @@ function openMenu(){if(!mainNav||!menuToggle)return;mainNav.classList.add('open'
 menuToggle?.addEventListener('click',event=>{event.stopPropagation();mainNav?.classList.contains('open')?closeMenu():openMenu()});
 menuOverlay.addEventListener('click',closeMenu);menuOverlay.addEventListener('pointerdown',event=>{event.preventDefault();closeMenu()});
 document.querySelectorAll('#mainNav a').forEach(a=>a.addEventListener('click',closeMenu));
-document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu()});window.addEventListener('resize',()=>{if(window.innerWidth>1280)closeMenu()});
-document.addEventListener('pointerdown',event=>{if(window.innerWidth>1280||!mainNav?.classList.contains('open'))return;const target=event.target;if(mainNav.contains(target)||menuToggle?.contains(target))return;closeMenu()},true);
-document.addEventListener('touchstart',event=>{if(window.innerWidth>1280||!mainNav?.classList.contains('open'))return;const target=event.target;if(mainNav.contains(target)||menuToggle?.contains(target))return;closeMenu()},{capture:true,passive:true});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu()});window.addEventListener('resize',()=>{if(window.innerWidth>1180)closeMenu()});
+document.addEventListener('pointerdown',event=>{if(window.innerWidth>1180||!mainNav?.classList.contains('open'))return;const target=event.target;if(mainNav.contains(target)||menuToggle?.contains(target))return;closeMenu()},true);
+document.addEventListener('touchstart',event=>{if(window.innerWidth>1180||!mainNav?.classList.contains('open'))return;const target=event.target;if(mainNav.contains(target)||menuToggle?.contains(target))return;closeMenu()},{capture:true,passive:true});
 
 function restoreAnswers(){document.querySelectorAll('.decision-options').forEach(group=>{const q=group.dataset.question;const saved=state.answered[q];if(!saved||typeof saved!=='object')return;group.classList.add('answered');const buttons=[...group.querySelectorAll('button[data-score]')];const chosen=buttons.find(b=>b.textContent.trim()===saved.answer);buttons.forEach(b=>b.setAttribute('aria-disabled','true'));if(chosen){chosen.classList.add(Number(saved.score)===25?'best':'chosen');chosen.setAttribute('aria-current','true')}const feedback=document.getElementById('feedback-'+q);if(feedback){feedback.textContent=(Number(saved.score)===25?'Mandou bem! ':'Aprendizado: ')+(saved.feedback||'');feedback.classList.add('show')}})}
 
