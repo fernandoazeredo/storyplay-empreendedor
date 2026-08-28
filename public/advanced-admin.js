@@ -67,4 +67,10 @@
   const got=api.awardXP?.('advanced-admin-goal',10);
   show('advAdminGoalResult',`<div class="advanced-admin-metrics"><div><span>Atingimento</span><strong>${pct(achieved)}</strong></div><div><span>Gap para a meta</span><strong>${money(gap)}</strong></div></div><p>Uma boa meta precisa de indicador, prazo, responsável e plano de ação.</p><span class="advanced-admin-badge">${got?'+10 XP':'XP já registrado'}</span>`);
  });
+ if(!document.querySelector('link[href="/advanced-people.css"]')){
+  const link=document.createElement('link');link.rel='stylesheet';link.href='/advanced-people.css';document.head.appendChild(link);
+ }
+ if(!document.querySelector('script[src="/advanced-people.js"]')){
+  const script=document.createElement('script');script.src='/advanced-people.js';script.async=false;document.body.appendChild(script);
+ }
 })();
