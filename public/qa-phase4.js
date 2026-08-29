@@ -38,6 +38,7 @@
  loadScript('/ranking-events.js');
  loadStyle('/accessibility-structure.css');
  loadScript('/accessibility-structure.js');
+ loadScript('/live-feedback.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
