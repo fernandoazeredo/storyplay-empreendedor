@@ -48,6 +48,8 @@
  loadScript('/access-policy.js');
  loadStyle('/account-header-entry.css');
  loadScript('/account-header-entry.js');
+ loadStyle('/ux-commercial-final.css');
+ loadScript('/ux-commercial-final.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
