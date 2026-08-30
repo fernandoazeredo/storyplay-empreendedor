@@ -66,4 +66,5 @@
  }
  loadStyle('/menu-organizer.css');
  loadScript('/menu-organizer.js');
+ loadScript('/menu-universal-close.js');
 })();
