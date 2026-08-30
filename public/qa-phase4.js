@@ -80,7 +80,6 @@
  loadStyle('/footer-center-final.css');
  loadScript('/footer-text-final.js');
 
- // Ajustes finais de UI: anual roxo, WhatsApp secundário e tabela Admin sem corte no desktop.
  if(!document.getElementById('storyplayFinalUiFixes')){
   const style=document.createElement('style');
   style.id='storyplayFinalUiFixes';
@@ -114,7 +113,6 @@
   document.head.appendChild(style);
  }
 
- // Cadastro leve dos usuários e seletor exclusivo de e-mails pendentes no painel Admin.
  (async()=>{
   const ADMIN_EMAIL='fernandoazeredo64@gmail.com';
   const FIREBASE_VERSION='10.12.5';
@@ -187,9 +185,8 @@
      select.setAttribute('aria-label','E-mails pendentes de liberação');
      field.replaceWith(select);
     }
-    const now=Date.now();
-    if(!force&&now-lastPendingRefresh<2500&&select.dataset.loaded==='1')return;
-    lastPendingRefresh=now;
+    if(!force&&select.dataset.loaded==='1')return;
+    lastPendingRefresh=Date.now();
     const previous=select.value;
     select.innerHTML='<option value="">Carregando e-mails pendentes...</option>';
     try{
