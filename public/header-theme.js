@@ -31,5 +31,12 @@
   `;
   document.head.appendChild(style);
  }
- theme.setAttribute('title','Alternar modo claro/escuro');
+ function syncThemeAccessibility(){
+  const dark=document.body.classList.contains('dark');
+  theme.setAttribute('aria-pressed',dark?'true':'false');
+  theme.setAttribute('aria-label',dark?'Modo escuro ativo. Ativar modo claro':'Modo claro ativo. Ativar modo escuro');
+  theme.setAttribute('title',dark?'Ativar modo claro':'Ativar modo escuro');
+ }
+ syncThemeAccessibility();
+ theme.addEventListener('click',()=>queueMicrotask(syncThemeAccessibility));
 })();
