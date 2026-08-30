@@ -2,9 +2,9 @@
  const explorerAlwaysFree=['#inicio','#jornada','#episodio1','#episodio2','#trilhas','#desafios','#empresa','#laboratorios','#planos','#conta-nuvem'];
  const schoolOnly=['#area-educador','#painel-turma'];
 
- function removeLock(section){
+ function removeGenericLock(section){
   section.classList.remove('storyplay-premium-locked');
-  section.querySelector(':scope > .storyplay-premium-lock')?.remove();
+  section.querySelectorAll(':scope > .storyplay-premium-lock:not(.storyplay-school-lock)').forEach(el=>el.remove());
  }
 
  function ensureSchoolLock(section){
@@ -19,11 +19,12 @@
  }
 
  function syncPolicy(){
-  explorerAlwaysFree.forEach(selector=>{const section=document.querySelector(selector);if(section)removeLock(section)});
+  explorerAlwaysFree.forEach(selector=>{const section=document.querySelector(selector);if(section)removeGenericLock(section)});
   const state=window.storyplayAccess?.getState?.()||{};
   const schoolAllowed=Boolean(state.isAdmin||(state.active&&state.source==='trial')||(state.active&&state.source==='school'));
   schoolOnly.forEach(selector=>{
    const section=document.querySelector(selector);if(!section)return;
+   removeGenericLock(section);
    section.classList.toggle('storyplay-premium-locked',!schoolAllowed);
    const lock=ensureSchoolLock(section);lock.hidden=schoolAllowed;
   });
