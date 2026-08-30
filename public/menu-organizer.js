@@ -10,13 +10,13 @@
    items:[
     {sources:['Home'],label:'Home'},
     {sources:['Jornada'],label:'Jornada'},
-    {sources:['StoryPlay','Trilhas'],label:'Aprender'}
+    {sources:['StoryPlay','Trilhas','Aprender'],label:'Aprender'}
    ]
   },
   {
    label:'Gestão do Negócio',
    items:[
-    {sources:['Empresa Virtual','Minha Empresa'],label:'Minha Empresa (Visão Geral)'},
+    {sources:['Empresa Virtual','Minha Empresa','Minha Empresa (Visão Geral)'],label:'Minha Empresa (Visão Geral)'},
     {sources:['Administração'],label:'Administração'},
     {sources:['Finanças'],label:'Finanças'},
     {sources:['Logística'],label:'Logística'},
@@ -65,7 +65,7 @@
   return null;
  }
 
- function makeGroup(def,anchors,used){
+ function makeGroup(def,anchors){
   const details=document.createElement('details');
   details.className='nav-group';
   const summary=document.createElement('summary');
@@ -80,7 +80,6 @@
   def.items.forEach(item=>{
    const a=findAnchor(anchors,item.sources);
    if(!a)return;
-   used.add(a);
    a.textContent=item.label;
    submenu.appendChild(a);
   });
@@ -101,11 +100,10 @@
   observer?.disconnect();
   try{
    const anchors=[...nav.querySelectorAll('a[href^="#"]')];
-   const used=new Set();
    const fragment=document.createDocumentFragment();
 
    structure.forEach(def=>{
-    const group=makeGroup(def,anchors,used);
+    const group=makeGroup(def,anchors);
     if(group)fragment.appendChild(group);
    });
 
