@@ -46,6 +46,8 @@
  loadScript('/firebase-config.js');
  loadScript('/access-control.js');
  loadScript('/access-policy.js');
+ loadStyle('/account-header-entry.css');
+ loadScript('/account-header-entry.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
