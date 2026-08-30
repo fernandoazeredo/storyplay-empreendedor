@@ -75,4 +75,6 @@
  loadStyle('/commercial-whatsapp.css');
  loadScript('/commercial-whatsapp.js');
  loadScript('/access-presets-final.js');
+ loadStyle('/guided-tour.css');
+ loadScript('/guided-tour.js');
 })();
