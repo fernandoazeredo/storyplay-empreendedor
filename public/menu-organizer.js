@@ -4,15 +4,42 @@
  nav.dataset.organizerReady='true';
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
- const groups=[
-  {label:'Aprender',items:['StoryPlay','Trilhas','Laboratórios','Desafios','Eventos CEO']},
-  {label:'Minha Empresa',items:['Empresa Virtual','Gestão','Mês a mês','Desempenho']},
-  {label:'Meu Progresso',items:['Progresso','Meu Perfil','Relatório','Piloto']},
-  {label:'Conta e Planos',items:['Conta','Planos']},
-  {label:'Área do Educador',items:['Educador','Turma']}
+ const structure=[
+  {
+   label:'Início e Aprendizado',
+   items:[
+    {sources:['Home'],label:'Home'},
+    {sources:['Jornada'],label:'Jornada'},
+    {sources:['StoryPlay','Trilhas'],label:'Aprender'}
+   ]
+  },
+  {
+   label:'Gestão do Negócio',
+   items:[
+    {sources:['Empresa Virtual','Minha Empresa'],label:'Minha Empresa (Visão Geral)'},
+    {sources:['Administração'],label:'Administração'},
+    {sources:['Finanças'],label:'Finanças'},
+    {sources:['Logística'],label:'Logística'},
+    {sources:['Marketing e Vendas'],label:'Marketing e Vendas'},
+    {sources:['Pessoas'],label:'Pessoas'},
+    {sources:['Melhor Regime?'],label:'Melhor Regime?'}
+   ]
+  },
+  {
+   label:'Desempenho',
+   items:[
+    {sources:['Progresso','Meu Progresso'],label:'Meu Progresso'},
+    {sources:['Ranking CEO'],label:'Ranking CEO'}
+   ]
+  },
+  {
+   label:'Conta e Educação',
+   items:[
+    {sources:['Planos','Conta e Planos','Conta'],label:'Conta e Planos'},
+    {sources:['Educador','Área do Educador'],label:'Área do Educador'}
+   ]
+  }
  ];
- const direct=['Home','Jornada'];
- const known=new Set([...direct,...groups.flatMap(g=>g.items)].map(normalize));
  let organizing=false;
  let scheduled=false;
  let observer;
@@ -29,7 +56,16 @@
   });
  }
 
- function makeGroup(def,anchors){
+ function findAnchor(anchors,sources){
+  for(const source of sources){
+   const key=normalize(source);
+   const found=anchors.find(a=>normalize(a.textContent)===key);
+   if(found)return found;
+  }
+  return null;
+ }
+
+ function makeGroup(def,anchors,used){
   const details=document.createElement('details');
   details.className='nav-group';
   const summary=document.createElement('summary');
@@ -40,10 +76,15 @@
   submenu.className='nav-submenu';
   submenu.setAttribute('role','group');
   submenu.setAttribute('aria-label',`Opções de ${def.label}`);
-  def.items.forEach(name=>{
-   const a=anchors.get(normalize(name));
-   if(a)submenu.appendChild(a);
+
+  def.items.forEach(item=>{
+   const a=findAnchor(anchors,item.sources);
+   if(!a)return;
+   used.add(a);
+   a.textContent=item.label;
+   submenu.appendChild(a);
   });
+
   details.append(summary,submenu);
   details.addEventListener('toggle',()=>{
    setExpanded(details);
@@ -60,32 +101,13 @@
   observer?.disconnect();
   try{
    const anchors=[...nav.querySelectorAll('a[href^="#"]')];
-   const theme=nav.querySelector('#themeToggle');
-   const byName=new Map();
-   anchors.forEach(a=>{
-    const key=normalize(a.textContent);
-    if(!byName.has(key))byName.set(key,a);
-   });
-
+   const used=new Set();
    const fragment=document.createDocumentFragment();
-   direct.forEach(name=>{
-    const a=byName.get(normalize(name));
-    if(a)fragment.appendChild(a);
-   });
-   groups.forEach(def=>{
-    const g=makeGroup(def,byName);
-    if(g)fragment.appendChild(g);
-   });
 
-   anchors.forEach(a=>{
-    if(!known.has(normalize(a.textContent)))fragment.appendChild(a);
+   structure.forEach(def=>{
+    const group=makeGroup(def,anchors,used);
+    if(group)fragment.appendChild(group);
    });
-
-   if(theme){
-    theme.classList.add('nav-theme-control');
-    theme.title='Alternar tema claro/escuro';
-    fragment.appendChild(theme);
-   }
 
    nav.replaceChildren(fragment);
 
