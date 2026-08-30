@@ -3,12 +3,28 @@
   const steps=[
     {icon:'🧭',title:'Explorador — Grátis',text:'Você pode começar sem pagar. O plano Explorador dá acesso ao conteúdo gratuito e às atividades introdutórias do StoryPlay.',target:'#inicio'},
     {icon:'🚀',title:'Empreendedor — Premium',text:'O plano Empreendedor libera trilhas, laboratórios, desafios e recursos avançados enquanto o acesso estiver ativo.',target:'#planos'},
-    {icon:'💳',title:'Como assinar',text:'Escolha o plano mensal ou anual, faça o pagamento pela Ton e depois use o botão verde do WhatsApp para enviar o comprovante e pedir a liberação.',target:'#planos'},
+    {icon:'💳',title:'Como assinar',text:'Escolha o plano mensal ou anual, faça o pagamento pela Ton e depois use o botão verde do WhatsApp para enviar o comprovante e solicitar a liberação.',target:'#planos'},
     {icon:'🏆',title:'Quiz e recompensas',text:'Nos Quiz, suas decisões rendem XP e feedback. As melhores respostas recebem medalhas e carinhas felizes; os erros mostram uma carinha triste e explicam o aprendizado.',target:'#episodio1'},
-    {icon:'🔐',title:'Conta e acesso',text:'Você pode entrar com Google ou e-mail e senha. Criar uma conta não libera o Premium automaticamente: o acesso é validado pelo e-mail cadastrado.',target:'#conta-nuvem'},
+    {icon:'🔐',title:'Conta e acesso',text:'Entre com Google ou e-mail e senha. Criar a conta não libera o Premium automaticamente: a liberação é feita para o e-mail cadastrado e permanece válida pelo período do plano.',target:'#conta-nuvem'},
+    {icon:'👤',title:'Minha conta',text:'Depois de entrar, use Minha conta no cabeçalho para consultar seu acesso. Contas administrativas são reconhecidas automaticamente pelo login, sem precisar de link no rodapé.',target:'#conta-nuvem'},
     {icon:'🏫',title:'Escolas & Turmas',text:'O acesso institucional é separado e funciona sob consulta para escolas, professores, turmas e projetos educacionais.',target:'#area-educador'}
   ];
   let index=0;
+
+  function cleanFooter(){
+    const footer=document.querySelector('footer');
+    if(!footer)return;
+    footer.querySelector('.storyplay-admin-entry')?.remove();
+    footer.dataset.footerExact='1';
+    const wanted=['StoryPlay Empreendedor','Abra Sua Empresa','Aprenda fazendo'];
+    const current=[...footer.querySelectorAll('.storyplay-footer-item')].map(el=>el.textContent.trim());
+    const exact=current.length===wanted.length&&wanted.every((text,i)=>current[i]===text)&&footer.querySelectorAll('.storyplay-footer-separator').length===2;
+    if(exact)return;
+    footer.innerHTML='';
+    const makeText=text=>{const span=document.createElement('span');span.className='storyplay-footer-item';span.textContent=text;return span};
+    const makeSep=()=>{const span=document.createElement('span');span.className='storyplay-footer-separator';span.textContent='-';span.setAttribute('aria-hidden','true');return span};
+    footer.append(makeText(wanted[0]),makeSep(),makeText(wanted[1]),makeSep(),makeText(wanted[2]));
+  }
 
   function ensureButton(){
     if(document.getElementById('storyplayTipsButton'))return;
@@ -86,6 +102,9 @@
     document.body.classList.remove('storyplay-tour-open');
   }
 
+  cleanFooter();
+  setTimeout(cleanFooter,300);
+  setTimeout(cleanFooter,1200);
   ensureButton();
   ensureModal();
   if(localStorage.getItem(KEY)!=='1')setTimeout(()=>openTour(0),1400);
