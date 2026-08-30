@@ -78,4 +78,5 @@
  loadStyle('/guided-tour.css');
  loadScript('/guided-tour.js');
  loadStyle('/footer-center-final.css');
+ loadScript('/footer-text-final.js');
 })();
