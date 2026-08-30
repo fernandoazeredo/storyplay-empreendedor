@@ -34,7 +34,7 @@
  function simplifyHeader(){
   const nav=document.getElementById('mainNav');
   if(!nav)return;
-  const account=document.getElementById('storyplayClientEntry');
+  const account=document.getElementById('storyplayAccountEntry');
   const menuToggle=document.getElementById('menuToggle');
   if(account&&menuToggle&&account.parentElement!==menuToggle.parentElement){menuToggle.parentElement?.insertBefore(account,menuToggle)}
   if(menuToggle)menuToggle.setAttribute('aria-label',menuToggle.getAttribute('aria-expanded')==='true'?'Fechar menu':'Abrir menu');
