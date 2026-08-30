@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email != null
+        && request.auth.token.email == 'fernandoazeredo64@gmail.com';
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function ownsTrialEmail(email) {
+      return signedIn()
+        && request.auth.token.email != null
+        && request.auth.token.email == email;
+    }
+
+    match /trialAccess/{email} {
+      allow get: if isAdmin() || ownsTrialEmail(email);
+      allow list, create, update, delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read, create, update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+
+      match /progress/{document=**} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
+      match /companies/{document=**} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+    }
+
+    match /organizations/{orgId}/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
