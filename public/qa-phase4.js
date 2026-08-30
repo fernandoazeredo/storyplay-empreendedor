@@ -68,4 +68,7 @@
  loadScript('/menu-organizer.js');
  loadScript('/menu-universal-close.js');
  loadStyle('/tax-choice-dark-final.css');
+ loadStyle('/quiz-gamification.css');
+ loadScript('/tax-choice-stars.js');
+ loadScript('/quiz-gamification.js');
 })();
