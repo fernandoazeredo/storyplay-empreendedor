@@ -40,6 +40,7 @@
  loadScript('/accessibility-structure.js');
  loadScript('/live-feedback.js');
  loadScript('/progress-accessibility.js');
+ loadScript('/events-delivery-fix.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
