@@ -41,6 +41,10 @@
  loadScript('/live-feedback.js');
  loadScript('/progress-accessibility.js');
  loadScript('/events-delivery-fix.js');
+ loadStyle('/access-control.css');
+ loadScript('/firebase-config.js');
+ loadScript('/access-control.js');
+ loadScript('/access-policy.js');
  const observer=new MutationObserver(()=>{
   if(document.getElementById('area-educador')){
    if(!document.querySelector('link[href="/classroom.css"]')){
