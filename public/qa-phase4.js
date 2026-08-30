@@ -71,4 +71,8 @@
  loadStyle('/quiz-gamification.css');
  loadScript('/tax-choice-stars.js');
  loadScript('/quiz-gamification.js');
+ loadScript('/episode2-dedupe-final.js');
+ loadStyle('/commercial-whatsapp.css');
+ loadScript('/commercial-whatsapp.js');
+ loadScript('/access-presets-final.js');
 })();
