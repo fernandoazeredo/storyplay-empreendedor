@@ -6,26 +6,52 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function adminEmail() {
+      return 'fernandoazeredo64@gmail.com';
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.email != null && request.auth.token.email.lower() == adminEmail();
+    }
+
     function isOwner(userId) {
       return signedIn() && request.auth.uid == userId;
     }
 
+    function normalizedEmail() {
+      return request.auth.token.email == null ? '' : request.auth.token.email.lower();
+    }
+
     match /users/{userId} {
-      allow read, create, update: if isOwner(userId);
-      allow delete: if false;
+      allow read, create, update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
 
       match /progress/{document=**} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isOwner(userId) || isAdmin();
       }
 
       match /companies/{document=**} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isOwner(userId) || isAdmin();
       }
     }
 
-    // Estrutura institucional futura. Não liberar escrita genérica.
+    // Liberações manuais de teste/premium. O ID do documento é o e-mail normalizado.
+    // Usuários comuns podem somente ler a própria autorização; apenas o administrador escreve.
+    match /trialAccess/{email} {
+      allow read: if isAdmin() || (signedIn() && normalizedEmail() == email.lower());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Base para futuras assinaturas confirmadas por backend/webhook.
+    // O front-end não pode se promover para Premium sozinho.
+    match /subscriptionAccess/{email} {
+      allow read: if isAdmin() || (signedIn() && normalizedEmail() == email.lower());
+      allow write: if isAdmin();
+    }
+
+    // Estrutura institucional: somente administrador até existir modelo próprio de papéis.
     match /organizations/{orgId}/{document=**} {
-      allow read, write: if false;
+      allow read, write: if isAdmin();
     }
 
     match /{document=**} {
