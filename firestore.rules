@@ -6,24 +6,31 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function adminEmail() {
+      return 'fernandoazeredo64@gmail.com';
+    }
+
     function isAdmin() {
       return signedIn()
         && request.auth.token.email != null
-        && request.auth.token.email == 'fernandoazeredo64@gmail.com';
+        && request.auth.token.email.lower() == adminEmail();
     }
 
     function isOwner(userId) {
       return signedIn() && request.auth.uid == userId;
     }
 
-    function ownsTrialEmail(email) {
-      return signedIn()
-        && request.auth.token.email != null
-        && request.auth.token.email == email;
+    function normalizedEmail() {
+      return request.auth.token.email == null ? '' : request.auth.token.email.lower();
     }
 
     match /trialAccess/{email} {
-      allow get: if isAdmin() || ownsTrialEmail(email);
+      allow get: if isAdmin() || (signedIn() && normalizedEmail() == email.lower());
+      allow list, create, update, delete: if isAdmin();
+    }
+
+    match /subscriptionAccess/{email} {
+      allow get: if isAdmin() || (signedIn() && normalizedEmail() == email.lower());
       allow list, create, update, delete: if isAdmin();
     }
 
