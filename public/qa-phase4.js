@@ -77,4 +77,5 @@
  loadScript('/access-presets-final.js');
  loadStyle('/guided-tour.css');
  loadScript('/guided-tour.js');
+ loadStyle('/footer-center-final.css');
 })();
