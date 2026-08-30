@@ -42,6 +42,7 @@
  loadScript('/progress-accessibility.js');
  loadScript('/events-delivery-fix.js');
  loadStyle('/access-control.css');
+ loadStyle('/access-control-admin-layout.css');
  loadScript('/firebase-config.js');
  loadScript('/access-control.js');
  loadScript('/access-policy.js');
