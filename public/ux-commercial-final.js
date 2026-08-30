@@ -12,6 +12,9 @@
   document.querySelectorAll('.storyplay-school-lock').forEach(lock=>{
    const card=lock.querySelector('.storyplay-premium-lock-card');
    if(!card)return;
+   const mode=state.authenticated?'authenticated':'guest';
+   if(lock.dataset.uxAccessMode===mode)return;
+   lock.dataset.uxAccessMode=mode;
    const title=card.querySelector('h3');
    const p=card.querySelector('p');
    const actions=card.querySelector('.storyplay-premium-lock-actions');
@@ -34,7 +37,7 @@
   const account=document.getElementById('storyplayClientEntry');
   const menuToggle=document.getElementById('menuToggle');
   if(account&&menuToggle&&account.parentElement!==menuToggle.parentElement){menuToggle.parentElement?.insertBefore(account,menuToggle)}
-  if(menuToggle){menuToggle.setAttribute('aria-label',menuToggle.getAttribute('aria-expanded')==='true'?'Fechar menu':'Abrir menu');}
+  if(menuToggle)menuToggle.setAttribute('aria-label',menuToggle.getAttribute('aria-expanded')==='true'?'Fechar menu':'Abrir menu');
  }
 
  function closeMenuOnNav(){
@@ -42,9 +45,18 @@
  }
 
  function sync(){syncAnnual();syncSchoolLock();simplifyHeader();closeMenuOnNav()}
- const observer=new MutationObserver(()=>sync());
- observer.observe(document.body,{childList:true,subtree:true});
+ function hasRelevantInsertion(records){
+  return records.some(record=>[...record.addedNodes].some(node=>{
+   if(node.nodeType!==1)return false;
+   if(node.matches?.('.storyplay-school-lock,.payment-link[data-billing="annual"]'))return true;
+   return Boolean(node.querySelector?.('.storyplay-school-lock,.payment-link[data-billing="annual"]'));
+  }));
+ }
+ const main=document.querySelector('main');
+ if(main){
+  const observer=new MutationObserver(records=>{if(hasRelevantInsertion(records))sync()});
+  observer.observe(main,{childList:true,subtree:true});
+ }
  window.addEventListener('storyplay:accesschange',()=>setTimeout(sync,0));
- window.addEventListener('storyplay:statechange',()=>setTimeout(sync,0));
  setTimeout(sync,0);setTimeout(sync,500);setTimeout(sync,1400);
 })();
