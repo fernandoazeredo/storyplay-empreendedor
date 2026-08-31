@@ -44,6 +44,14 @@
   document.querySelectorAll('#mainNav a').forEach(a=>{if(a.dataset.closeBound)return;a.dataset.closeBound='1';a.addEventListener('click',()=>window.storyplayAPI?.closeMenu?.())});
  }
 
+ function loadMobileDiagnostic(){
+  if(window.innerWidth>1180||document.querySelector('script[src="/mobile-width-diagnostic.js"]'))return;
+  const script=document.createElement('script');
+  script.src='/mobile-width-diagnostic.js';
+  script.async=false;
+  document.body.appendChild(script);
+ }
+
  function sync(){syncAnnual();syncSchoolLock();simplifyHeader();closeMenuOnNav()}
  function hasRelevantInsertion(records){
   return records.some(record=>[...record.addedNodes].some(node=>{
@@ -58,5 +66,6 @@
   observer.observe(main,{childList:true,subtree:true});
  }
  window.addEventListener('storyplay:accesschange',()=>setTimeout(sync,0));
+ loadMobileDiagnostic();
  setTimeout(sync,0);setTimeout(sync,500);setTimeout(sync,1400);
 })();
