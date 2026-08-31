@@ -1,7 +1,7 @@
 (()=>{
  const nav=document.getElementById('mainNav');
  if(!nav||nav.dataset.organizerReady==='true')return;
- nav.dataset.organizerReady='true';
+ nav.style.visibility='hidden';
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
  const structure=[
@@ -40,9 +40,6 @@
    ]
   }
  ];
- let organizing=false;
- let scheduled=false;
- let observer;
 
  function setExpanded(details){
   details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false');
@@ -94,39 +91,23 @@
  }
 
  function organize(){
-  scheduled=false;
-  if(organizing)return;
-  organizing=true;
-  observer?.disconnect();
-  try{
-   const anchors=[...nav.querySelectorAll('a[href^="#"]')];
-   const fragment=document.createDocumentFragment();
-
-   structure.forEach(def=>{
-    const group=makeGroup(def,anchors);
-    if(group)fragment.appendChild(group);
+  const anchors=[...nav.querySelectorAll('a[href^="#"]')];
+  const fragment=document.createDocumentFragment();
+  structure.forEach(def=>{
+   const group=makeGroup(def,anchors);
+   if(group)fragment.appendChild(group);
+  });
+  nav.replaceChildren(fragment);
+  nav.querySelectorAll('.nav-submenu a').forEach(a=>{
+   if(a.dataset.accordionCloseBound==='true')return;
+   a.dataset.accordionCloseBound='true';
+   a.addEventListener('click',()=>{
+    closeAllGroups();
+    window.storyplayAPI?.closeMenu?.();
    });
-
-   nav.replaceChildren(fragment);
-
-   nav.querySelectorAll('.nav-submenu a').forEach(a=>{
-    if(a.dataset.accordionCloseBound==='true')return;
-    a.dataset.accordionCloseBound='true';
-    a.addEventListener('click',()=>{
-     closeAllGroups();
-     window.storyplayAPI?.closeMenu?.();
-    });
-   });
-  }finally{
-   organizing=false;
-   observer?.observe(nav,{childList:true,subtree:false});
-  }
- }
-
- function schedule(){
-  if(scheduled||organizing)return;
-  scheduled=true;
-  queueMicrotask(organize);
+  });
+  nav.dataset.organizerReady='true';
+  nav.style.visibility='';
  }
 
  document.addEventListener('keydown',event=>{
@@ -138,8 +119,5 @@
   focusTarget?.focus();
  });
 
- observer=new MutationObserver(schedule);
  organize();
- observer.observe(nav,{childList:true,subtree:false});
- window.addEventListener('storyplay:statechange',schedule);
 })();
