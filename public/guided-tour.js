@@ -84,7 +84,15 @@
     scrollToTarget(step.target);
   }
 
+  function closeOnboardingIfOpen(){
+    const onboarding=document.getElementById('onboardingModal');
+    if(!onboarding)return;
+    if(onboarding.classList.contains('show'))onboarding.classList.remove('show');
+    document.body.classList.remove('onboarding-open');
+  }
+
   function openTour(start=0){
+    closeOnboardingIfOpen();
     ensureModal();
     index=Math.max(0,Math.min(steps.length-1,start));
     const modal=document.getElementById('storyplayGuidedTour');
