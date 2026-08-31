@@ -1,6 +1,8 @@
 (()=>{
  const nav=document.getElementById('mainNav');
  if(!nav||nav.dataset.organizerReady==='true')return;
+
+ // Esconde somente a montagem inicial para evitar o flash do menu antigo.
  nav.style.visibility='hidden';
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
@@ -40,6 +42,11 @@
    ]
   }
  ];
+
+ let organizing=false;
+ let scheduled=false;
+ let initialBuild=true;
+ let observer=null;
 
  function setExpanded(details){
   details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false');
@@ -91,23 +98,52 @@
  }
 
  function organize(){
-  const anchors=[...nav.querySelectorAll('a[href^="#"]')];
-  const fragment=document.createDocumentFragment();
-  structure.forEach(def=>{
-   const group=makeGroup(def,anchors);
-   if(group)fragment.appendChild(group);
-  });
-  nav.replaceChildren(fragment);
-  nav.querySelectorAll('.nav-submenu a').forEach(a=>{
-   if(a.dataset.accordionCloseBound==='true')return;
-   a.dataset.accordionCloseBound='true';
-   a.addEventListener('click',()=>{
-    closeAllGroups();
-    window.storyplayAPI?.closeMenu?.();
+  scheduled=false;
+  if(organizing)return;
+  organizing=true;
+  observer?.disconnect();
+
+  try{
+   const anchors=[...nav.querySelectorAll('a[href^="#"]')];
+   const fragment=document.createDocumentFragment();
+
+   structure.forEach(def=>{
+    const group=makeGroup(def,anchors);
+    if(group)fragment.appendChild(group);
    });
-  });
-  nav.dataset.organizerReady='true';
-  nav.style.visibility='';
+
+   nav.replaceChildren(fragment);
+
+   nav.querySelectorAll('.nav-submenu a').forEach(a=>{
+    if(a.dataset.accordionCloseBound==='true')return;
+    a.dataset.accordionCloseBound='true';
+    a.addEventListener('click',()=>{
+     closeAllGroups();
+     window.storyplayAPI?.closeMenu?.();
+    });
+   });
+
+   nav.dataset.organizerReady='true';
+   if(initialBuild){
+    initialBuild=false;
+    nav.style.visibility='';
+   }
+  }finally{
+   organizing=false;
+   observer?.observe(nav,{childList:true,subtree:false});
+  }
+ }
+
+ function schedule(records){
+  if(scheduled||organizing)return;
+  if(records&&records.length){
+   const hasNewDirectChild=records.some(record=>
+    [...record.addedNodes].some(node=>node.nodeType===1)
+   );
+   if(!hasNewDirectChild)return;
+  }
+  scheduled=true;
+  queueMicrotask(organize);
  }
 
  document.addEventListener('keydown',event=>{
@@ -119,5 +155,7 @@
   focusTarget?.focus();
  });
 
+ observer=new MutationObserver(schedule);
  organize();
+ observer.observe(nav,{childList:true,subtree:false});
 })();
