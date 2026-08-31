@@ -5,6 +5,7 @@
  let firebaseReady=false,auth=null,db=null,currentUser=null;
  let fb={};
  let access={authenticated:false,active:false,isAdmin:false,expired:false,source:null,expiresAt:null,email:null};
+ const dismissedLocks=new Set();
 
  const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const normalizeEmail=value=>String(value||'').trim().toLowerCase();
@@ -50,7 +51,7 @@
  function renderAuth(){
   return `<div class="storyplay-access-grid">
    <article class="storyplay-access-card"><h3>Entrar com Google</h3><p>Use sua conta Google para validar acesso Premium ou Administração.</p><button class="btn primary" id="accessGoogle" type="button">Entrar com Google</button></article>
-   <article class="storyplay-access-card"><h3>E-mail e senha</h3><form id="accessEmailForm" class="storyplay-access-form"><label>E-mail<input id="accessEmail" type="email" autocomplete="email" required></label><label>Senha<input id="accessPassword" type="password" autocomplete="current-password" minlength="6" required></label><button class="btn primary" type="submit">Entrar</button><button class="btn secondary" id="accessCreateAccount" type="button">Criar conta</button></form><p class="storyplay-access-note">Amigos convidados podem criar a conta com o mesmo e-mail que você liberou no painel.</p></article>
+   <article class="storyplay-access-card"><h3>E-mail e senha</h3><form id="accessEmailForm" class="storyplay-access-form"><label>E-mail<input id="accessEmail" type="email" autocomplete="email" required></label><label>Senha<input id="accessPassword" type="password" autocomplete="current-password" minlength="6" required></label><button class="btn primary" type="submit">Entrar</button><button class="btn secondary" id="accessCreateAccount" type="button">Criar conta</button></form></article>
   </div><div id="accessMessage" class="storyplay-access-note" aria-live="polite"></div>`;
  }
 
@@ -98,21 +99,40 @@
   document.getElementById('trialAdminList')?.addEventListener('click',async e=>{const extend=e.target.closest('[data-trial-extend]'),revoke=e.target.closest('[data-trial-revoke]');if(!extend&&!revoke)return;const id=extend?.dataset.trialExtend||revoke?.dataset.trialRevoke;try{const ref=fb.doc(db,'trialAccess',id);if(revoke){await fb.setDoc(ref,{status:'revoked',updatedAt:fb.serverTimestamp()},{merge:true});showMessage('Acesso revogado.')}else{const snap=await fb.getDoc(ref),data=snap.data()||{},base=Math.max(Date.now(),new Date(data.expiresAt||0).getTime()||0),end=new Date(base+15*86400000);await fb.setDoc(ref,{status:'active',expiresAt:end.toISOString(),updatedAt:fb.serverTimestamp()},{merge:true});showMessage('Acesso estendido por 15 dias.')}renderAdminList()}catch(err){showMessage('Falha ao atualizar: '+(err.message||err))}});
  }
 
+ function lockKey(section){return section.id||premiumSelectors.find(selector=>section.matches(selector))||''}
+
  function ensureLock(section){
   let lock=section.querySelector(':scope > .storyplay-premium-lock');
   if(lock)return lock;
-  lock=document.createElement('div');lock.className='storyplay-premium-lock';lock.innerHTML=`<div class="storyplay-premium-lock-card"><span class="eyebrow">CONTEÚDO PREMIUM</span><h3>Acesso restrito</h3><p>Assine o plano Empreendedor ou entre com uma conta que possua acesso liberado.</p><div class="storyplay-premium-lock-actions"><a class="btn primary" href="#planos">Ver planos</a><button class="btn secondary" type="button" data-open-access>Entrar / validar acesso</button></div></div>`;section.appendChild(lock);lock.querySelector('[data-open-access]')?.addEventListener('click',openModal);return lock;
+  lock=document.createElement('div');
+  lock.className='storyplay-premium-lock';
+  lock.innerHTML=`<div class="storyplay-premium-lock-card" style="position:relative"><button class="storyplay-access-close" type="button" data-dismiss-premium aria-label="Fechar aviso de conteúdo Premium" style="position:absolute;right:10px;top:10px">×</button><span class="eyebrow">CONTEÚDO PREMIUM</span><h3>Acesso restrito</h3><p>Assine o plano Empreendedor ou entre com uma conta que possua acesso liberado.</p><div class="storyplay-premium-lock-actions"><a class="btn primary" href="#planos">Ver planos</a><button class="btn secondary" type="button" data-open-access>Entrar / validar acesso</button></div></div>`;
+  section.appendChild(lock);
+  lock.querySelector('[data-open-access]')?.addEventListener('click',openModal);
+  lock.querySelector('[data-dismiss-premium]')?.addEventListener('click',()=>{
+   dismissedLocks.add(lockKey(section));
+   lock.hidden=true;
+  });
+  return lock;
  }
 
  function applyGate(){
   if(!configValid())return;
   const unlocked=access.active||access.isAdmin;
-  premiumSelectors.forEach(selector=>{const section=document.querySelector(selector);if(!section)return;section.classList.toggle('storyplay-premium-locked',!unlocked);const lock=ensureLock(section);lock.hidden=unlocked});
+  premiumSelectors.forEach(selector=>{
+   const section=document.querySelector(selector);if(!section)return;
+   section.classList.toggle('storyplay-premium-locked',!unlocked);
+   const lock=ensureLock(section);
+   lock.hidden=unlocked||dismissedLocks.has(lockKey(section));
+  });
  }
 
  function observePremiumSections(){
   const main=document.querySelector('main');if(!main)return;
-  const observer=new MutationObserver(records=>{let relevant=false;for(const r of records){if([...r.addedNodes].some(n=>n.nodeType===1&&((n.matches&&premiumSelectors.some(s=>n.matches(s)))||(n.querySelector&&premiumSelectors.some(s=>n.querySelector(s)))))){relevant=true;break}}if(relevant)applyGate()});
+  const observer=new MutationObserver(records=>{
+   const relevant=records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&((n.matches&&premiumSelectors.some(s=>n.matches(s)))||(n.querySelector&&premiumSelectors.some(s=>n.querySelector(s))))));
+   if(relevant)applyGate();
+  });
   observer.observe(main,{childList:true,subtree:false});
  }
 
