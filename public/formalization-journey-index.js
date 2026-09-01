@@ -39,10 +39,20 @@
   return window.STORYPLAY_FORMALIZATION_LEGAL_DISCLAIMER?.render?.(fase)||'';
  }
 
+ function buildPhaseNavigation(fase,journey){
+  const anteriorId=fase.id>1?fase.id-1:null;
+  const proximaId=fase.proximaFase;
+  const anterior=anteriorId?journey.fases.find(item=>item.id===anteriorId):null;
+  const proxima=proximaId?journey.fases.find(item=>item.id===proximaId):null;
+  const previousLink=anterior?`<a class="formalization-phase-nav-link is-previous" href="#formalization-fase-${anterior.id}" aria-label="Ir para a Fase ${anterior.id}: ${escapeHTML(anterior.titulo)}">← Anterior</a>`:'<span class="formalization-phase-nav-spacer" aria-hidden="true"></span>';
+  const nextLink=proxima?`<a class="formalization-phase-nav-link is-next" href="#formalization-fase-${proxima.id}" aria-label="Ir para a Fase ${proxima.id}: ${escapeHTML(proxima.titulo)}">Próxima →</a>`:'<span class="formalization-phase-nav-end">Fim da jornada</span>';
+  return `<nav class="formalization-phase-nav" aria-label="Navegação da Fase ${fase.id}">${previousLink}${nextLink}</nav>`;
+ }
+
  function buildPhaseCard(fase,total,journey){
   const hasBaseContent=Boolean(fase.chamada||fase.texto||fase.checklist?.length||fase.disclaimerJuridico);
   const status=hasBaseContent?'Conteúdo-base pronto':'Estrutura reservada';
-  return `<article class="formalization-phase-card" data-formalization-phase="${fase.id}" aria-label="Fase ${fase.id} de ${total}: ${escapeHTML(fase.titulo)}">
+  return `<article id="formalization-fase-${fase.id}" class="formalization-phase-card" data-formalization-phase="${fase.id}" aria-label="Fase ${fase.id} de ${total}: ${escapeHTML(fase.titulo)}">
    <div class="formalization-phase-top">
     <span class="formalization-phase-emoji" aria-hidden="true">${escapeHTML(fase.emoji)}</span>
     <div>
@@ -53,6 +63,7 @@
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}">${status}</span>
    ${buildLocalAlert(fase,journey)}
    ${buildLegalDisclaimer(fase)}
+   ${buildPhaseNavigation(fase,journey)}
   </article>`;
  }
 
