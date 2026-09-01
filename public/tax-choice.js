@@ -95,6 +95,13 @@
     </div>`;
   anchor.insertAdjacentElement('afterend',section);
 
+  if(location.hash==='#melhor-regime-tributario'){
+    const alignDeepLink=()=>section.scrollIntoView({behavior:'auto',block:'start'});
+    requestAnimationFrame(()=>requestAnimationFrame(alignDeepLink));
+    setTimeout(alignDeepLink,250);
+    window.addEventListener('load',alignDeepLink,{once:true});
+  }
+
   const nav=document.getElementById('mainNav');
   if(nav&&!nav.querySelector('a[href="#melhor-regime-tributario"]')){
     const a=document.createElement('a');
