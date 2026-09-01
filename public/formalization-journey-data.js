@@ -77,7 +77,7 @@
       ],
       temAlertaLocal:false,
       textoAlertaLocal:'',
-      disclaimerJuridico:'⚖️ O StoryPlay orienta o que normalmente precisa constar neste documento, mas não substitui contador, advogado, Junta Comercial ou órgão de registro competente, e não gera automaticamente o documento jurídico definitivo. Para a versão final, formalize com um profissional ou órgão responsável.',
+      disclaimerJuridico:'O StoryPlay orienta o que normalmente precisa constar neste documento, mas não substitui contador, advogado, Junta Comercial ou órgão de registro competente, e não gera automaticamente o documento jurídico definitivo. Para a versão final, formalize com um profissional ou órgão responsável.',
       recompensa:'+10 XP — Documento organizado',
       proximaFase:9
     },
