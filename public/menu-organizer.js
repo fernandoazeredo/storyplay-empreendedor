@@ -6,12 +6,14 @@
  nav.style.visibility='hidden';
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
+ const formalizationItem={sources:[],label:''};
  const structure=[
   {
    label:'Início e Aprendizado',
    items:[
     {sources:['Home'],label:'Home'},
     {sources:['Jornada'],label:'Jornada'},
+    formalizationItem,
     {sources:['StoryPlay','Trilhas','Aprender'],label:'Aprender'}
    ]
   },
@@ -47,6 +49,33 @@
  let scheduled=false;
  let initialBuild=true;
  let observer=null;
+ let formalizationDataRequested=false;
+
+ function requestFormalizationData(){
+  if(window.STORYPLAY_FORMALIZATION_JOURNEY||formalizationDataRequested)return;
+  formalizationDataRequested=true;
+  const script=document.createElement('script');
+  script.src='/formalization-journey-data.js';
+  script.async=false;
+  script.onload=()=>organize();
+  script.onerror=()=>{formalizationDataRequested=false};
+  document.head.appendChild(script);
+ }
+
+ function syncFormalizationItem(anchors){
+  const journey=window.STORYPLAY_FORMALIZATION_JOURNEY;
+  if(!journey?.menu){requestFormalizationData();return}
+  formalizationItem.sources=[journey.menu];
+  formalizationItem.label=journey.menu;
+  let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
+  if(!anchor){
+   anchor=document.createElement('a');
+   anchor.href='#episodio2';
+   anchor.dataset.formalizationJourneyEntry='true';
+   anchors.push(anchor);
+  }
+  anchor.textContent=journey.menu;
+ }
 
  function setExpanded(details){
   details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false');
@@ -82,6 +111,7 @@
   submenu.setAttribute('aria-label',`Opções de ${def.label}`);
 
   def.items.forEach(item=>{
+   if(!item.sources.length)return;
    const a=findAnchor(anchors,item.sources);
    if(!a)return;
    a.textContent=item.label;
@@ -105,6 +135,7 @@
 
   try{
    const anchors=[...nav.querySelectorAll('a[href^="#"]')];
+   syncFormalizationItem(anchors);
    const fragment=document.createDocumentFragment();
 
    structure.forEach(def=>{
