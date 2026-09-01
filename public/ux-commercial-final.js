@@ -44,6 +44,15 @@
   document.querySelectorAll('#mainNav a').forEach(a=>{if(a.dataset.closeBound)return;a.dataset.closeBound='1';a.addEventListener('click',()=>window.storyplayAPI?.closeMenu?.())});
  }
 
+ function loadOverflowAudit(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('overflow-audit')!=='1'||document.querySelector('script[src="/overflow-audit.js"]'))return;
+  const script=document.createElement('script');
+  script.src='/overflow-audit.js';
+  script.async=false;
+  document.body.appendChild(script);
+ }
+
  function sync(){syncAnnual();syncSchoolLock();simplifyHeader();closeMenuOnNav()}
  function hasRelevantInsertion(records){
   return records.some(record=>[...record.addedNodes].some(node=>{
@@ -58,5 +67,6 @@
   observer.observe(main,{childList:true,subtree:true});
  }
  window.addEventListener('storyplay:accesschange',()=>setTimeout(sync,0));
+ loadOverflowAudit();
  setTimeout(sync,0);setTimeout(sync,500);setTimeout(sync,1400);
 })();
