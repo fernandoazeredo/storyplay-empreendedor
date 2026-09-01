@@ -2,6 +2,7 @@ const body=document.body;
 const themeToggle=document.getElementById('themeToggle');
 const menuToggle=document.getElementById('menuToggle');
 const mainNav=document.getElementById('mainNav');
+if(mainNav)mainNav.style.visibility='hidden';
 const defaultState={xp:0,answered:{},company:null,metrics:{revenue:0,profit:0,clients:0,reputation:50,stockStatus:'Não avaliado',lastActivity:'Jornada iniciada'},labs:{},achievements:{}};
 let state;
 try{state={...defaultState,...JSON.parse(localStorage.getItem('storyplay-state')||'{}')}}catch(e){state={...defaultState}}
