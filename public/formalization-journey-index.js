@@ -2,6 +2,7 @@
  const SECTION_ID='formalizacao';
  const INITIAL_PHASE=1;
  let rendered=false;
+ let faseAtual=INITIAL_PHASE;
 
  const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
@@ -27,8 +28,36 @@
    <div class="formalization-progress-track" role="progressbar" aria-label="Progresso da Jornada de Formalização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentual}">
     <span class="formalization-progress-fill" style="width:${percentual}%"></span>
    </div>
-   <div class="formalization-progress-meta"><span>🚀 Começando pela Fase ${faseAtual}</span><span>🎯 ${journey.totalFases-faseAtual} fases depois desta</span></div>
+   <div class="formalization-progress-meta"><span data-formalization-progress-current>🚀 Você está na Fase ${faseAtual}</span><span data-formalization-progress-remaining>🎯 ${journey.totalFases-faseAtual} fases depois desta</span></div>
   </section>`;
+ }
+
+ function updateProgressPanel(journey,novaFase){
+  const panel=document.querySelector('.formalization-progress-panel');
+  if(!panel)return;
+  const percentual=journey.calcularPercentual(novaFase);
+  faseAtual=novaFase;
+  panel.dataset.formalizationCurrentPhase=String(novaFase);
+  const title=panel.querySelector('#formalizationProgressTitle');
+  const progressbar=panel.querySelector('[role="progressbar"]');
+  const fill=panel.querySelector('.formalization-progress-fill');
+  const current=panel.querySelector('[data-formalization-progress-current]');
+  const remaining=panel.querySelector('[data-formalization-progress-remaining]');
+  if(title)title.textContent=`Fase ${novaFase} de ${journey.totalFases} · ${percentual}% concluído`;
+  progressbar?.setAttribute('aria-valuenow',String(percentual));
+  if(fill)fill.style.width=`${percentual}%`;
+  if(current)current.textContent=`🚀 Você está na Fase ${novaFase}`;
+  if(remaining)remaining.textContent=`🎯 ${journey.totalFases-novaFase} fases depois desta`;
+  window.dispatchEvent(new CustomEvent('storyplay:formalization-phase-change',{detail:{faseAtual:novaFase,percentual}}));
+ }
+
+ function bindPhaseNavigation(section,journey){
+  section.querySelectorAll('.formalization-phase-nav-link[href^="#formalization-fase-"]').forEach(link=>{
+   link.addEventListener('click',()=>{
+    const targetId=Number(link.getAttribute('href')?.replace('#formalization-fase-',''));
+    if(Number.isInteger(targetId)&&targetId>=1&&targetId<=journey.totalFases)updateProgressPanel(journey,targetId);
+   });
+  });
  }
 
  function buildLocalAlert(fase,journey){
@@ -96,14 +125,15 @@
     <p class="formalization-call">${escapeHTML(journey.chamada)}</p>
     <p class="formalization-subtitle">${escapeHTML(journey.subtitulo)}</p>
    </header>
-   ${buildProgressPanel(journey,INITIAL_PHASE)}
+   ${buildProgressPanel(journey,faseAtual)}
    ${buildChapter(journey,1)}
    ${buildChapter(journey,2)}
    <p class="formalization-index-note">👀 Esta é a visão geral da jornada. O conteúdo detalhado, os checklists interativos, a persistência do progresso e as missões serão ativados nas próximas camadas, sem alterar esta estrutura-base.</p>
   </div>`;
   reference.insertAdjacentElement('afterend',section);
+  bindPhaseNavigation(section,journey);
   rendered=true;
-  window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases,faseAtual:INITIAL_PHASE,percentual:journey.calcularPercentual(INITIAL_PHASE)}}));
+  window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases,faseAtual,percentual:journey.calcularPercentual(faseAtual)}}));
  }
 
  waitForJourney();
