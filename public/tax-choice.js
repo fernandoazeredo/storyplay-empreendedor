@@ -118,6 +118,7 @@
   const pct=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
   const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
   const money2=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2,maximumFractionDigits:2});
+  const SIMPLES_LIMIT_2026=4800000;
 
   document.getElementById('checkMeiEligibility')?.addEventListener('click',()=>{
     const annualRevenue=number('meiAnnualRevenue');
@@ -158,8 +159,12 @@
     const scores={simple:0,presumed:0,real:0};
     const reasons={simple:[],presumed:[],real:[]};
 
-    if(annualRevenue>0&&annualRevenue<=4800000){scores.simple+=3;reasons.simple.push('faturamento dentro da faixa normalmente associada ao Simples Nacional');}
-    else if(annualRevenue>4800000){scores.simple-=5;reasons.simple.push('faturamento projetado exige atenção aos limites de enquadramento');}
+    if(annualRevenue>0&&annualRevenue<=SIMPLES_LIMIT_2026){scores.simple+=3;reasons.simple.push('faturamento dentro da faixa normalmente associada ao Simples Nacional');}
+    else if(annualRevenue>SIMPLES_LIMIT_2026){
+      const excess=annualRevenue-SIMPLES_LIMIT_2026;
+      scores.simple-=5;
+      reasons.simple.push(`faturamento anual projetado de ${money(annualRevenue)} ultrapassa o teto do Simples Nacional de ${money(SIMPLES_LIMIT_2026)} em 2026 em ${money(excess)}`);
+    }
 
     if(payRatio>=28){scores.simple+=3;reasons.simple.push('folha relevante pode ser importante em atividades sujeitas ao Fator R');}
     else {scores.simple+=1;reasons.simple.push('estrutura simplificada continua sendo um ponto a avaliar');}
@@ -173,7 +178,7 @@
     if(docs==='high'){scores.real+=3;reasons.real.push('boa documentação de custos e despesas favorece uma análise mais robusta do lucro efetivo');}
     if(docs==='medium'){scores.real+=1;reasons.real.push('a documentação ainda precisa amadurecer para uma apuração mais exigente');}
     if(docs==='low'){scores.real-=3;reasons.real.push('controles fracos dificultam uma apuração baseada no lucro efetivo');}
-    if(annualRevenue>4800000){scores.real+=2;scores.presumed+=2;reasons.real.push('porte maior exige comparar regimes fora do Simples');reasons.presumed.push('porte maior exige comparar regimes fora do Simples');}
+    if(annualRevenue>SIMPLES_LIMIT_2026){scores.real+=2;scores.presumed+=2;reasons.real.push('porte maior exige comparar regimes fora do Simples');reasons.presumed.push('porte maior exige comparar regimes fora do Simples');}
 
     return{scores,reasons};
   }
@@ -196,7 +201,11 @@
     const {scores,reasons}=scoreProfile({annualRevenue,margin,payRatio,activity,docs});
     const ranked=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
     const winner=ranked[0];
+    const overSimple=annualRevenue>SIMPLES_LIMIT_2026;
+    const simpleExcess=Math.max(0,annualRevenue-SIMPLES_LIMIT_2026);
+    const simpleLimitAlert=overSimple?`<div class="tax-choice-warning"><strong>🚨 Passou do limite do Simples Nacional!</strong><br>Seu faturamento anual projetado é <strong>${money(annualRevenue)}</strong>. O teto do Simples Nacional em 2026 é <strong>${money(SIMPLES_LIMIT_2026)}</strong>. Você está <strong>${money(simpleExcess)}</strong> acima do limite, então o Simples deixa de ser opção neste cenário educacional.</div>`:'';
     document.getElementById('taxChoiceResults').innerHTML=`
+      ${simpleLimitAlert}
       <div class="tax-profile-summary">
         <div><span>Faturamento anual projetado</span><strong>${money(annualRevenue)}</strong></div>
         <div><span>Margem informada</span><strong>${pct(margin)}</strong></div>
