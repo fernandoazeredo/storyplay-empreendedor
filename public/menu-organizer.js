@@ -63,6 +63,15 @@
   document.head.appendChild(script);
  }
 
+ function loadFormalizationIndexScript(){
+  if(document.querySelector('script[src="/formalization-journey-index.js"]'))return;
+  const script=document.createElement('script');
+  script.src='/formalization-journey-index.js';
+  script.async=false;
+  script.onerror=()=>{formalizationUiRequested=false};
+  document.body.appendChild(script);
+ }
+
  function requestFormalizationUi(){
   if(formalizationUiRequested)return;
   formalizationUiRequested=true;
@@ -72,13 +81,21 @@
    link.href='/formalization-journey-index.css';
    document.head.appendChild(link);
   }
-  if(!document.querySelector('script[src="/formalization-journey-index.js"]')){
-   const script=document.createElement('script');
-   script.src='/formalization-journey-index.js';
-   script.async=false;
-   script.onerror=()=>{formalizationUiRequested=false};
-   document.body.appendChild(script);
+  if(window.STORYPLAY_FORMALIZATION_LOCAL_ALERT){
+   loadFormalizationIndexScript();
+   return;
   }
+  const existing=document.querySelector('script[src="/formalization-local-alert.js"]');
+  if(existing){
+   existing.addEventListener('load',loadFormalizationIndexScript,{once:true});
+   return;
+  }
+  const component=document.createElement('script');
+  component.src='/formalization-local-alert.js';
+  component.async=false;
+  component.onload=loadFormalizationIndexScript;
+  component.onerror=()=>{formalizationUiRequested=false};
+  document.body.appendChild(component);
  }
 
  function syncFormalizationItem(anchors){

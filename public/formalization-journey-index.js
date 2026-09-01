@@ -31,7 +31,11 @@
   </section>`;
  }
 
- function buildPhaseCard(fase,total){
+ function buildLocalAlert(fase,journey){
+  return window.STORYPLAY_FORMALIZATION_LOCAL_ALERT?.render?.(fase,journey)||'';
+ }
+
+ function buildPhaseCard(fase,total,journey){
   const hasBaseContent=Boolean(fase.chamada||fase.texto||fase.checklist?.length||fase.disclaimerJuridico);
   const status=hasBaseContent?'Conteúdo-base pronto':'Estrutura reservada';
   return `<article class="formalization-phase-card" data-formalization-phase="${fase.id}" aria-label="Fase ${fase.id} de ${total}: ${escapeHTML(fase.titulo)}">
@@ -43,6 +47,7 @@
     </div>
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}">${status}</span>
+   ${buildLocalAlert(fase,journey)}
   </article>`;
  }
 
@@ -55,7 +60,7 @@
     <h3 id="formalizationChapter${chapterNumber}">${escapeHTML(fases[0].capituloNome)}</h3>
     <span>${range}</span>
    </div>
-   <div class="formalization-phase-grid">${fases.map(fase=>buildPhaseCard(fase,journey.totalFases)).join('')}</div>
+   <div class="formalization-phase-grid">${fases.map(fase=>buildPhaseCard(fase,journey.totalFases,journey)).join('')}</div>
   </section>`;
  }
 
