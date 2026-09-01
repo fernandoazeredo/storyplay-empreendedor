@@ -67,7 +67,7 @@
       <div class="mei-future-note"><strong>📌 Regra usada nesta tela: 2026.</strong> O novo teto de R$ 110 mil está previsto para começar em 2027. Para uma abertura real, confirme sempre as regras oficiais vigentes.</div>
     </article>
 
-    <div class="tax-choice-bridge">
+    <div class="tax-choice-bridge" style="display:none!important">
       <span>🔓 PRÓXIMA FASE</span>
       <div><strong>Não se enquadrou no MEI?</strong><small>Agora compare os regimes que normalmente entram na análise de empresas maiores ou com outra estrutura.</small></div>
     </div>
@@ -119,6 +119,8 @@
   const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
   const money2=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2,maximumFractionDigits:2});
   const SIMPLES_LIMIT_2026=4800000;
+  const meiBridge=section.querySelector('.tax-choice-bridge');
+  const setMeiBridgeVisible=visible=>meiBridge?.style.setProperty('display',visible?'grid':'none','important');
 
   document.getElementById('checkMeiEligibility')?.addEventListener('click',()=>{
     const annualRevenue=number('meiAnnualRevenue');
@@ -130,6 +132,7 @@
     const result=document.getElementById('meiCheckResult');
     if(!result)return;
     if(annualRevenue<=0){
+      setMeiBridgeVisible(false);
       result.className='mei-check-result mei-result-warning';
       result.innerHTML='<span>🧮</span><p>Informe um faturamento anual maior que zero para completar a missão.</p>';
       return;
@@ -142,12 +145,15 @@
     if(employees>2)blockers.push('quantidade de empregados acima do limite informado para 2026');
     const das={service:86.05,commerce:82.05,mixed:87.05}[activity]||86.05;
     if(blockers.length){
+      setMeiBridgeVisible(true);
       result.className='mei-check-result mei-result-no';
       result.innerHTML=`<span>🧭</span><div><strong>Seu perfil pede outra rota.</strong><p>${blockers.join('; ')}. Vale seguir para a comparação entre Simples Nacional, Lucro Presumido e Lucro Real logo abaixo.</p></div>`;
     }else if(occupation==='unknown'){
+      setMeiBridgeVisible(false);
       result.className='mei-check-result mei-result-warning';
       result.innerHTML=`<span>🔎</span><div><strong>Quase lá!</strong><p>Os números e a estrutura básica cabem no teste, mas você ainda precisa confirmar se sua ocupação está na lista oficial do MEI. Para esta atividade, o DAS de referência em 2026 seria ${money2(das)} por mês.</p></div>`;
     }else{
+      setMeiBridgeVisible(false);
       result.className='mei-check-result mei-result-yes';
       result.innerHTML=`<span>🏁</span><div><strong>Seu perfil básico combina com o MEI!</strong><p>Pelo checklist educacional, o MEI merece ser estudado primeiro. Para esta atividade, o DAS de referência em 2026 é ${money2(das)} por mês. Confirme ocupação, regras e impedimentos oficiais antes da formalização real.</p></div>`;
       api.awardXP?.('mei-quick-check',5);
