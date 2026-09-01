@@ -50,6 +50,7 @@
  let initialBuild=true;
  let observer=null;
  let formalizationDataRequested=false;
+ let formalizationUiRequested=false;
 
  function requestFormalizationData(){
   if(window.STORYPLAY_FORMALIZATION_JOURNEY||formalizationDataRequested)return;
@@ -62,17 +63,38 @@
   document.head.appendChild(script);
  }
 
+ function requestFormalizationUi(){
+  if(formalizationUiRequested)return;
+  formalizationUiRequested=true;
+  if(!document.querySelector('link[href="/formalization-journey-index.css"]')){
+   const link=document.createElement('link');
+   link.rel='stylesheet';
+   link.href='/formalization-journey-index.css';
+   document.head.appendChild(link);
+  }
+  if(!document.querySelector('script[src="/formalization-journey-index.js"]')){
+   const script=document.createElement('script');
+   script.src='/formalization-journey-index.js';
+   script.async=false;
+   script.onerror=()=>{formalizationUiRequested=false};
+   document.body.appendChild(script);
+  }
+ }
+
  function syncFormalizationItem(anchors){
   const journey=window.STORYPLAY_FORMALIZATION_JOURNEY;
   if(!journey?.menu){requestFormalizationData();return}
+  requestFormalizationUi();
   formalizationItem.sources=[journey.menu];
   formalizationItem.label=journey.menu;
   let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
   if(!anchor){
    anchor=document.createElement('a');
-   anchor.href='#episodio2';
+   anchor.href='#formalizacao';
    anchor.dataset.formalizationJourneyEntry='true';
    anchors.push(anchor);
+  }else{
+   anchor.href='#formalizacao';
   }
   anchor.textContent=journey.menu;
  }
