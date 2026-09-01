@@ -35,6 +35,10 @@
   return window.STORYPLAY_FORMALIZATION_LOCAL_ALERT?.render?.(fase,journey)||'';
  }
 
+ function buildLegalDisclaimer(fase){
+  return window.STORYPLAY_FORMALIZATION_LEGAL_DISCLAIMER?.render?.(fase)||'';
+ }
+
  function buildPhaseCard(fase,total,journey){
   const hasBaseContent=Boolean(fase.chamada||fase.texto||fase.checklist?.length||fase.disclaimerJuridico);
   const status=hasBaseContent?'Conteúdo-base pronto':'Estrutura reservada';
@@ -48,6 +52,7 @@
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}">${status}</span>
    ${buildLocalAlert(fase,journey)}
+   ${buildLegalDisclaimer(fase)}
   </article>`;
  }
 
