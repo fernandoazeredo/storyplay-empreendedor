@@ -1,5 +1,6 @@
 (()=>{
  const SECTION_ID='formalizacao';
+ const INITIAL_PHASE=1;
  let rendered=false;
 
  const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -11,6 +12,23 @@
    return;
   }
   if(attempt<80)setTimeout(()=>waitForJourney(attempt+1),50);
+ }
+
+ function buildProgressPanel(journey,faseAtual){
+  const percentual=journey.calcularPercentual(faseAtual);
+  return `<section class="formalization-progress-panel" aria-labelledby="formalizationProgressTitle" data-formalization-current-phase="${faseAtual}">
+   <div class="formalization-progress-copy">
+    <div>
+     <span class="formalization-progress-eyebrow">SUA JORNADA</span>
+     <h3 id="formalizationProgressTitle">Fase ${faseAtual} de ${journey.totalFases} · ${percentual}% concluído</h3>
+    </div>
+    <span class="formalization-progress-mode">Progresso visual · ainda não salvo</span>
+   </div>
+   <div class="formalization-progress-track" role="progressbar" aria-label="Progresso da Jornada de Formalização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentual}">
+    <span class="formalization-progress-fill" style="width:${percentual}%"></span>
+   </div>
+   <div class="formalization-progress-meta"><span>🚀 Começando pela Fase ${faseAtual}</span><span>🎯 ${journey.totalFases-faseAtual} fases depois desta</span></div>
+  </section>`;
  }
 
  function buildPhaseCard(fase,total){
@@ -57,13 +75,14 @@
     <p class="formalization-call">${escapeHTML(journey.chamada)}</p>
     <p class="formalization-subtitle">${escapeHTML(journey.subtitulo)}</p>
    </header>
+   ${buildProgressPanel(journey,INITIAL_PHASE)}
    ${buildChapter(journey,1)}
    ${buildChapter(journey,2)}
-   <p class="formalization-index-note">👀 Esta é a visão geral da jornada. O conteúdo detalhado, os checklists interativos, o progresso e as missões serão ativados nas próximas camadas, sem alterar esta estrutura-base.</p>
+   <p class="formalization-index-note">👀 Esta é a visão geral da jornada. O conteúdo detalhado, os checklists interativos, a persistência do progresso e as missões serão ativados nas próximas camadas, sem alterar esta estrutura-base.</p>
   </div>`;
   reference.insertAdjacentElement('afterend',section);
   rendered=true;
-  window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases}}));
+  window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases,faseAtual:INITIAL_PHASE,percentual:journey.calcularPercentual(INITIAL_PHASE)}}));
  }
 
  waitForJourney();
