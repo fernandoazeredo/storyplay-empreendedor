@@ -3,6 +3,7 @@
  const INITIAL_PHASE=1;
  let rendered=false;
  let faseAtual=INITIAL_PHASE;
+ const checklistState=new Set();
 
  const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
@@ -60,6 +61,46 @@
   });
  }
 
+ function checklistKey(faseId,itemIndex){
+  return `${faseId}:${itemIndex}`;
+ }
+
+ function buildChecklist(fase){
+  if(!Array.isArray(fase.checklist)||!fase.checklist.length)return '';
+  const items=fase.checklist.map((texto,index)=>{
+   const key=checklistKey(fase.id,index);
+   const inputId=`formalization-check-${fase.id}-${index+1}`;
+   const checked=checklistState.has(key)?' checked':'';
+   return `<label class="formalization-checklist-item" for="${inputId}"><input id="${inputId}" type="checkbox" data-formalization-checklist-item="${key}" data-formalization-checklist-phase="${fase.id}"${checked}><span>${escapeHTML(texto)}</span></label>`;
+  }).join('');
+  return `<fieldset class="formalization-checklist" data-formalization-checklist="${fase.id}"><legend>✅ Checklist desta fase</legend><div class="formalization-checklist-items">${items}</div><p class="formalization-checklist-summary" data-formalization-checklist-summary="${fase.id}">0 de ${fase.checklist.length} itens marcados · não salvo</p></fieldset>`;
+ }
+
+ function updateChecklistSummary(section,faseId){
+  const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
+  if(!checklist)return;
+  const inputs=[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')];
+  const marcados=inputs.filter(input=>input.checked).length;
+  const summary=checklist.querySelector(`[data-formalization-checklist-summary="${faseId}"]`);
+  if(summary)summary.textContent=`${marcados} de ${inputs.length} itens marcados · não salvo`;
+ }
+
+ function bindChecklists(section){
+  section.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').forEach(input=>{
+   input.addEventListener('change',()=>{
+    const key=input.dataset.formalizationChecklistItem;
+    const faseId=Number(input.dataset.formalizationChecklistPhase);
+    if(!key||!Number.isInteger(faseId))return;
+    if(input.checked)checklistState.add(key);else checklistState.delete(key);
+    updateChecklistSummary(section,faseId);
+    const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
+    const total=checklist?.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').length||0;
+    const marcados=checklist?[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')].filter(item=>item.checked).length:0;
+    window.dispatchEvent(new CustomEvent('storyplay:formalization-checklist-change',{detail:{faseId,marcados,total,persistido:false}}));
+   });
+  });
+ }
+
  function buildLocalAlert(fase,journey){
   return window.STORYPLAY_FORMALIZATION_LOCAL_ALERT?.render?.(fase,journey)||'';
  }
@@ -90,6 +131,7 @@
     </div>
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}">${status}</span>
+   ${buildChecklist(fase)}
    ${buildLocalAlert(fase,journey)}
    ${buildLegalDisclaimer(fase)}
    ${buildPhaseNavigation(fase,journey)}
@@ -128,10 +170,11 @@
    ${buildProgressPanel(journey,faseAtual)}
    ${buildChapter(journey,1)}
    ${buildChapter(journey,2)}
-   <p class="formalization-index-note">👀 Esta é a visão geral da jornada. O conteúdo detalhado, os checklists interativos, a persistência do progresso e as missões serão ativados nas próximas camadas, sem alterar esta estrutura-base.</p>
+   <p class="formalization-index-note">👀 Esta é a visão geral da jornada. O conteúdo detalhado, a persistência do progresso e as missões serão ativados nas próximas camadas, sem alterar esta estrutura-base.</p>
   </div>`;
   reference.insertAdjacentElement('afterend',section);
   bindPhaseNavigation(section,journey);
+  bindChecklists(section);
   rendered=true;
   window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases,faseAtual,percentual:journey.calcularPercentual(faseAtual)}}));
  }
