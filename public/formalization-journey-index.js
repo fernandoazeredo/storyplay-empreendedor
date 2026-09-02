@@ -80,7 +80,7 @@
    <div class="formalization-progress-track" role="progressbar" aria-label="Progresso da Jornada de Formalização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentual}">
     <span class="formalization-progress-fill" style="width:${percentual}%"></span>
    </div>
-   <div class="formalization-progress-meta"><span data-formalization-progress-current>🚀 Você está na Fase ${faseAtual}</span><span data-formalization-progress-remaining>🎯 ${journey.totalFases-faseAtual} fases depois desta</span><span data-formalization-completion-summary>✅ 0 de ${journey.totalFases} fases concluídas · ${completionMode}</span></div>
+   <div class="formalization-progress-meta"><span data-formalization-progress-current>🚀 Você está na Fase ${faseAtual}</span><span data-formalization-progress-remaining>🎯 ${journey.totalFases-faseAtual} fases depois desta</span><span data-formalization-completion-summary>✅ 0 de ${journey.totalFases} fases concluídas · ${completionMode}</span><span data-formalization-xp-summary>⭐ 0 XP conquistados</span></div>
   </section>`;
  }
 
@@ -151,11 +151,26 @@
   if(status)status.textContent=concluida?'✅ Fase concluída':status.dataset.formalizationDefaultStatus||'Conteúdo-base pronto';
  }
 
+ function getPhaseXP(fase){
+  const match=String(fase?.recompensa||'').match(/\+(\d+)\s*XP\b/i);
+  return match?Number(match[1]):0;
+ }
+
+ function updateXP(section,journey){
+  const completedIds=new Set([...section.querySelectorAll('.formalization-phase-card.is-complete[data-formalization-complete="true"]')].map(card=>Number(card.dataset.formalizationPhase)).filter(Number.isInteger));
+  const rewarded=journey.fases.filter(fase=>completedIds.has(fase.id)&&getPhaseXP(fase)>0);
+  const xp=rewarded.reduce((total,fase)=>total+getPhaseXP(fase),0);
+  const summary=section.querySelector('[data-formalization-xp-summary]');
+  if(summary)summary.textContent=`⭐ ${xp} XP conquistados`;
+  window.dispatchEvent(new CustomEvent('storyplay:formalization-xp-change',{detail:{xp,fasesComXP:rewarded.map(fase=>fase.id),derivado:true,persistido:storagePersisted}}));
+ }
+
  function updateCompletionSummary(section,journey){
   const concluidas=section.querySelectorAll('.formalization-phase-card.is-complete[data-formalization-complete="true"]').length;
   const summary=section.querySelector('[data-formalization-completion-summary]');
   const mode=storagePersisted?'salvo neste navegador':'não salvo';
   if(summary)summary.textContent=`✅ ${concluidas} de ${journey.totalFases} fases concluídas · ${mode}`;
+  updateXP(section,journey);
   window.dispatchEvent(new CustomEvent('storyplay:formalization-completion-summary-change',{detail:{concluidas,total:journey.totalFases,persistido:storagePersisted}}));
  }
 
