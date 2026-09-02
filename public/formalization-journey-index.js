@@ -85,6 +85,18 @@
   if(summary)summary.textContent=`${marcados} de ${inputs.length} itens marcados · não salvo`;
  }
 
+ function updatePhaseCompletionVisual(section,faseId){
+  const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
+  const card=section.querySelector(`[data-formalization-phase="${faseId}"]`);
+  if(!checklist||!card)return;
+  const inputs=[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')];
+  const concluida=inputs.length>0&&inputs.every(input=>input.checked);
+  const status=card.querySelector(`[data-formalization-phase-status="${faseId}"]`);
+  card.classList.toggle('is-complete',concluida);
+  card.dataset.formalizationComplete=concluida?'true':'false';
+  if(status)status.textContent=concluida?'✅ Fase concluída':status.dataset.formalizationDefaultStatus||'Conteúdo-base pronto';
+ }
+
  function bindChecklists(section){
   section.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').forEach(input=>{
    input.addEventListener('change',()=>{
@@ -93,6 +105,7 @@
     if(!key||!Number.isInteger(faseId))return;
     if(input.checked)checklistState.add(key);else checklistState.delete(key);
     updateChecklistSummary(section,faseId);
+    updatePhaseCompletionVisual(section,faseId);
     const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
     const total=checklist?.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').length||0;
     const marcados=checklist?[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')].filter(item=>item.checked).length:0;
@@ -130,7 +143,7 @@
      <h4>${escapeHTML(fase.titulo)}</h4>
     </div>
    </div>
-   <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}">${status}</span>
+   <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}" data-formalization-phase-status="${fase.id}" data-formalization-default-status="${escapeHTML(status)}">${status}</span>
    ${buildChecklist(fase)}
    ${buildLocalAlert(fase,journey)}
    ${buildLegalDisclaimer(fase)}
