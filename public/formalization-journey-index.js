@@ -40,9 +40,14 @@
 
  function saveChecklistState(journey){
   try{
+   const storage=window.localStorage;
+   if(!storage){
+    storagePersisted=false;
+    return false;
+   }
    const validKeys=getValidChecklistKeys(journey);
    const checked=[...checklistState].filter(key=>validKeys.has(key));
-   window.localStorage?.setItem(STORAGE_KEY,JSON.stringify({version:STORAGE_VERSION,checked}));
+   storage.setItem(STORAGE_KEY,JSON.stringify({version:STORAGE_VERSION,checked}));
    storagePersisted=true;
    return true;
   }catch{
