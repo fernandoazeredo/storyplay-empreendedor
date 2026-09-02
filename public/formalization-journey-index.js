@@ -29,7 +29,7 @@
    <div class="formalization-progress-track" role="progressbar" aria-label="Progresso da Jornada de Formalização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentual}">
     <span class="formalization-progress-fill" style="width:${percentual}%"></span>
    </div>
-   <div class="formalization-progress-meta"><span data-formalization-progress-current>🚀 Você está na Fase ${faseAtual}</span><span data-formalization-progress-remaining>🎯 ${journey.totalFases-faseAtual} fases depois desta</span></div>
+   <div class="formalization-progress-meta"><span data-formalization-progress-current>🚀 Você está na Fase ${faseAtual}</span><span data-formalization-progress-remaining>🎯 ${journey.totalFases-faseAtual} fases depois desta</span><span data-formalization-completion-summary>✅ 0 de ${journey.totalFases} fases concluídas · não salvo</span></div>
   </section>`;
  }
 
@@ -97,7 +97,14 @@
   if(status)status.textContent=concluida?'✅ Fase concluída':status.dataset.formalizationDefaultStatus||'Conteúdo-base pronto';
  }
 
- function bindChecklists(section){
+ function updateCompletionSummary(section,journey){
+  const concluidas=section.querySelectorAll('.formalization-phase-card.is-complete[data-formalization-complete="true"]').length;
+  const summary=section.querySelector('[data-formalization-completion-summary]');
+  if(summary)summary.textContent=`✅ ${concluidas} de ${journey.totalFases} fases concluídas · não salvo`;
+  window.dispatchEvent(new CustomEvent('storyplay:formalization-completion-summary-change',{detail:{concluidas,total:journey.totalFases,persistido:false}}));
+ }
+
+ function bindChecklists(section,journey){
   section.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').forEach(input=>{
    input.addEventListener('change',()=>{
     const key=input.dataset.formalizationChecklistItem;
@@ -106,6 +113,7 @@
     if(input.checked)checklistState.add(key);else checklistState.delete(key);
     updateChecklistSummary(section,faseId);
     updatePhaseCompletionVisual(section,faseId);
+    updateCompletionSummary(section,journey);
     const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
     const total=checklist?.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]').length||0;
     const marcados=checklist?[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')].filter(item=>item.checked).length:0;
@@ -187,7 +195,7 @@
   </div>`;
   reference.insertAdjacentElement('afterend',section);
   bindPhaseNavigation(section,journey);
-  bindChecklists(section);
+  bindChecklists(section,journey);
   rendered=true;
   window.dispatchEvent(new CustomEvent('storyplay:formalization-index-ready',{detail:{sectionId:SECTION_ID,totalFases:journey.totalFases,faseAtual,percentual:journey.calcularPercentual(faseAtual)}}));
  }
