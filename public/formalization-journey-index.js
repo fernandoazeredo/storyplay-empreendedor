@@ -129,6 +129,12 @@
   return `<fieldset class="formalization-checklist" data-formalization-checklist="${fase.id}"><legend>✅ Checklist desta fase</legend><div class="formalization-checklist-items">${items}</div><p class="formalization-checklist-summary" data-formalization-checklist-summary="${fase.id}">${marked} de ${fase.checklist.length} itens marcados · ${mode}</p></fieldset>`;
  }
 
+ function buildReward(fase){
+  const recompensa=String(fase?.recompensa||'').trim();
+  if(!recompensa)return '';
+  return `<div class="formalization-phase-reward" data-formalization-reward="${fase.id}" data-formalization-reward-text="${escapeHTML(recompensa)}" role="status">⭐ Recompensa prevista · ${escapeHTML(recompensa)}</div>`;
+ }
+
  function updateChecklistSummary(section,faseId){
   const checklist=section.querySelector(`[data-formalization-checklist="${faseId}"]`);
   if(!checklist)return;
@@ -146,9 +152,15 @@
   const inputs=[...checklist.querySelectorAll('input[type="checkbox"][data-formalization-checklist-item]')];
   const concluida=inputs.length>0&&inputs.every(input=>input.checked);
   const status=card.querySelector(`[data-formalization-phase-status="${faseId}"]`);
+  const reward=card.querySelector(`[data-formalization-reward="${faseId}"]`);
   card.classList.toggle('is-complete',concluida);
   card.dataset.formalizationComplete=concluida?'true':'false';
   if(status)status.textContent=concluida?'✅ Fase concluída':status.dataset.formalizationDefaultStatus||'Conteúdo-base pronto';
+  if(reward){
+   const recompensa=reward.dataset.formalizationRewardText||'';
+   reward.classList.toggle('is-earned',concluida);
+   reward.textContent=concluida?`⭐ Recompensa conquistada · ${recompensa}`:`⭐ Recompensa prevista · ${recompensa}`;
+  }
  }
 
  function getPhaseXP(fase){
@@ -232,6 +244,7 @@
     </div>
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}" data-formalization-phase-status="${fase.id}" data-formalization-default-status="${escapeHTML(status)}">${status}</span>
+   ${buildReward(fase)}
    ${buildChecklist(fase)}
    ${buildLocalAlert(fase,journey)}
    ${buildLegalDisclaimer(fase)}
