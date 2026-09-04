@@ -93,7 +93,25 @@
       proximaFase:5
     },
     {
-      id:5,capitulo:1,capituloNome:CAPITULOS[1],emoji:'📍',titulo:'Onde minha empresa vai funcionar?',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:6
+      id:5,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'📍',
+      titulo:'Onde minha empresa vai funcionar?',
+      chamada:'Missão da vez: escolher um endereço que funcione no mapa e também passe pelas regras do negócio.',
+      texto:'O endereço da empresa não é só um ponto no mapa. 📍 Ele entra no cadastro, na viabilidade, no licenciamento e pode influenciar quais atividades são permitidas naquele local. Antes de fechar contrato caro, comprar imóvel ou montar toda a estrutura, confirme se o endereço combina com o CNAE e com as regras locais.\n\n🏠🏢 Dependendo da atividade e das normas da sua cidade, o negócio pode funcionar em imóvel comercial, residência, coworking, escritório compartilhado ou outro formato permitido. Mas não existe uma regra universal dizendo que qualquer atividade pode usar qualquer endereço. Negócios com atendimento ao público, estoque, produção, alimentos, saúde ou maior risco podem exigir condições físicas e autorizações específicas.\n\n🧭 Organize o endereço completo — CEP, logradouro, número, complemento, bairro, município e UF — e confirme que você tem base legítima para utilizá-lo. Se houver condomínio, locação ou regras de uso do imóvel, verifique se existe alguma restrição relevante. Na próxima fase, a consulta de viabilidade dará o “sinal verde” ou mostrará o que precisa ser ajustado.\n\n🎯 Objetivo da fase: chegar à Fase 6 com um endereço principal e, se possível, uma alternativa, sem assumir compromisso irreversível antes da consulta oficial.',
+      checklist:[
+        'Defini o endereço principal da empresa com todos os dados cadastrais',
+        'Entendi se minha operação será residencial, comercial, compartilhada ou em outro formato permitido',
+        'Confirmei que tenho autorização ou condição legítima para usar o endereço escolhido',
+        'Verifiquei restrições evidentes do imóvel, locação ou condomínio quando aplicável',
+        'Evitei assumir compromisso definitivo antes da consulta de viabilidade ou tenho uma alternativa preparada'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'Uso do solo, zoneamento, endereço residencial, coworking, atendimento ao público, estoque e exigências do imóvel variam conforme município, atividade e grau de risco. A aprovação formal do endereço ocorre na consulta de viabilidade e nos licenciamentos aplicáveis. Confirme sempre no integrador da Redesim e na prefeitura responsável.',
+      disclaimerJuridico:'O StoryPlay não valida zoneamento, contrato de locação, convenção de condomínio nem autorização de uso do imóvel. Antes de investir no ponto ou iniciar a operação, confirme a viabilidade e as exigências do endereço nos órgãos competentes.',
+      recompensa:'+10 XP — Endereço preparado',
+      proximaFase:6
     },
     {
       id:6,
