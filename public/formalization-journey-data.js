@@ -294,7 +294,28 @@
       proximaFase:19
     },
     {
-      id:19,capitulo:2,capituloNome:CAPITULOS[2],emoji:'✅',titulo:'Minha empresa está pronta?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:null
+      id:19,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'✅',
+      titulo:'Minha empresa está pronta?',
+      chamada:'Missão final: passar pelo checkpoint de lançamento e conferir se o negócio está realmente pronto para operar sem pular fase importante.',
+      texto:'Você chegou ao último nível da Jornada de Formalização. 🎉 Agora não é hora de correr — é hora de conferir. Uma empresa “pronta” não é aquela que apenas recebeu um CNPJ; é aquela que sabe quais registros, tributos, licenças, acessos, documentos fiscais, controles financeiros e rotinas se aplicam ao próprio negócio.\n\n🧭 Volte mentalmente pela jornada: identidade e CNPJ conferidos, regime tributário analisado, inscrições aplicáveis organizadas, licenças ou dispensas válidas, acessos oficiais funcionando, emissão fiscal preparada, dinheiro do negócio separado, contabilidade com rotina definida e contratação organizada quando houver equipe. Se algo ainda estiver pendente, isso não é derrota — é uma missão aberta que precisa ser resolvida antes de depender dela na operação real.\n\n📅 Depois do “abrir as portas” começa outro jogo: manter a empresa regular. Licenças vencem, certificados expiram, declarações têm prazo, tributos mudam, contratos precisam de controle e os dados cadastrais devem acompanhar a realidade do negócio. Crie lembretes e responsáveis para não transformar uma conquista em pendência.\n\n🚀 Objetivo final: terminar esta jornada sabendo o que já está concluído, o que não se aplica ao seu caso e o que ainda precisa de ação antes ou durante a operação.',
+      checklist:[
+        'Conferi CNPJ, ato registrado e dados cadastrais da empresa',
+        'Validei regime tributário e inscrições fiscais que se aplicam ao negócio',
+        'Confirmei licenças, alvarás, certificados ou dispensas necessárias para operar',
+        'Testei acessos oficiais e deixei a emissão de nota fiscal preparada',
+        'Separei o caixa da empresa e configurei os meios de recebimento necessários',
+        'Organizei a rotina contábil, documentos, impostos e calendário de obrigações',
+        'Defini a situação de contratação e as rotinas trabalhistas, quando aplicáveis',
+        'Registrei pendências, renovações e responsáveis para manter a empresa regular'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'O “pronto para operar” depende da atividade, localização, grau de risco, licenças, regime tributário e regras dos órgãos competentes. Antes de iniciar uma atividade sujeita a autorização, confirme nos portais oficiais se a liberação ou dispensa aplicável está válida.',
+      disclaimerJuridico:'Este checklist final é educacional e não funciona como alvará, licença, certidão de regularidade ou autorização jurídica para operar. A confirmação definitiva depende dos órgãos públicos competentes e, conforme o caso, de profissionais contábeis, jurídicos, trabalhistas ou técnicos responsáveis.',
+      recompensa:'+30 XP — Empresa pronta para decolar',
+      proximaFase:null
     }
   ];
 
