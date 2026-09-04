@@ -147,7 +147,25 @@
       proximaFase:12
     },
     {
-      id:12,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🏙️',titulo:'Inscrições da empresa',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:13
+      id:12,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🏙️',
+      titulo:'Inscrições da empresa',
+      chamada:'Missão da vez: conferir se sua empresa está identificada corretamente no estado e no município.',
+      texto:'CNPJ confirmado? Agora é hora de conferir os outros “RGs fiscais” que podem acompanhar a empresa. 🏙️ Na Redesim, as inscrições tributárias podem ser geradas de forma integrada ao processo de abertura, então muitas vezes você não precisa começar tudo do zero em cada órgão.\n\n🏢 A Inscrição Estadual identifica a empresa perante a Secretaria de Fazenda do estado e se aplica, em regra, a quem exerce atividades sujeitas ao ICMS. Isso significa que nem toda empresa precisa ter uma. Já a Inscrição Municipal — ou cadastro fiscal municipal equivalente — identifica a empresa perante a prefeitura e o modo de geração, consulta e regularização pode variar bastante de cidade para cidade.\n\n🔎 Sua missão aqui não é sair pedindo número por pedir. É abrir o protocolo/integrador, conferir quais inscrições foram geradas, descobrir quais realmente se aplicam ao seu negócio e guardar os comprovantes. Se alguma inscrição obrigatória estiver pendente, descubra qual órgão ou sistema local resolve o próximo passo.\n\n🎯 Objetivo da fase: terminar com todas as inscrições tributárias aplicáveis identificadas, conferidas e organizadas antes de seguir para licenças e alvarás.',
+      checklist:[
+        'Consultei o protocolo ou integrador da Redesim para verificar as inscrições geradas',
+        'Confirmei se minha atividade exige Inscrição Estadual por estar sujeita ao ICMS',
+        'Conferi minha Inscrição Municipal ou cadastro fiscal municipal equivalente',
+        'Guardei os números e comprovantes das inscrições que se aplicam ao meu negócio',
+        'Se existe alguma pendência, sei qual órgão ou sistema estadual/municipal devo procurar'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'A geração automática, o nome do cadastro, os documentos e o sistema de consulta das inscrições tributárias podem variar conforme o estado, o município, a atividade e a integração local com a Redesim. Confirme a situação nos portais oficiais da Secretaria de Fazenda estadual, da prefeitura ou do integrador responsável pelo seu processo.',
+      disclaimerJuridico:'',
+      recompensa:'+15 XP — Inscrições conferidas',
+      proximaFase:13
     },
     {
       id:13,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🚒',titulo:'Licenças e alvarás',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:'As licenças exigidas variam bastante conforme município, estado, atividade, endereço e grau de risco. Confirme as exigências com prefeitura, Corpo de Bombeiros, Vigilância Sanitária, órgão ambiental ou autoridade competente da sua região.',disclaimerJuridico:'',recompensa:'',proximaFase:14
