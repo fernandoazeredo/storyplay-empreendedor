@@ -231,6 +231,13 @@
   return `<div class="formalization-phase-content">${mission}${explanation}</div>`;
  }
 
+ function buildPhaseAction(fase){
+  const href=String(fase?.acaoHref||'').trim();
+  const texto=String(fase?.acaoTexto||'').trim();
+  if(!/^#[A-Za-z][\w:-]*$/.test(href)||!texto)return '';
+  return `<a class="btn primary formalization-phase-action" href="${escapeHTML(href)}">${escapeHTML(texto)}</a>`;
+ }
+
  function buildPhaseNavigation(fase,journey){
   const anteriorId=fase.id>1?fase.id-1:null;
   const proximaId=fase.proximaFase;
@@ -254,6 +261,7 @@
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}" data-formalization-phase-status="${fase.id}" data-formalization-default-status="${escapeHTML(status)}">${status}</span>
    ${buildPhaseContent(fase)}
+   ${buildPhaseAction(fase)}
    ${buildReward(fase)}
    ${buildChecklist(fase)}
    ${buildLocalAlert(fase,journey)}

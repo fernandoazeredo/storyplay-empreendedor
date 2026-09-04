@@ -124,7 +124,27 @@
       proximaFase:11
     },
     {
-      id:11,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🧾',titulo:'Escolher o regime tributário',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:12
+      id:11,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🧾',
+      titulo:'Escolher o regime tributário',
+      chamada:'Missão da vez: usar o laboratório tributário do StoryPlay para descobrir qual rota merece ser estudada primeiro.',
+      texto:'CNPJ na mão? Então chegou uma escolha que pode mexer bastante com o caixa da empresa: como ela será tributada. 🧾 Em vez de tentar decorar um monte de regra, vamos usar uma ferramenta que já existe dentro do StoryPlay.\n\n🎮 Abra o menu “Melhor Regime?”. O laboratório começa verificando se o perfil pode combinar com MEI e, quando o MEI não couber, ajuda a comparar Simples Nacional, Lucro Presumido e Lucro Real de forma educacional. Você informa faturamento, custos, folha, margem e atividade para enxergar quais caminhos merecem uma análise mais profunda.\n\n🧠 Não procure uma resposta mágica. O objetivo é entender por que um regime pode fazer mais sentido do que outro e quais dados do seu negócio pesam nessa análise. CNAE, Fator R, folha, margem, ISS, ICMS, créditos, benefícios fiscais e as regras da Reforma Tributária podem mudar totalmente o resultado.\n\n⚠️ A simulação do StoryPlay é um ponto de partida para aprender e conversar com o contador — não é uma opção tributária automática nem substitui uma análise profissional. Confirme também os prazos e regras oficiais vigentes antes de formalizar qualquer escolha.',
+      checklist:[
+        'Abri o menu “Melhor Regime?” e rodei a simulação do meu negócio',
+        'Verifiquei primeiro se meu perfil pode se enquadrar como MEI',
+        'Comparei Simples Nacional, Lucro Presumido e Lucro Real quando aplicável',
+        'Entendi quais dados do meu negócio mais influenciaram o resultado',
+        'Sei qual rota tributária preciso validar com o contador antes da decisão real'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'O comparador tributário do StoryPlay é uma ferramenta educacional. A escolha do regime depende das regras vigentes, da atividade, do faturamento, da estrutura da empresa e de outros fatores. Antes de optar ou alterar um regime tributário, valide o cenário com um profissional contábil e nos canais oficiais.',
+      recompensa:'+15 XP — Rota tributária analisada',
+      acaoHref:'#melhor-regime-tributario',
+      acaoTexto:'🎮 Abrir Laboratório Tributário',
+      proximaFase:12
     },
     {
       id:12,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🏙️',titulo:'Inscrições da empresa',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:13
