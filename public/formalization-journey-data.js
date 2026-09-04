@@ -28,7 +28,27 @@
       proximaFase:2
     },
     {
-      id:2,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🧩',titulo:'Qual tipo de empresa combina comigo?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:3
+      id:2,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'🧩',
+      titulo:'Qual tipo de empresa combina comigo?',
+      chamada:'Missão da vez: escolher a estrutura jurídica sem se perder na sopa de letrinhas.',
+      texto:'MEI, EI, LTDA, ME, EPP… parece código secreto, mas cada sigla responde a uma pergunta diferente. 🧩 O MEI é um Empresário Individual com regras simplificadas e restrições próprias de atividade, faturamento, participação societária e contratação. Já o Empresário Individual (EI) atua em nome próprio, não admite sócios e possui responsabilidade patrimonial pessoal pelas obrigações do negócio.\n\n🏢 A Sociedade Limitada (LTDA) pode ser constituída por uma ou mais pessoas. Nela, o capital é dividido em quotas e a responsabilidade dos sócios é, em regra, limitada ao valor dessas quotas, observadas as responsabilidades previstas em lei. Isso significa uma coisa importante: abrir sozinho não obriga você a escolher EI — uma LTDA também pode ter apenas um sócio.\n\n📏 E atenção à pegadinha: ME e EPP são enquadramentos de porte, não tipos jurídicos. Uma empresa pode, por exemplo, ser uma LTDA enquadrada como ME. A escolha certa depende de atividade, sócios, responsabilidade patrimonial, faturamento esperado e planos de crescimento.\n\n🎯 Objetivo da fase: sair daqui com uma rota jurídica principal para validar antes do registro — e entendendo por que ela combina com o seu negócio.',
+      checklist:[
+        'Verifiquei se minha atividade e meu perfil podem se enquadrar no MEI',
+        'Entendi a diferença básica entre MEI, Empresário Individual e Sociedade Limitada',
+        'Sei que ME e EPP são enquadramentos de porte, não tipos jurídicos',
+        'Considerei responsabilidade patrimonial, necessidade de sócios e planos de crescimento',
+        'Tenho uma opção jurídica principal para validar antes do registro'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'A escolha da natureza jurídica pode afetar responsabilidade patrimonial, documento de constituição, obrigações contábeis e outras regras do negócio. O StoryPlay oferece orientação educacional; valide a escolha final com contador, advogado ou órgão de registro competente antes de formalizar.',
+      recompensa:'+10 XP — Tipo jurídico mapeado',
+      acaoHref:'#melhor-regime-tributario',
+      acaoTexto:'🧩 Testar encaixe MEI',
+      proximaFase:3
     },
     {
       id:3,capitulo:1,capituloNome:CAPITULOS[1],emoji:'👥',titulo:'Vou sozinho ou com sócios?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:4
