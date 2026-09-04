@@ -82,7 +82,25 @@
       proximaFase:9
     },
     {
-      id:9,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🏛️',titulo:'Registrar a empresa',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:10
+      id:9,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'🏛️',
+      titulo:'Registrar a empresa',
+      chamada:'Missão da vez: transformar o documento da Fase 8 em um registro oficial.',
+      texto:'Agora o jogo fica sério — mas sem pânico. 😎 O documento de constituição que você organizou na Fase 8 precisa ser apresentado ao órgão de registro competente. Dependendo do tipo de pessoa jurídica, esse órgão pode ser a Junta Comercial, o Cartório de Registro Civil de Pessoas Jurídicas ou a OAB.\n\n📦 O que normalmente entra nessa missão? O ato constitutivo, os dados e documentos exigidos, o protocolo do processo e, quando aplicável, documentos gerados no fluxo da Redesim, como o DBE. Depois do envio, o órgão analisa o pedido. Se estiver tudo certo, o ato é registrado ou arquivado oficialmente. Se houver uma exigência, nada de desespero: leia o apontamento, corrija o que foi solicitado e acompanhe o protocolo até a aprovação.\n\n🎯 Objetivo da fase: sair daqui com o ato constitutivo oficialmente registrado e com o protocolo guardado. Nesta jornada, o CNPJ aparece na próxima fase para facilitar o aprendizado; na prática, a Redesim integra registro e inscrições e a ordem operacional pode variar conforme o tipo de empresa e o órgão responsável.',
+      checklist:[
+        'Confirmei qual é o órgão de registro competente para minha empresa',
+        'Separei o ato constitutivo e os documentos exigidos para o protocolo',
+        'Enviei ou protocolei o pedido de registro no sistema ou órgão responsável',
+        'Guardei o número do protocolo e sei onde acompanhar o processo',
+        'O ato constitutivo foi aprovado/registrado ou sei qual exigência preciso cumprir'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'O caminho, os documentos, as taxas e o sistema usado para registrar a empresa podem mudar conforme o estado, a natureza jurídica e o órgão de registro competente. Antes de enviar, confira as exigências da Junta Comercial, Cartório, OAB ou integrador da Redesim responsável pelo seu caso.',
+      disclaimerJuridico:'',
+      recompensa:'+15 XP — Registro encaminhado',
+      proximaFase:10
     },
     {
       id:10,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🪪',titulo:'Chegou o CNPJ!',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:11
