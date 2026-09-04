@@ -170,8 +170,9 @@
   const journey=window.STORYPLAY_FORMALIZATION_JOURNEY;
   if(!journey?.menu){requestFormalizationData();return}
   requestFormalizationUi();
+  const menuLabel=journey.menu.replace(/^📋\s*/,'');
   formalizationItem.sources=[journey.menu];
-  formalizationItem.label=journey.menu;
+  formalizationItem.label=menuLabel;
   let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
   if(!anchor){
    anchor=document.createElement('a');
@@ -181,7 +182,7 @@
   }else{
    anchor.href='#formalizacao';
   }
-  anchor.textContent=journey.menu;
+  anchor.textContent=menuLabel;
  }
 
  function setExpanded(details){
