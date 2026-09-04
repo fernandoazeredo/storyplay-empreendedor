@@ -222,6 +222,15 @@
   return window.STORYPLAY_FORMALIZATION_LEGAL_DISCLAIMER?.render?.(fase)||'';
  }
 
+ function buildPhaseContent(fase){
+  const chamada=String(fase?.chamada||'').trim();
+  const texto=String(fase?.texto||'').trim();
+  if(!chamada&&!texto)return '';
+  const mission=chamada?`<div class="formalization-phase-mission"><span>🎯 Missão da vez</span><p>${escapeHTML(chamada)}</p></div>`:'';
+  const explanation=texto?`<div class="formalization-phase-text">${escapeHTML(texto).replace(/\n/g,'<br>')}</div>`:'';
+  return `<div class="formalization-phase-content">${mission}${explanation}</div>`;
+ }
+
  function buildPhaseNavigation(fase,journey){
   const anteriorId=fase.id>1?fase.id-1:null;
   const proximaId=fase.proximaFase;
@@ -244,6 +253,7 @@
     </div>
    </div>
    <span class="formalization-phase-status${hasBaseContent?'':' is-reserved'}" data-formalization-phase-status="${fase.id}" data-formalization-default-status="${escapeHTML(status)}">${status}</span>
+   ${buildPhaseContent(fase)}
    ${buildReward(fase)}
    ${buildChecklist(fase)}
    ${buildLocalAlert(fase,journey)}
