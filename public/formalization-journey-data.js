@@ -273,7 +273,25 @@
       proximaFase:18
     },
     {
-      id:18,capitulo:2,capituloNome:CAPITULOS[2],emoji:'👷',titulo:'Vou contratar alguém?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:19
+      id:18,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'👷',
+      titulo:'Vou contratar alguém?',
+      chamada:'Missão da vez: preparar a primeira contratação sem transformar a folha de pagamento em um chefão surpresa.',
+      texto:'Chegou a hora de crescer o time? 👷 Antes de contratar, defina a função, jornada, remuneração, local de trabalho e qual relação realmente existe. Empregado, prestador, sócio e estágio têm regras diferentes — chamar alguém de “PJ” não muda uma relação que, na prática, tenha características de vínculo de emprego.\n\n🧾 Para empregado, organize admissão, documentos, exame ocupacional quando aplicável e envio das informações ao eSocial dentro dos prazos oficiais. A CTPS Digital é alimentada pelas informações transmitidas pelo empregador, e a folha precisa conversar com encargos como INSS e FGTS. Hoje o FGTS Digital usa dados do eSocial para gerar e controlar recolhimentos, por isso cadastro e remuneração precisam estar corretos desde o começo.\n\n🦺 Não esqueça segurança e saúde do trabalho, benefícios obrigatórios ou previstos em norma coletiva, controle de jornada quando aplicável e a convenção/acordo coletivo da categoria. Se você for MEI, existem regras próprias para contratação e limite de empregado, então confirme antes de admitir.\n\n🎯 Objetivo da fase: terminar sabendo se vai contratar agora, qual modelo jurídico realmente se aplica e quem cuidará de admissão, folha, eSocial, FGTS e rotina trabalhista.',
+      checklist:[
+        'Defini função, jornada, remuneração e o tipo de relação de trabalho que realmente se aplica',
+        'Confirmei documentos, exame admissional e regras da categoria antes do início das atividades',
+        'Preparei o cadastro e o envio da admissão ao eSocial nos prazos aplicáveis',
+        'Defini quem cuidará da folha, INSS, FGTS Digital, benefícios e demais obrigações trabalhistas',
+        'Se não vou contratar agora, deixei claro quando e como essa etapa será ativada no futuro'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'Regras de contratação dependem do vínculo, categoria profissional, convenções coletivas, jornada, atividade e legislação vigente. O StoryPlay não substitui análise trabalhista, contábil ou de segurança e saúde. Antes de admitir ou contratar, valide o enquadramento e os prazos com profissionais responsáveis e nos sistemas oficiais.',
+      recompensa:'+20 XP — Contratação preparada',
+      proximaFase:19
     },
     {
       id:19,capitulo:2,capituloNome:CAPITULOS[2],emoji:'✅',titulo:'Minha empresa está pronta?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:null
