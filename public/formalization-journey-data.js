@@ -103,7 +103,25 @@
       proximaFase:10
     },
     {
-      id:10,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🪪',titulo:'Chegou o CNPJ!',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:11
+      id:10,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'🪪',
+      titulo:'Chegou o CNPJ!',
+      chamada:'Missão da vez: confirmar que sua empresa ganhou sua identidade oficial no CNPJ.',
+      texto:'Agora sim: sua empresa ganhou um número oficial. 😎 Depois do registro do ato constitutivo, o fluxo da Redesim pode pedir que você acompanhe o protocolo, confirme informações tributárias e conclua assinaturas digitais do representante da empresa e, quando aplicável, do profissional contábil. Quando essas etapas são concluídas, a inscrição no CNPJ é efetivada e o número passa a poder ser consultado e comprovado.\n\n🪪 Pense no CNPJ como a identidade cadastral da empresa perante a Receita Federal. Nele ficam dados como nome empresarial, endereço, natureza jurídica, atividades econômicas (CNAEs) e situação cadastral. Guarde o número e emita o Comprovante de Inscrição e de Situação Cadastral.\n\n💡 Se você abriu como MEI, o caminho é mais simples: a inscrição no CNPJ acontece dentro da própria formalização pelo Portal do Empreendedor.\n\n⚠️ Importante: ter CNPJ ativo não significa, sozinho, que a empresa já pode abrir as portas. Dependendo do negócio, ainda podem existir regime tributário, inscrições estaduais ou municipais, licenças e autorizações. É por isso que nossa jornada continua.',
+      checklist:[
+        'Acompanhei o protocolo da Redesim até a etapa de inscrição no CNPJ',
+        'Confirmei os dados tributários e do profissional contábil, quando exigidos',
+        'Concluí as assinaturas digitais solicitadas no fluxo',
+        'Recebi e conferi o número do CNPJ da empresa',
+        'Emiti e guardei o Comprovante de Inscrição e de Situação Cadastral'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'',
+      recompensa:'+15 XP — CNPJ conquistado',
+      proximaFase:11
     },
     {
       id:11,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🧾',titulo:'Escolher o regime tributário',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:12
