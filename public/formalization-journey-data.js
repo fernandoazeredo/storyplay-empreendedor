@@ -133,7 +133,25 @@
       proximaFase:7
     },
     {
-      id:7,capitulo:1,capituloNome:CAPITULOS[1],emoji:'💰',titulo:'Capital social',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:8
+      id:7,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'💰',
+      titulo:'Capital social',
+      chamada:'Missão da vez: transformar o plano de começo em um valor de capital que faça sentido de verdade.',
+      texto:'Capital social não é faturamento, não é lucro e também não é um número para deixar a empresa “bonita no papel”. 💰 É o valor que o titular ou os sócios se comprometem a colocar no negócio para formar sua estrutura inicial. Pode representar dinheiro e, conforme as regras aplicáveis, bens que possam ser avaliados em dinheiro.\n\n🧩 Na Sociedade Limitada, o capital é dividido em quotas e o documento precisa mostrar quanto cabe a cada sócio e como ocorrerá a integralização. A integralização pode seguir a forma e o prazo previstos no contrato, observadas as regras legais; prestação de serviços, por si só, não substitui a integralização de capital da LTDA. No Empresário Individual não existe uma exigência geral de capital mínimo, mas o valor declarado deve ser coerente com o negócio.\n\n🧮 Para chegar a um valor realista, pense no que a empresa precisa para começar: equipamentos, móveis, tecnologia, estoque inicial, cauções, adaptações, licenças e outros recursos de implantação. Capital social também não é sinônimo de capital de giro ou saldo bancário disponível para sempre — são conceitos diferentes. Algumas atividades reguladas podem exigir valores ou condições específicas, então confirme antes de registrar.\n\n🎯 Objetivo da fase: terminar com o valor do capital definido, a participação de cada sócio organizada e a forma de integralização pronta para aparecer no documento da Fase 8.',
+      checklist:[
+        'Estimei os recursos e bens necessários para colocar o negócio de pé',
+        'Defini um valor de capital social coerente com a estrutura inicial da empresa',
+        'Se houver sócios, defini quanto do capital e das quotas caberá a cada um',
+        'Defini como e quando o capital será integralizado conforme o tipo jurídico escolhido',
+        'Confirmei se minha atividade ou situação específica exige alguma regra especial de capital'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'Forma de integralização, avaliação de bens, participação dos sócios e eventuais exigências mínimas dependem da natureza jurídica e de regras específicas da atividade. Antes de registrar o capital no ato constitutivo, valide os valores e a forma de integralização com contador, advogado ou órgão de registro competente.',
+      recompensa:'+10 XP — Capital social definido',
+      proximaFase:8
     },
     {
       id:8,
