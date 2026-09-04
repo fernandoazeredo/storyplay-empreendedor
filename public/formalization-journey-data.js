@@ -51,7 +51,25 @@
       proximaFase:3
     },
     {
-      id:3,capitulo:1,capituloNome:CAPITULOS[1],emoji:'👥',titulo:'Vou sozinho ou com sócios?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:4
+      id:3,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'👥',
+      titulo:'Vou sozinho ou com sócios?',
+      chamada:'Missão da vez: decidir quem entra no jogo e combinar as regras antes de começar a partida.',
+      texto:'Ter sócio pode trazer capital, conhecimento, contatos e divisão de responsabilidades — mas sociedade não funciona bem no modo “a gente vê depois”. 👥 Antes do registro, deixe claro quem realmente será dono do negócio e qual papel cada pessoa terá.\n\n🧍 Se você vai abrir sozinho, lembre da Fase 2: isso não significa automaticamente Empresário Individual. Uma Sociedade Limitada também pode ser formada por um único sócio. Se houver duas ou mais pessoas, a estrutura societária precisa refletir quem participa, quanto cada um aporta e qual será a participação de cada um no capital.\n\n🤝 Com sócios, conversem antes sobre administração, decisões importantes, trabalho de cada pessoa, aportes futuros, retiradas/pró-labore, distribuição de resultados e o que acontece se alguém quiser sair, vender sua participação ou deixar de atuar. Amizade é ótima; regra clara é melhor ainda quando o negócio começa a valer dinheiro.\n\n🎯 Objetivo da fase: terminar sabendo quem são os donos da empresa, quem administra e quais combinações precisam aparecer no documento de constituição da Fase 8.',
+      checklist:[
+        'Defini quem será titular ou sócio da empresa',
+        'Se houver mais de um sócio, alinhei participação e aportes; se não houver, confirmei que isso não se aplica',
+        'Defini quem vai administrar e como decisões importantes serão tomadas',
+        'Conversei sobre trabalho, retiradas/pró-labore e distribuição de resultados quando aplicável',
+        'Registrei regras básicas para entrada, saída ou conflitos quando houver sociedade'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'Percentuais, poderes de administração, retirada, distribuição de resultados, entrada e saída de sócios devem ser compatíveis com a natureza jurídica e com o documento societário. O StoryPlay ajuda a organizar a conversa, mas a redação final deve ser validada com contador, advogado ou órgão de registro competente.',
+      recompensa:'+10 XP — Estrutura societária decidida',
+      proximaFase:4
     },
     {
       id:4,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🏷️',titulo:'Escolha o nome da empresa',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:5
