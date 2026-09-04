@@ -189,7 +189,25 @@
       proximaFase:14
     },
     {
-      id:14,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🔐',titulo:'Certificado digital e acessos oficiais',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:15
+      id:14,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🔐',
+      titulo:'Certificado digital e acessos oficiais',
+      chamada:'Missão da vez: montar o chaveiro digital da empresa e deixar os acessos oficiais prontos para uso.',
+      texto:'Sua empresa já existe, já passou por registros e licenças — agora precisa conseguir entrar nos sistemas certos sem depender de improviso. 🔐 O certificado digital funciona como uma identidade eletrônica da pessoa ou da empresa e pode ser usado para autenticação e assinatura digital em serviços oficiais. O e-CNPJ é uma das opções para a pessoa jurídica, mas nem toda empresa precisa usar certificado digital em todas as obrigações.\n\n🧩 Primeiro descubra o que realmente é exigido no seu caso. Alguns serviços aceitam acesso pela conta gov.br do responsável, procuração eletrônica ou outros meios de autenticação; outros podem exigir certificado digital válido. Quando o certificado for necessário, ele deve ser emitido por Autoridade Certificadora habilitada. Modelos como A1 e A3 têm formas diferentes de armazenamento e uso, então escolha pensando em segurança e rotina da empresa.\n\n🖥️ Além do certificado, organize os acessos: conta gov.br do responsável, e-CAC/Receita Federal, Portal do Simples Nacional quando aplicável e portais estaduais ou municipais usados pela empresa. Se o contador ou outro profissional precisar atuar, prefira procurações e autorizações formais em vez de compartilhar senha ou certificado.\n\n🎯 Objetivo da fase: terminar sabendo se sua empresa precisa de certificado digital, com os acessos oficiais testados e com responsáveis, validade e autorizações organizados.',
+      checklist:[
+        'Confirmei quais obrigações e sistemas da minha empresa exigem certificado digital',
+        'Se necessário, emiti ou renovei o certificado por uma Autoridade Certificadora habilitada',
+        'Testei os acessos oficiais da empresa e do responsável nos sistemas que realmente uso',
+        'Organizei procurações ou autorizações para contador/profissionais sem compartilhar senhas',
+        'Registrei a validade do certificado e defini quem cuida da renovação e da segurança dos acessos'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'A necessidade de certificado digital varia conforme regime tributário, obrigações, sistemas utilizados e regras vigentes. O StoryPlay não recomenda compartilhar senha, arquivo de certificado, token, chave privada ou código de acesso. Confirme as exigências com seu contador e nos canais oficiais antes de contratar ou renovar um certificado.',
+      recompensa:'+15 XP — Acessos oficiais organizados',
+      proximaFase:15
     },
     {
       id:15,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🧾',titulo:'Preparar emissão de nota fiscal',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:16
