@@ -171,7 +171,7 @@
   if(!journey?.menu){requestFormalizationData();return}
   requestFormalizationUi();
   const menuLabel=journey.menu.replace(/^📋\s*/,'');
-  formalizationItem.sources=[journey.menu];
+  formalizationItem.sources=[journey.menu,menuLabel];
   formalizationItem.label=menuLabel;
   let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
   if(!anchor){
