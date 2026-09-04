@@ -72,7 +72,25 @@
       proximaFase:4
     },
     {
-      id:4,capitulo:1,capituloNome:CAPITULOS[1],emoji:'🏷️',titulo:'Escolha o nome da empresa',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:5
+      id:4,
+      capitulo:1,
+      capituloNome:CAPITULOS[1],
+      emoji:'🏷️',
+      titulo:'Escolha o nome da empresa',
+      chamada:'Missão da vez: criar um nome que represente o negócio e esteja pronto para enfrentar a checagem oficial.',
+      texto:'Dar nome ao negócio é divertido — até descobrir que já existe alguém usando algo igual ou parecido. 🏷️ O nome empresarial é o nome usado pela empresa nos atos de registro e deve respeitar as regras do tipo jurídico escolhido, além dos princípios de veracidade e novidade. Dependendo da estrutura, ele pode assumir forma de firma ou denominação e precisar indicar o tipo jurídico, como “LTDA”.\n\n✨ Nome empresarial não é a mesma coisa que marca ou nome fantasia. A empresa pode usar uma identidade comercial diferente no mercado, e a proteção de marca é tratada em procedimento próprio perante o INPI. Aprovar um nome empresarial na Junta Comercial não significa, sozinho, ter exclusividade sobre uma marca.\n\n🔎 Nesta fase, crie opções. Pense em nomes fáceis de escrever, falar e lembrar, evite algo que confunda o público e prepare alternativas. A confirmação formal de disponibilidade vem na consulta de viabilidade da Fase 6, então não se apaixone por uma única opção antes do “sinal verde”.\n\n🎯 Objetivo da fase: terminar com um nome principal e opções de reserva prontos para a consulta oficial.',
+      checklist:[
+        'Criei um nome principal e pelo menos duas opções de reserva',
+        'Entendi a diferença entre nome empresarial, nome fantasia e marca',
+        'Conferi se o nome pensado combina com o tipo jurídico que pretendo usar',
+        'Fiz uma pesquisa preliminar para evitar nomes obviamente iguais ou confundíveis',
+        'Separei as opções que levarei para a consulta de viabilidade da Fase 6'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'A disponibilidade de nome empresarial é confirmada pelo órgão de registro competente e não equivale a registro de marca. Se a identidade comercial for relevante para o negócio, avalie também a pesquisa e eventual proteção da marca no INPI com orientação adequada.',
+      recompensa:'+10 XP — Nome empresarial preparado',
+      proximaFase:5
     },
     {
       id:5,capitulo:1,capituloNome:CAPITULOS[1],emoji:'📍',titulo:'Onde minha empresa vai funcionar?',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:6
