@@ -210,7 +210,25 @@
       proximaFase:15
     },
     {
-      id:15,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🧾',titulo:'Preparar emissão de nota fiscal',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:ALERTA_LOCAL_PADRAO,disclaimerJuridico:'',recompensa:'',proximaFase:16
+      id:15,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🧾',
+      titulo:'Preparar emissão de nota fiscal',
+      chamada:'Missão da vez: descobrir qual nota fiscal combina com sua operação e deixar a empresa pronta para emitir sem chute.',
+      texto:'Hora de transformar venda em documento fiscal. 🧾 A nota correta depende do que sua empresa faz. Em linhas gerais, a NF-e aparece principalmente nas operações com mercadorias sujeitas ao ICMS; a NFS-e registra prestações de serviços sujeitas ao ISS; e a NFC-e pode ser usada em vendas ao consumidor final onde esse modelo estiver adotado. Seu negócio pode precisar de mais de um documento fiscal.\n\n🧭 Antes de emitir, confirme qual sistema oficial ou emissor deve ser usado e se existe credenciamento, autorização, inscrição ou certificado digital exigido. Para serviços, o padrão nacional da NFS-e já atende MEI e empresas em cenários previstos pelas regras vigentes, mas a forma de utilização pode depender do enquadramento e da integração do município. Não escolha o portal no automático: confirme o caminho oficial aplicável ao seu CNPJ.\n\n🧠 Depois vem a parte que evita dor de cabeça: cadastre corretamente dados da empresa, cliente, produtos ou serviços, códigos fiscais e tributação. Faça um teste controlado do fluxo de emissão e saiba também como consultar, corrigir ou cancelar quando permitido. Combine com a contabilidade como guardar XML, representação em PDF/DANFE ou documentos equivalentes e como entregar a nota ao cliente.\n\n🎯 Objetivo da fase: terminar sabendo qual documento fiscal usar, em qual sistema emitir e com os dados e procedimentos básicos preparados para a primeira emissão válida.',
+      checklist:[
+        'Identifiquei quais tipos de nota fiscal se aplicam às vendas ou serviços da minha empresa',
+        'Confirmei o emissor oficial, credenciamento, autorização e acessos exigidos para o meu caso',
+        'Cadastrei ou conferi os dados fiscais essenciais de empresa, clientes, produtos ou serviços',
+        'Testei o fluxo de emissão e sei onde consultar, corrigir ou cancelar uma nota quando permitido',
+        'Defini com a contabilidade como guardar os arquivos fiscais e entregar os documentos aos clientes'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'O tipo de nota, o sistema emissor, os códigos fiscais, a necessidade de credenciamento e as regras de emissão podem variar conforme estado, município, CNAE, operação, regime tributário e mudanças normativas. Confirme sempre nos portais oficiais da SEFAZ, prefeitura ou NFS-e Nacional e com a contabilidade.',
+      disclaimerJuridico:'O StoryPlay ensina o fluxo, mas não emite nota fiscal real nem valida CFOP, NCM, código de serviço, CST/CSOSN, alíquota ou enquadramento tributário. Antes da primeira emissão oficial, confirme a configuração fiscal com seu contador e no sistema fazendário competente.',
+      recompensa:'+20 XP — Emissão fiscal preparada',
+      proximaFase:16
     },
     {
       id:16,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🏦',titulo:'Conta PJ e meios de pagamento',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:17
