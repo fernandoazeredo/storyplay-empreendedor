@@ -6,12 +6,14 @@
  nav.style.visibility='hidden';
 
  const normalize=s=>(s||'').trim().toLocaleLowerCase('pt-BR');
+ const formalizationItem={sources:[],label:''};
  const structure=[
   {
    label:'Início e Aprendizado',
    items:[
     {sources:['Home'],label:'Home'},
     {sources:['Jornada'],label:'Jornada'},
+    formalizationItem,
     {sources:['StoryPlay','Trilhas','Aprender'],label:'Aprender'}
    ]
   },
@@ -47,6 +49,94 @@
  let scheduled=false;
  let initialBuild=true;
  let observer=null;
+ let formalizationDataRequested=false;
+ let formalizationUiRequested=false;
+
+ function requestFormalizationData(){
+  if(window.STORYPLAY_FORMALIZATION_JOURNEY||formalizationDataRequested)return;
+  formalizationDataRequested=true;
+  const script=document.createElement('script');
+  script.src='/formalization-journey-data.js';
+  script.async=false;
+  script.onload=()=>organize();
+  script.onerror=()=>{formalizationDataRequested=false};
+  document.head.appendChild(script);
+ }
+
+ function loadFormalizationIndexScript(){
+  if(document.querySelector('script[src="/formalization-journey-index.js"]'))return;
+  const script=document.createElement('script');
+  script.src='/formalization-journey-index.js';
+  script.async=false;
+  script.onerror=()=>{formalizationUiRequested=false};
+  document.body.appendChild(script);
+ }
+
+ function loadFormalizationLegalDisclaimer(){
+  if(window.STORYPLAY_FORMALIZATION_LEGAL_DISCLAIMER){
+   loadFormalizationIndexScript();
+   return;
+  }
+  const existing=document.querySelector('script[src="/formalization-legal-disclaimer.js"]');
+  if(existing){
+   existing.addEventListener('load',loadFormalizationIndexScript,{once:true});
+   return;
+  }
+  const component=document.createElement('script');
+  component.src='/formalization-legal-disclaimer.js';
+  component.async=false;
+  component.onload=loadFormalizationIndexScript;
+  component.onerror=()=>{formalizationUiRequested=false};
+  document.body.appendChild(component);
+ }
+
+ function loadFormalizationLocalAlert(){
+  if(window.STORYPLAY_FORMALIZATION_LOCAL_ALERT){
+   loadFormalizationLegalDisclaimer();
+   return;
+  }
+  const existing=document.querySelector('script[src="/formalization-local-alert.js"]');
+  if(existing){
+   existing.addEventListener('load',loadFormalizationLegalDisclaimer,{once:true});
+   return;
+  }
+  const component=document.createElement('script');
+  component.src='/formalization-local-alert.js';
+  component.async=false;
+  component.onload=loadFormalizationLegalDisclaimer;
+  component.onerror=()=>{formalizationUiRequested=false};
+  document.body.appendChild(component);
+ }
+
+ function requestFormalizationUi(){
+  if(formalizationUiRequested)return;
+  formalizationUiRequested=true;
+  if(!document.querySelector('link[href="/formalization-journey-index.css"]')){
+   const link=document.createElement('link');
+   link.rel='stylesheet';
+   link.href='/formalization-journey-index.css';
+   document.head.appendChild(link);
+  }
+  loadFormalizationLocalAlert();
+ }
+
+ function syncFormalizationItem(anchors){
+  const journey=window.STORYPLAY_FORMALIZATION_JOURNEY;
+  if(!journey?.menu){requestFormalizationData();return}
+  requestFormalizationUi();
+  formalizationItem.sources=[journey.menu];
+  formalizationItem.label=journey.menu;
+  let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
+  if(!anchor){
+   anchor=document.createElement('a');
+   anchor.href='#formalizacao';
+   anchor.dataset.formalizationJourneyEntry='true';
+   anchors.push(anchor);
+  }else{
+   anchor.href='#formalizacao';
+  }
+  anchor.textContent=journey.menu;
+ }
 
  function setExpanded(details){
   details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false');
@@ -82,6 +172,7 @@
   submenu.setAttribute('aria-label',`Opções de ${def.label}`);
 
   def.items.forEach(item=>{
+   if(!item.sources.length)return;
    const a=findAnchor(anchors,item.sources);
    if(!a)return;
    a.textContent=item.label;
@@ -105,6 +196,7 @@
 
   try{
    const anchors=[...nav.querySelectorAll('a[href^="#"]')];
+   syncFormalizationItem(anchors);
    const fragment=document.createDocumentFragment();
 
    structure.forEach(def=>{
