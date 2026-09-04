@@ -168,7 +168,25 @@
       proximaFase:13
     },
     {
-      id:13,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🚒',titulo:'Licenças e alvarás',chamada:'',texto:'',checklist:[],temAlertaLocal:true,textoAlertaLocal:'As licenças exigidas variam bastante conforme município, estado, atividade, endereço e grau de risco. Confirme as exigências com prefeitura, Corpo de Bombeiros, Vigilância Sanitária, órgão ambiental ou autoridade competente da sua região.',disclaimerJuridico:'',recompensa:'',proximaFase:14
+      id:13,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🚒',
+      titulo:'Licenças e alvarás',
+      chamada:'Missão da vez: descobrir quais liberações seu negócio precisa para funcionar legalmente e sem surpresa depois.',
+      texto:'Chegamos ao licenciamento — a etapa em que os órgãos responsáveis verificam se o estabelecimento atende às exigências para funcionar. 🚒 Aqui podem entrar segurança sanitária, controle ambiental, prevenção contra incêndios e pânico e outras condições previstas para a atividade.\n\n🧭 O primeiro passo é entender a classificação de risco. No fluxo da Redesim, atividades de nível de risco I (baixo risco) podem ser dispensadas de atos públicos de liberação quando a regra aplicável permitir; atividades de nível de risco II (médio risco) podem receber licenças, alvarás ou similares de caráter provisório de forma automática após o registro; e atividades de nível de risco III (alto risco) normalmente dependem de vistoria prévia e do cumprimento das exigências do órgão licenciador antes do início da operação.\n\n🏥🚒🌱 Dependendo do CNAE, endereço e características do estabelecimento, podem participar prefeitura, Vigilância Sanitária, Corpo de Bombeiros, órgão ambiental e outros licenciadores. Não existe uma lista universal de documentos ou licenças. O caminho correto é consultar o módulo de licenciamento do integrador estadual/Redesim usando o protocolo do processo.\n\n🎯 Objetivo da fase: terminar sabendo qual é o tratamento de risco do seu estabelecimento, quais liberações ou dispensas realmente se aplicam e guardar os comprovantes emitidos pelos órgãos competentes.',
+      checklist:[
+        'Consultei a classificação de risco das atividades do meu estabelecimento',
+        'Identifiquei quais órgãos, licenças ou dispensas realmente se aplicam ao meu negócio',
+        'Acessei o módulo de licenciamento do integrador/Redesim, quando aplicável',
+        'Cumpri as declarações, documentos, taxas ou vistorias exigidas para o meu caso',
+        'Guardei as licenças, alvarás, certificados ou comprovantes de dispensa aplicáveis'
+      ],
+      temAlertaLocal:true,
+      textoAlertaLocal:'As licenças exigidas e a classificação de risco podem mudar conforme município, estado, CNAE, endereço e características do estabelecimento. Confirme o resultado no integrador da Redesim e nos órgãos licenciadores competentes, como prefeitura, Vigilância Sanitária, Corpo de Bombeiros e órgão ambiental, quando aplicável.',
+      disclaimerJuridico:'O StoryPlay não declara seu negócio dispensado nem autorizado a funcionar. A classificação de risco e as liberações válidas são definidas pelos órgãos competentes. Antes de iniciar a operação, confirme no sistema oficial se todas as exigências aplicáveis ao seu estabelecimento foram cumpridas.',
+      recompensa:'+20 XP — Licenciamento conferido',
+      proximaFase:14
     },
     {
       id:14,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🔐',titulo:'Certificado digital e acessos oficiais',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:15
