@@ -231,7 +231,25 @@
       proximaFase:16
     },
     {
-      id:16,capitulo:2,capituloNome:CAPITULOS[2],emoji:'🏦',titulo:'Conta PJ e meios de pagamento',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:17
+      id:16,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'🏦',
+      titulo:'Conta PJ e meios de pagamento',
+      chamada:'Missão da vez: separar o dinheiro do negócio do dinheiro pessoal e deixar a empresa pronta para receber de verdade.',
+      texto:'Venda feita e nota pronta? Agora o dinheiro precisa cair no lugar certo. 🏦 Separar as finanças da empresa das pessoais deixa o caixa mais claro, facilita a conciliação e ajuda a contabilidade a entender o que é receita, despesa, aporte ou retirada. Uma conta voltada ao CNPJ costuma simplificar essa organização, mas a necessidade e o formato da conta dependem do tipo de negócio e da instituição escolhida.\n\n💳 Escolha os meios de pagamento pensando no seu cliente e no seu caixa: Pix, boleto, cartão, link de pagamento, cobrança recorrente ou outros recursos podem fazer sentido. Não olhe apenas para a tarifa anunciada. Compare taxas, prazo de recebimento, antecipação, estorno, chargeback, integração com sistema de vendas e qualidade do suporte.\n\n🔎 Depois, teste o caminho completo: vender → receber → identificar a taxa → conferir o valor líquido → conciliar com a venda e a nota fiscal. Se houver devolução ou estorno, você precisa saber como o dinheiro e os registros voltam. Essa rotina evita o clássico “vendi bastante, mas não sei onde foi parar o dinheiro”.\n\n🔐 Segurança também faz parte da missão. Ative autenticação em dois fatores quando disponível, defina limites e perfis de acesso, evite compartilhar senhas e mantenha os dispositivos autorizados sob controle.\n\n🎯 Objetivo da fase: terminar com o fluxo financeiro separado do pessoal, meios de recebimento testados e uma rotina simples para conferir cada valor que entra e sai.',
+      checklist:[
+        'Escolhi ou organizei uma conta adequada para movimentar o dinheiro da empresa',
+        'Separei as entradas e saídas do negócio das minhas movimentações pessoais',
+        'Configurei os meios de pagamento que fazem sentido para meus clientes e minha operação',
+        'Testei recebimento, taxas, prazo de liquidação, estorno e conciliação do valor líquido',
+        'Ativei medidas de segurança e defini quem pode acessar ou movimentar a conta da empresa'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'Tarifas, limites, prazos, regras de estorno, crédito e serviços variam entre instituições financeiras e de pagamento. O StoryPlay não indica uma instituição específica nem garante que um produto bancário seja adequado ao seu negócio. Compare condições, segurança e contratos antes de contratar.',
+      recompensa:'+15 XP — Caixa separado e pronto',
+      proximaFase:17
     },
     {
       id:17,capitulo:2,capituloNome:CAPITULOS[2],emoji:'📊',titulo:'Organizar a contabilidade',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:18
