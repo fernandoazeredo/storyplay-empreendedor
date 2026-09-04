@@ -252,7 +252,25 @@
       proximaFase:17
     },
     {
-      id:17,capitulo:2,capituloNome:CAPITULOS[2],emoji:'📊',titulo:'Organizar a contabilidade',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:18
+      id:17,
+      capitulo:2,
+      capituloNome:CAPITULOS[2],
+      emoji:'📊',
+      titulo:'Organizar a contabilidade',
+      chamada:'Missão da vez: transformar comprovantes soltos em uma rotina que mostra o que a empresa realmente ganhou, gastou e precisa cumprir.',
+      texto:'Empresa funcionando sem contabilidade organizada vira jogo no modo difícil. 📊 A contabilidade não serve só para calcular imposto: ela ajuda a registrar o patrimônio, acompanhar receitas e despesas, separar lucro de caixa disponível e manter obrigações fiscais e societárias em ordem.\n\n🗂️ Monte uma rotina simples com o contador ou responsável: envie notas fiscais emitidas e recebidas, extratos bancários, comprovantes de despesas, contratos, folha de pagamento e movimentações dos sócios. Combine uma data mensal de fechamento e defina quem confere pendências, impostos, declarações e documentos que precisam ser guardados.\n\n🧠 O nível de escrituração e as obrigações mudam conforme natureza jurídica, regime tributário, atividade e porte. Estar no Simples Nacional não significa “não ter contabilidade”. Para MEI, existem rotinas simplificadas próprias, como o Relatório Mensal de Receitas Brutas e a declaração anual, mas organização continua sendo essencial.\n\n🎯 Objetivo da fase: terminar com responsável definido, calendário mensal, documentos organizados e uma rotina de conciliação que permita saber o resultado do negócio sem adivinhação.',
+      checklist:[
+        'Defini quem é o responsável pela contabilidade e quais informações preciso enviar todo mês',
+        'Organizei notas fiscais, extratos, despesas, contratos e movimentações dos sócios',
+        'Criei uma data mensal para fechamento, conciliação e conferência de pendências',
+        'Sei quais impostos, declarações, livros ou relatórios se aplicam ao meu regime e atividade',
+        'Consigo separar faturamento, caixa, despesas, aportes, retiradas e lucro do negócio'
+      ],
+      temAlertaLocal:false,
+      textoAlertaLocal:'',
+      disclaimerJuridico:'As obrigações contábeis e fiscais variam conforme natureza jurídica, regime tributário, atividade, porte e operações da empresa. O StoryPlay organiza o aprendizado, mas não substitui escrituração profissional nem valida obrigações acessórias. Confirme sua rotina com profissional contábil habilitado e nos sistemas oficiais.',
+      recompensa:'+20 XP — Contabilidade no controle',
+      proximaFase:18
     },
     {
       id:18,capitulo:2,capituloNome:CAPITULOS[2],emoji:'👷',titulo:'Vou contratar alguém?',chamada:'',texto:'',checklist:[],temAlertaLocal:false,textoAlertaLocal:'',disclaimerJuridico:'',recompensa:'',proximaFase:19
