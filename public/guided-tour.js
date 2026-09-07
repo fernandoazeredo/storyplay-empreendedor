@@ -7,6 +7,9 @@
   const steps=[
     {icon:'🧭',title:'Explorador — Grátis',text:'Você pode começar sem pagar. O plano Explorador dá acesso ao conteúdo gratuito e às atividades introdutórias do StoryPlay.',target:'#inicio'},
     {icon:'🚀',title:'Empreendedor — Premium',text:'O plano Empreendedor libera trilhas, laboratórios, desafios e recursos avançados enquanto o acesso estiver ativo.',target:'#planos'},
+    {icon:'🗺️',title:'Como funciona',text:'Use Como funciona para conhecer a proposta do StoryPlay, entender a experiência e ver uma visão geral antes de entrar nas atividades práticas.',target:'#jornada'},
+    {icon:'🏗️',title:'Jornada de Formalização',text:'Use Jornada de Formalização para seguir a trilha prática de 19 fases. Nela você marca checklists, acompanha fases concluídas e acumula o XP próprio dessa jornada.',target:'#formalizacao'},
+    {icon:'🏢',title:'Empresa Virtual',text:'Minha Empresa é uma simulação separada da Jornada de Formalização. Capital, faturamento, clientes, caixa e conquistas da Empresa Virtual não precisam ter os mesmos números do XP e dos checklists da formalização.',target:'#empresa'},
     {icon:'💳',title:'Como assinar',text:'Escolha o plano mensal ou anual, faça o pagamento pela Ton e depois use o botão verde do WhatsApp para enviar o comprovante e solicitar a liberação.',target:'#planos'},
     {icon:'🏆',title:'Quiz e recompensas',text:'Nos Quiz, suas decisões rendem XP e feedback. As melhores respostas recebem medalhas e carinhas felizes; os erros mostram uma carinha triste e explicam o aprendizado.',target:'#episodio1'},
     {icon:'🔐',title:'Conta e acesso',text:'Entre com Google ou e-mail e senha. Criar a conta não libera o Premium automaticamente: a liberação é feita para o e-mail cadastrado e permanece válida pelo período do plano.',target:'#conta-nuvem'},
