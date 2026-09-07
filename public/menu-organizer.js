@@ -7,28 +7,29 @@
  const formalizationItem={sources:[],label:''};
  const HELP_STYLE_ID='storyplay-menu-help-style';
  const HOWTO_MODAL_ID='storyplayHowToUse';
+ const FORMALIZATION_LABEL='Jornada de Formalização';
 
  const howToSteps=[
   {title:'1. Abra o menu e escolha por onde começar',text:'Use o menu principal para acessar Início e Aprendizado, Gestão do Negócio, Desempenho e Conta e Educação. No celular e tablet, toque no menu hambúrguer. No desktop, use o mesmo conjunto de opções no cabeçalho.',href:'#inicio',link:'Ir para o início'},
   {title:'2. Entre na sua conta e confira o acesso',text:'Em Conta e Planos, entre com Google ou e-mail e senha. Depois de entrar, use Minha conta para conferir seu acesso. Criar a conta não libera automaticamente recursos Premium; a liberação depende do plano contratado ou do acesso concedido.',href:'#conta-nuvem',link:'Ir para Conta e Planos'},
-  {title:'3. Conheça a Jornada do StoryPlay',text:'Em Jornada e Aprender, acompanhe os conteúdos em sequência. Leia as situações, escolha respostas nos quizzes e observe o feedback de cada decisão. As atividades foram feitas para aprender administração e empreendedorismo praticando.',href:'#jornada',link:'Ir para Jornada'},
-  {title:'4. Use Abrir Minha Empresa para seguir a formalização',text:'Abra Início e Aprendizado > Abrir Minha Empresa. A Jornada de Formalização tem 19 fases, organizadas em 2 capítulos. Leia a missão de cada fase, marque os checklists que já concluiu e use Anterior e Próxima para navegar.',href:'#formalizacao',link:'Ir para Abrir Minha Empresa'},
-  {title:'5. Acompanhe XP, progresso e conclusão das fases',text:'Ao concluir todos os itens de uma fase, ela recebe o status Fase concluída e libera a recompensa de XP indicada. A Jornada completa soma 275 XP. Os checklists dessa jornada são salvos neste navegador; ao atualizar a página, o progresso permanece no mesmo navegador enquanto esses dados locais não forem apagados.',href:'#formalizacao',link:'Ver progresso da formalização'},
+  {title:'3. Veja Como funciona antes de começar',text:'Em Início e Aprendizado > Como funciona, conheça a proposta do StoryPlay e veja uma visão geral da experiência. Essa área é apenas a apresentação do aplicativo; ela não é a trilha prática de formalização.',href:'#jornada',link:'Ir para Como funciona'},
+  {title:'4. Siga a Jornada de Formalização',text:'Abra Início e Aprendizado > Jornada de Formalização. Essa é a trilha prática de 19 fases, organizada em 2 capítulos. Leia a missão de cada fase, marque os checklists que já concluiu e use Anterior e Próxima para navegar.',href:'#formalizacao',link:'Ir para Jornada de Formalização'},
+  {title:'5. Acompanhe XP, progresso e conclusão das fases',text:'Ao concluir todos os itens de uma fase, ela recebe o status Fase concluída e libera a recompensa de XP indicada. A Jornada de Formalização completa soma 275 XP. Os checklists dessa jornada são salvos neste navegador; ao atualizar a página, o progresso permanece no mesmo navegador enquanto esses dados locais não forem apagados.',href:'#formalizacao',link:'Ver progresso da formalização'},
   {title:'6. Use os laboratórios e simuladores quando a fase indicar',text:'Algumas fases levam a ferramentas do próprio StoryPlay. Por exemplo, o Laboratório Tributário ajuda a estudar MEI, Simples Nacional, Lucro Presumido e Lucro Real. Use os resultados para aprendizado e comparação; decisões reais devem ser confirmadas com contador, advogado ou órgão competente quando necessário.',href:'#melhor-regime-tributario',link:'Ir para Laboratório Tributário'},
-  {title:'7. Monte e acompanhe sua Empresa Virtual',text:'Em Gestão do Negócio > Minha Empresa (Visão Geral), crie ou consulte sua empresa virtual. Preencha os dados solicitados e use esse ambiente como laboratório para acompanhar decisões e evolução ao longo do aplicativo.',href:'#empresa',link:'Ir para Minha Empresa'},
+  {title:'7. Monte e acompanhe sua Empresa Virtual',text:'Em Gestão do Negócio > Minha Empresa (Visão Geral), crie ou consulte sua empresa virtual. Essa simulação é independente da Jornada de Formalização: capital, faturamento, clientes, caixa e conquistas pertencem à Empresa Virtual e podem ser diferentes do XP e dos checklists da formalização.',href:'#empresa',link:'Ir para Minha Empresa'},
   {title:'8. Estude cada área da gestão',text:'Dentro de Gestão do Negócio, acesse Administração, Finanças, Logística, Marketing e Vendas e Pessoas. Use cada área para praticar conceitos, analisar situações e entender como decisões de uma área afetam as outras.',href:'#trilhas',link:'Ir para áreas de gestão'},
   {title:'9. Consulte Melhor Regime? quando precisar estudar tributação',text:'Abra Melhor Regime? para informar os dados solicitados e comparar caminhos tributários de forma educacional. Leia o resultado e os alertas antes de interpretar a recomendação. O simulador não faz opção tributária real e não substitui análise profissional.',href:'#melhor-regime-tributario',link:'Ir para Melhor Regime?'},
   {title:'10. Confira seu desempenho',text:'Em Desempenho, abra Meu Progresso para acompanhar sua evolução e Ranking CEO para consultar sua posição quando esse recurso estiver disponível para seu acesso. Use esses indicadores para identificar o que já concluiu e o que ainda falta explorar.',href:'#progresso',link:'Ir para Meu Progresso'},
   {title:'11. Use a Área do Educador quando aplicável',text:'Em Conta e Educação > Área do Educador, acesse os recursos destinados a escolas, professores, turmas e projetos educacionais. O acesso institucional é separado do uso individual e pode depender de liberação específica.',href:'#area-educador',link:'Ir para Área do Educador'},
   {title:'12. Alterne entre modo claro e escuro',text:'Use o controle de tema no cabeçalho ou menu para alternar entre modo claro e escuro. Escolha o modo mais confortável para leitura; o aplicativo mantém o mesmo padrão de navegação nos dois temas.',action:'theme',link:'Alternar tema agora'},
-  {title:'13. Use Dicas quando quiser uma orientação rápida',text:'No final do menu existe Dicas. Abra essa opção para iniciar o tour guiado do StoryPlay. Ele apresenta os principais recursos em uma sequência curta e pode ser usado novamente sempre que precisar relembrar o funcionamento.',action:'tips',link:'Abrir Dicas agora'},
+  {title:'13. Use Dicas quando quiser uma orientação rápida',text:'No final do menu existe Dicas. Abra essa opção para iniciar o tour guiado atualizado, que também diferencia Como funciona, Jornada de Formalização e Empresa Virtual.',action:'tips',link:'Abrir Dicas agora'},
   {title:'14. No celular e tablet, use exatamente o mesmo fluxo',text:'Abra o menu hambúrguer, escolha a área e continue normalmente. Os cards ficam em coluna única, os textos se adaptam à largura da tela e os botões de navegação permanecem acessíveis. Dicas e Como Usar ficam no final do menu em todos os tamanhos de tela.',href:'#inicio',link:'Voltar ao início'}
  ];
 
  const structure=[
   {label:'Início e Aprendizado',items:[
    {sources:['Home'],label:'Home'},
-   {sources:['Jornada'],label:'Jornada'},
+   {sources:['Jornada','Como funciona'],label:'Como funciona'},
    formalizationItem,
    {sources:['StoryPlay','Trilhas','Aprender'],label:'Aprender'}
   ]},
@@ -256,12 +257,13 @@
   const journey=window.STORYPLAY_FORMALIZATION_JOURNEY;
   if(!journey?.menu){requestFormalizationData();return}
   requestFormalizationUi();
-  const menuLabel=journey.menu.replace(/^📋\s*/,'');
-  formalizationItem.sources=[journey.menu,menuLabel];
-  formalizationItem.label=menuLabel;
-  let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true');
+  const originalLabel=journey.menu.replace(/^📋\s*/,'');
+  formalizationItem.sources=[journey.menu,originalLabel,FORMALIZATION_LABEL];
+  formalizationItem.label=FORMALIZATION_LABEL;
+  let anchor=anchors.find(a=>a.dataset.formalizationJourneyEntry==='true'||a.getAttribute('href')==='#formalizacao');
   if(!anchor){anchor=document.createElement('a');anchor.href='#formalizacao';anchor.dataset.formalizationJourneyEntry='true';anchors.push(anchor)}else anchor.href='#formalizacao';
-  anchor.textContent=menuLabel;
+  anchor.dataset.formalizationJourneyEntry='true';
+  anchor.textContent=FORMALIZATION_LABEL;
  }
 
  function setExpanded(details){details.querySelector(':scope > summary')?.setAttribute('aria-expanded',details.open?'true':'false')}
