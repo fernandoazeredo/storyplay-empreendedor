@@ -1,6 +1,7 @@
 (()=>{
   const KEY='storyplay-guided-tour-hidden-v1';
   const FORMALIZATION_LABEL='Jornada de Formalização';
+  const OVERVIEW_LABEL='Como funciona';
   const UX_NOTE_ID='storyplayJourneySeparationNote';
   const UX_STYLE_ID='storyplayJourneyConsistencyStyle';
   const steps=[
@@ -55,6 +56,13 @@
     if(head)head.insertAdjacentElement('afterend',note);else section.prepend(note);
   }
 
+  function ensureOverviewMenuLink(){
+    const nav=document.getElementById('mainNav');
+    if(!nav)return;
+    const link=nav.querySelector('a[href="#jornada"]');
+    if(link&&link.textContent.trim()!==OVERVIEW_LABEL)link.textContent=OVERVIEW_LABEL;
+  }
+
   function ensureFormalizationMenuLink(){
     const nav=document.getElementById('mainNav');
     if(!nav)return;
@@ -72,12 +80,17 @@
     if(link.textContent.trim()!==FORMALIZATION_LABEL)link.textContent=FORMALIZATION_LABEL;
   }
 
+  function ensureMenuLabels(){
+    ensureOverviewMenuLink();
+    ensureFormalizationMenuLink();
+  }
+
   function watchMenuConsistency(){
     const nav=document.getElementById('mainNav');
     if(!nav||menuObserver)return;
-    ensureFormalizationMenuLink();
+    ensureMenuLabels();
     menuObserver=new MutationObserver(()=>{
-      ensureFormalizationMenuLink();
+      ensureMenuLabels();
       ensureJourneySeparationNote();
     });
     menuObserver.observe(nav,{childList:true,subtree:true});
@@ -174,8 +187,8 @@
   ensureModal();
   ensureJourneySeparationNote();
   watchMenuConsistency();
-  setTimeout(()=>{ensureFormalizationMenuLink();ensureJourneySeparationNote();},500);
-  setTimeout(()=>{ensureFormalizationMenuLink();ensureJourneySeparationNote();},1600);
+  setTimeout(()=>{ensureMenuLabels();ensureJourneySeparationNote();},500);
+  setTimeout(()=>{ensureMenuLabels();ensureJourneySeparationNote();},1600);
   if(localStorage.getItem(KEY)!=='1')setTimeout(()=>openTour(0),1400);
   window.storyplayTour={open:()=>openTour(0)};
 })();
