@@ -12,7 +12,7 @@
  const howToSteps=[
   {title:'1. Abra o menu e escolha por onde começar',text:'Use o menu principal para acessar Início e Aprendizado, Gestão do Negócio, Desempenho e Conta e Educação. No celular e tablet, toque no menu hambúrguer. No desktop, use o mesmo conjunto de opções no cabeçalho.',href:'#inicio',link:'Ir para o início'},
   {title:'2. Entre na sua conta e confira o acesso',text:'Em Conta e Planos, entre com Google ou e-mail e senha. Depois de entrar, use Minha conta para conferir seu acesso. Criar a conta não libera automaticamente recursos Premium; a liberação depende do plano contratado ou do acesso concedido.',href:'#conta-nuvem',link:'Ir para Conta e Planos'},
-  {title:'3. Veja Como funciona antes de começar',text:'Em Início e Aprendizado > Como funciona, conheça a proposta do StoryPlay e veja uma visão geral da experiência. Essa área é apenas a apresentação do aplicativo; ela não é a trilha prática de formalização.',href:'#jornada',link:'Ir para Como funciona'},
+  {title:'3. Veja a Visão Geral antes de começar',text:'Em Início e Aprendizado > Visão Geral, conheça a proposta do StoryPlay e veja uma apresentação da experiência. Essa área mostra o que o aplicativo oferece; ela não é a trilha prática de formalização.',href:'#jornada',link:'Ir para Visão Geral'},
   {title:'4. Siga a Jornada de Formalização',text:'Abra Início e Aprendizado > Jornada de Formalização. Essa é a trilha prática de 19 fases, organizada em 2 capítulos. Leia a missão de cada fase, marque os checklists que já concluiu e use Anterior e Próxima para navegar.',href:'#formalizacao',link:'Ir para Jornada de Formalização'},
   {title:'5. Acompanhe XP, progresso e conclusão das fases',text:'Ao concluir todos os itens de uma fase, ela recebe o status Fase concluída e libera a recompensa de XP indicada. A Jornada de Formalização completa soma 275 XP. Os checklists dessa jornada são salvos neste navegador; ao atualizar a página, o progresso permanece no mesmo navegador enquanto esses dados locais não forem apagados.',href:'#formalizacao',link:'Ver progresso da formalização'},
   {title:'6. Use os laboratórios e simuladores quando a fase indicar',text:'Algumas fases levam a ferramentas do próprio StoryPlay. Por exemplo, o Laboratório Tributário ajuda a estudar MEI, Simples Nacional, Lucro Presumido e Lucro Real. Use os resultados para aprendizado e comparação; decisões reais devem ser confirmadas com contador, advogado ou órgão competente quando necessário.',href:'#melhor-regime-tributario',link:'Ir para Laboratório Tributário'},
@@ -22,14 +22,14 @@
   {title:'10. Confira seu desempenho',text:'Em Desempenho, abra Meu Progresso para acompanhar sua evolução e Ranking CEO para consultar sua posição quando esse recurso estiver disponível para seu acesso. Use esses indicadores para identificar o que já concluiu e o que ainda falta explorar.',href:'#progresso',link:'Ir para Meu Progresso'},
   {title:'11. Use a Área do Educador quando aplicável',text:'Em Conta e Educação > Área do Educador, acesse os recursos destinados a escolas, professores, turmas e projetos educacionais. O acesso institucional é separado do uso individual e pode depender de liberação específica.',href:'#area-educador',link:'Ir para Área do Educador'},
   {title:'12. Alterne entre modo claro e escuro',text:'Use o controle de tema no cabeçalho ou menu para alternar entre modo claro e escuro. Escolha o modo mais confortável para leitura; o aplicativo mantém o mesmo padrão de navegação nos dois temas.',action:'theme',link:'Alternar tema agora'},
-  {title:'13. Use Dicas quando quiser uma orientação rápida',text:'No final do menu existe Dicas. Abra essa opção para iniciar o tour guiado atualizado, que também diferencia Como funciona, Jornada de Formalização e Empresa Virtual.',action:'tips',link:'Abrir Dicas agora'},
+  {title:'13. Use Dicas quando quiser uma orientação rápida',text:'No final do menu existe Dicas. Abra essa opção para iniciar o tour guiado atualizado, que também diferencia Visão Geral, Jornada de Formalização e Empresa Virtual.',action:'tips',link:'Abrir Dicas agora'},
   {title:'14. No celular e tablet, use exatamente o mesmo fluxo',text:'Abra o menu hambúrguer, escolha a área e continue normalmente. Os cards ficam em coluna única, os textos se adaptam à largura da tela e os botões de navegação permanecem acessíveis. Dicas e Como Usar ficam no final do menu em todos os tamanhos de tela.',href:'#inicio',link:'Voltar ao início'}
  ];
 
  const structure=[
   {label:'Início e Aprendizado',items:[
    {sources:['Home'],label:'Home'},
-   {sources:['Jornada','Como funciona'],label:'Como funciona'},
+   {sources:['Jornada','Como funciona','Visão Geral'],label:'Visão Geral'},
    formalizationItem,
    {sources:['StoryPlay','Trilhas','Aprender'],label:'Aprender'}
   ]},
