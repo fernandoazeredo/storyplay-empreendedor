@@ -1,5 +1,8 @@
 (()=>{
   const KEY='storyplay-guided-tour-hidden-v1';
+  const FORMALIZATION_LABEL='Jornada de Formalização';
+  const UX_NOTE_ID='storyplayJourneySeparationNote';
+  const UX_STYLE_ID='storyplayJourneyConsistencyStyle';
   const steps=[
     {icon:'🧭',title:'Explorador — Grátis',text:'Você pode começar sem pagar. O plano Explorador dá acesso ao conteúdo gratuito e às atividades introdutórias do StoryPlay.',target:'#inicio'},
     {icon:'🚀',title:'Empreendedor — Premium',text:'O plano Empreendedor libera trilhas, laboratórios, desafios e recursos avançados enquanto o acesso estiver ativo.',target:'#planos'},
@@ -10,6 +13,7 @@
     {icon:'🏫',title:'Escolas & Turmas',text:'O acesso institucional é separado e funciona sob consulta para escolas, professores, turmas e projetos educacionais.',target:'#area-educador'}
   ];
   let index=0;
+  let menuObserver=null;
 
   function cleanFooter(){
     const footer=document.querySelector('footer');
@@ -24,6 +28,59 @@
     const makeText=text=>{const span=document.createElement('span');span.className='storyplay-footer-item';span.textContent=text;return span};
     const makeSep=()=>{const span=document.createElement('span');span.className='storyplay-footer-separator';span.textContent='-';span.setAttribute('aria-hidden','true');return span};
     footer.append(makeText(wanted[0]),makeSep(),makeText(wanted[1]),makeSep(),makeText(wanted[2]));
+  }
+
+  function ensureConsistencyStyle(){
+    if(document.getElementById(UX_STYLE_ID))return;
+    const style=document.createElement('style');
+    style.id=UX_STYLE_ID;
+    style.textContent=`
+      .storyplay-journey-separation-note{margin:14px 0 0;padding:13px 15px;border:1px solid color-mix(in srgb,var(--blue) 30%,var(--line));border-radius:14px;background:color-mix(in srgb,var(--surface) 92%,var(--blue) 8%);color:var(--muted);line-height:1.55}
+      .storyplay-journey-separation-note strong{color:var(--text)}
+      @media(max-width:620px){.storyplay-journey-separation-note{padding:12px 13px}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function ensureJourneySeparationNote(){
+    ensureConsistencyStyle();
+    const section=document.getElementById('empresa');
+    if(!section||document.getElementById(UX_NOTE_ID))return;
+    const note=document.createElement('div');
+    note.id=UX_NOTE_ID;
+    note.className='storyplay-journey-separation-note';
+    note.setAttribute('role','note');
+    note.innerHTML='<strong>Trilhas independentes:</strong> a Jornada de Formalização registra seu aprendizado, checklists e XP. Este Painel de Gestão acompanha somente a sua Empresa Virtual, com capital, faturamento, clientes, caixa e conquistas da simulação. Por isso, os números das duas áreas podem ser diferentes.';
+    const head=section.querySelector('.section-head');
+    if(head)head.insertAdjacentElement('afterend',note);else section.prepend(note);
+  }
+
+  function ensureFormalizationMenuLink(){
+    const nav=document.getElementById('mainNav');
+    if(!nav)return;
+    let link=nav.querySelector('a[data-formalization-journey-entry="true"],a[href="#formalizacao"]');
+    if(!link){
+      const firstSubmenu=nav.querySelector('details.nav-group .nav-submenu');
+      if(!firstSubmenu)return;
+      link=document.createElement('a');
+      link.href='#formalizacao';
+      link.dataset.formalizationJourneyEntry='true';
+      firstSubmenu.appendChild(link);
+    }
+    link.href='#formalizacao';
+    link.dataset.formalizationJourneyEntry='true';
+    if(link.textContent.trim()!==FORMALIZATION_LABEL)link.textContent=FORMALIZATION_LABEL;
+  }
+
+  function watchMenuConsistency(){
+    const nav=document.getElementById('mainNav');
+    if(!nav||menuObserver)return;
+    ensureFormalizationMenuLink();
+    menuObserver=new MutationObserver(()=>{
+      ensureFormalizationMenuLink();
+      ensureJourneySeparationNote();
+    });
+    menuObserver.observe(nav,{childList:true,subtree:true});
   }
 
   function ensureButton(){
@@ -115,6 +172,10 @@
   setTimeout(cleanFooter,1200);
   ensureButton();
   ensureModal();
+  ensureJourneySeparationNote();
+  watchMenuConsistency();
+  setTimeout(()=>{ensureFormalizationMenuLink();ensureJourneySeparationNote();},500);
+  setTimeout(()=>{ensureFormalizationMenuLink();ensureJourneySeparationNote();},1600);
   if(localStorage.getItem(KEY)!=='1')setTimeout(()=>openTour(0),1400);
   window.storyplayTour={open:()=>openTour(0)};
 })();
